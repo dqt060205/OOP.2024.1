@@ -1,9 +1,9 @@
 package com.group19.gameobject;
 import java.util.ArrayList;
 
-public class Level {
+public class LevelManager {
 
     private ArrayList<Integer> score = new ArrayList<>();
-    private ArrayList<Integer> lives = new ArrayList<>(); 
+    private int lives;
 
 }
