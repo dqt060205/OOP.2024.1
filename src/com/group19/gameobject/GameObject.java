@@ -5,29 +5,29 @@ import java.awt.Rectangle;
 
 public abstract class GameObject {
 
-    /*private float posX;
-    private float posY;
+    /*private int posX;
+    private int posY;
     public GameObject() {
         
     }
-    public GameObject(float posX, float posY) {
+    public GameObject(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
     }
 
-    public float getPosX() {
+    public int getPosX() {
         return posX;
     }
 
-    public void setPosX(float posX) {
+    public void setPosX(int posX) {
         this.posX = posX;
     }
 
-    public float getPosY() {
+    public int getPosY() {
         return posY;
     }
 
-    public void setPosY(float posY) {
+    public void setPosY(int posY) {
         this.posY = posY;
     }
 
@@ -35,11 +35,13 @@ public abstract class GameObject {
 
     abstract void update();
     */
-    protected float posX, posY; // Vị trí của đối tượng
-    protected float width, height; // Kích thước của đối tượng
-    
+    protected int posX, posY; // Vị trí của đối tượng
+    protected int width, height; // Kích thước của đối tượng
+    public GameObject() {
+
+    }
     // Constructor khởi tạo vị trí và kích thước
-    public GameObject(float posX, float posY, float width, float height) {
+    public GameObject(int posX, int posY, int width, int height) {
         this.posX = posX;
         this.posY = posY;
         this.width = width;
@@ -47,35 +49,35 @@ public abstract class GameObject {
     }
 
     // Getter và Setter cho vị trí và kích thước    
-    public float getPosX() {
+    public int getPosX() {
         return posX;
     }
 
-    public void setPosX(float posX) {
+    public void setPosX(int posX) {
         this.posX = posX;
     }
 
-    public float getPosY() {
+    public int getPosY() {
         return posY;
     }
 
-    public void setPosY(float posY) {
+    public void setPosY(int posY) {
         this.posY = posY;
     }
 
-    public float getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(float width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -88,8 +90,8 @@ public abstract class GameObject {
     // Phương thức kiểm tra va chạm (Dùng cho Object Dino và Item)
     public boolean isColliding(GameObject other) {
         // Khởi tạo đối tượng Rectangle cho cả đối tượng hiện tại và đối tượng khác
-        Rectangle thisRect = new Rectangle((int)this.posX, (int)this.posY, (int)this.width, (int)this.height);
-        Rectangle otherRect = new Rectangle((int)other.getPosX(), (int)other.getPosY(), (int)other.getWidth(), (int)other.getHeight());
+        Rectangle thisRect = new Rectangle(this.posX, this.posY, this.width, this.height);
+        Rectangle otherRect = new Rectangle(other.getPosX(), other.getPosY(), other.getWidth(), other.getHeight());
         return thisRect.intersects(otherRect); // Kiểm tra va chạm giữa hai hình chữ nhật
     }
 

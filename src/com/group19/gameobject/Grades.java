@@ -1,12 +1,13 @@
 package com.group19.gameobject;
 
+import java.awt.Graphics;
 import java.awt.Image;
 
 public class Grades extends Item {
     private char name;
 
-    public Grades(Image image, int value,float posX, float posY) {
-        super(image, value, posX, posY);
+    public Grades(Image image, int value,int posX, int posY, int width, int height) {
+        super(image, value, posX, posY, width, height);
         setName(value);
     }
     public void setName(int value) {
@@ -38,16 +39,17 @@ public class Grades extends Item {
         throw new UnsupportedOperationException("Unimplemented method 'updateSpeed'");
     }
 
-    @Override
-    void draw() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'draw'");
-    }
+    
 
     @Override
-    void update() {
+    public void update() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+    @Override
+    public void render(Graphics g) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'render'");
     }
 
     

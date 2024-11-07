@@ -15,7 +15,7 @@ public class Dinosaur extends GameObject {
     private static final int SCREEN_HEIGHT = 800; // Chiều cao màn hình
 
     // Constructor khởi tạo Dino tại tọa độ (posX, posY)
-    public Dinosaur(float posX, float posY) {
+    public Dinosaur(int posX, int posY) {
         super(posX, posY, width, height); // Gọi constructor của GameObject
         this.dinoImage = new ImageIcon(getClass().getResource("/images/Idle (10).png"));
         this.isJumping = false;
