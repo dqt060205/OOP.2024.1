@@ -18,7 +18,7 @@ public class FrameImage {
 	public FrameImage(FrameImage frameImage) {
 		
 		image = new BufferedImage(frameImage.getImageWidth(), frameImage.getImageHeight(),frameImage.getImage().getType());
-		Graphics g = image.getGraphics(); // graphics nhu kieu co ve cua image
+		Graphics g = image.getGraphics(); // graphics nhu kieu cọ vẽ của image
 		g.drawImage(frameImage.getImage(),0,0,null);
 		
 	}
