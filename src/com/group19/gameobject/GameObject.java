@@ -26,8 +26,8 @@ public abstract class GameObject {
         this.posY = posY;
     }
 
-    abstract void Draw();
+    abstract void draw();
 
-    abstract void Update();
+    abstract void update();
 
 }
