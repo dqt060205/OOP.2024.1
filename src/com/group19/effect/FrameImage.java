@@ -1,5 +1,6 @@
 package com.group19.effect;
 
+/*
 import java.awt.Graphics;
 import java.awt.Graphics2D; // ve co ban thi 2D hay ko thi cx giong nhau nma de 2D cu the hon con cai khong co 2D thi nhieu ham nhan lam tham so
 import java.awt.image.BufferedImage;
@@ -56,5 +57,6 @@ public class FrameImage {
 	public void setImage(BufferedImage image1) {
 		image = image1;
 	}
+ */
 
 }
