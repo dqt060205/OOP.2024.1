@@ -23,13 +23,13 @@ public class Dinosaur extends GameObject {
     
 
     @Override
-    void Draw() {
+    void draw() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'Draw'");
     }
 
     @Override
-    void Update() {
+    void update() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'Update'");
     }
