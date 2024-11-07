@@ -1,0 +1,44 @@
+
+34
+
+dead1 data/Dead_fix_1.png
+dead2 data/Dead_fix_2.png
+dead3 data/Dead_fix_3.png
+dead4 data/Dead_fix_4.png
+dead5 data/Dead_fix_5.png
+dead6 data/Dead_fix_6.png
+dead7 data/Dead_fix_7.png
+dead8 data/Dead_fix_8.png
+
+
+
+jump1 data/Jump_fix_1.png
+jump2 data/Jump_fix_2.png
+jump3 data/Jump_fix_3.png
+jump4 data/Jump_fix_4.png
+jump5 data/Jump_fix_5.png
+jump6 data/Jump_fix_6.png
+jump7 data/Jump_fix_7.png
+jump8 data/Jump_fix_8.png
+jump9 data/Jump_fix_9.png
+jump10 data/Jump_fix_10.png
+jump11 data/Jump_fix_11.png
+jump12 data/Jump_fix_12.png
+jump13 data/Jump_fix_13.png
+jump14 data/Jump_fix_14.png
+jump15 data/Jump_fix_15.png
+jump16 data/Jump_fix_16.png
+jump17 data/Jump_fix_17.png
+jump18 data/Jump_fix_18.png
+
+
+run1 data/Run_fix_1.png
+run2 data/Run_fix_2.png
+run3 data/Run_fix_3.png
+run4 data/Run_fix_4.png
+run5 data/Run_fix_5.png
+run6 data/Run_fix_6.png
+run7 data/Run_fix_7.png
+run8 data/Run_fix_8.png
+
+
