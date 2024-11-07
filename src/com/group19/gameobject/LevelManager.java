@@ -35,7 +35,7 @@ public class LevelManager {
                             level.isEnded = true;
                         }
                     }
-                break;
+                    break;
                 }
             }
             int checkLevel = currentLevel;
