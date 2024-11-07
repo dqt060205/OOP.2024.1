@@ -7,7 +7,9 @@ public abstract class GameObject {
 
     /*private float posX;
     private float posY;
-    
+    public GameObject() {
+        
+    }
     public GameObject(float posX, float posY) {
         this.posX = posX;
         this.posY = posY;
