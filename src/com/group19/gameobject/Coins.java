@@ -20,7 +20,7 @@ public class Coins extends Item {
     }
     @Override
     public void updateSpeed() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.setSpeed(20); //Coins có tốc độ rơi cố định = 20 (Tạm thời)
     }
 
     
