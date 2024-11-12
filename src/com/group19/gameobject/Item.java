@@ -32,16 +32,14 @@ public abstract class Item extends GameObject {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-    public void randomPosition() {              // Hàm sinh vị trí ngẫu nhiên trong màn hình
+    public void randomPosition() {              // Hàm sinh vị trí ngẫu nhiên trong màn hình theo trục X
         setPosX(random.nextInt(100,1300));
-        setPosY(random.nextInt(100, 700));
+        setPosY(0);
     }
     public abstract void updateSpeed();
-    public void falling() {
-        posY++; // Tạm thời, khi có speed thì sửa lại
+    public void falling(int speed) {
+        posY += speed; // Vật rơi thẳng đứng, tạm thời để posY tăng dần theo speed
     };
-    // @Override
-    // abstract void draw();
 
     @Override
     public abstract void update();
