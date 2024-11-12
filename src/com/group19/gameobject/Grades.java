@@ -1,5 +1,6 @@
 package com.group19.gameobject;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -35,21 +36,22 @@ public class Grades extends Item {
 
     @Override
     public void updateSpeed() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateSpeed'");
+        int baseSpeed = 2;
+        this.setSpeed(this.getValue() * baseSpeed); // Tốc độ rơi tuỳ thuộc vào giá trị điểm
     }
 
     
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        while (this.posY <= 700) {                          // Chưa có map nên là để tạm theo SCREEN_HEIGHT
+            this.setPosY(this.getPosY() + this.getSpeed()); // Khi chưa chạm biên thì cập nhật toạ độ theo tốc độ
+        }
     }
     @Override
-    public void render(Graphics g) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
+    public void render(Graphics g) {        // Tạm thời render hình ảnh điểm là màu đỏ (vì chưa có hình)
+        g.setColor(Color.RED);
+        g.fillRect(posX, posY, width, height);
     }
 
     

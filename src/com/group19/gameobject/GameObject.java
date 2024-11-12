@@ -5,36 +5,6 @@ import java.awt.Rectangle;
 
 public abstract class GameObject {
 
-    /*private int posX;
-    private int posY;
-    public GameObject() {
-        
-    }
-    public GameObject(int posX, int posY) {
-        this.posX = posX;
-        this.posY = posY;
-    }
-
-    public int getPosX() {
-        return posX;
-    }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-    abstract void draw();
-
-    abstract void update();
-    */
     protected int posX, posY; // Vị trí của đối tượng
     protected int width, height; // Kích thước của đối tượng
     public GameObject() {
