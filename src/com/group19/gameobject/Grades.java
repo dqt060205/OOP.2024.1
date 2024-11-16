@@ -2,38 +2,34 @@ package com.group19.gameobject;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 
 public class Grades extends Item {
-    private char name;
 
-    public Grades(Image image, int value,int posX, int posY, int width, int height) {
-        super(image, value, posX, posY, width, height);
-        setName(value);
+    public Grades() {
+
     }
-    public void setName(int value) {
-        switch(value){
+    public Grades(int value,int posX, int posY, int width, int height) {
+        super(value, posX, posY, width, height);
+    }
+    public void setImage(int value) {
+        switch (value) {
             case 0 ->  {
-                this.name = 'F';
-            } 
-            case 1 ->  {
-                this.name = 'D';
+                super.setImage("data/GradeF.png");
+            }
+            case 1 -> {
+                super.setImage("data/GradeD.png");
             }
             case 2 -> {
-                this.name = 'C';
+                super.setImage("data/GradeC.png");
             }
             case 3 -> {
-                this.name = 'B';
+                super.setImage("data/GradeB.png");
             }
             case 4 -> {
-                this.name = 'A';
+                super.setImage("data/GradeA.png");
             }
         }
     }
-    public char getName() {
-        return this.name;
-    }
-
     @Override
     public void updateSpeed() {
         int baseSpeed = 2;
