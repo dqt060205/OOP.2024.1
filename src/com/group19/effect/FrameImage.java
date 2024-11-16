@@ -1,5 +1,6 @@
 package com.group19.effect;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -11,6 +12,18 @@ public class FrameImage {
     public FrameImage(String name, BufferedImage image) {
         this.name = name;
         this.image = image;
+    }
+
+    public FrameImage(FrameImage frameImage){
+        image = new BufferedImage(frameImage.getWidthImage(), frameImage.getHeightImage(), frameImage.image.getType());
+        Graphics g = image.getGraphics();
+        g.drawImage(frameImage.image, 0, 0, null);
+        name = frameImage.name;
+    }
+
+    public FrameImage(){
+        this.name = null;
+        this.image = null;
     }
 
     public String getName() {

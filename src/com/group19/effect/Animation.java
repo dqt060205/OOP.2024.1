@@ -1,6 +1,11 @@
 package com.group19.effect;
 
 import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.Frame;
+import java.awt.Graphics2D;
 
 public class Animation {
 
@@ -45,7 +50,28 @@ public class Animation {
     }
 
     public void setCurrentFrame(int currentFrame) {
-        
+        if(currentFrame >= 0 && currentFrame < frameImages.size()){
+            this.currentFrame = currentFrame;
+        }
+        else {
+            this.currentFrame = 0;
+        }
     }
+
+    public void reset(){
+        currentFrame = 0;
+        beginTime = 0;
+    }
+
+    public BufferedImage getCurrentImage(){
+        return frameImages.get(currentFrame).getImage();
+    }
+
+    public void add(FrameImage frameImage, double timeToNextFrame){
+        frameImages.add(frameImage);
+        delayFrames.add(timeToNextFrame);
+    }
+
+    
 
 }
