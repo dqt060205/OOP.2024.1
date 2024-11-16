@@ -1,6 +1,7 @@
 package com.group19.gameobject;
 import java.awt.Image;
 import java.util.Random;
+import javax.swing.ImageIcon;
 
 public abstract class Item extends GameObject {
 
@@ -12,13 +13,14 @@ public abstract class Item extends GameObject {
     public Item() {
         
     }
-    public Item(Image image, int value, int posX, int posY, int width, int height) {
+    public Item(int value, int posX, int posY, int width, int height) {
         super(posX, posY, 100, 100); // Chiều dài = chiều rộng = 100 px
         this.value = value;
-        this.image = image;
         this.random = new Random();
     }
-
+    public void setImage(String imagePath) {
+        this.image = new ImageIcon(imagePath).getImage();
+    }
     public int getValue() {
         return value;
     }
