@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
-import java.awt.Frame;
 import java.awt.Graphics2D;
 
 public class Animation {
@@ -14,12 +13,14 @@ public class Animation {
     private int currentFrame;
     private ArrayList<Double> delayFrames;
     private long beginTime;
+    private boolean isRepeated;
 
     public Animation(){
         frameImages = new ArrayList<FrameImage>();
         delayFrames = new ArrayList<Double>();
         currentFrame = 0;
         beginTime = 0;
+        isRepeated = true;
     }
 
     public Animation(Animation animation){
@@ -35,6 +36,7 @@ public class Animation {
 
         currentFrame = animation.currentFrame;
         beginTime = animation.beginTime;
+        isRepeated = animation.isRepeated;
     }
 
     public String getName() {
@@ -43,6 +45,14 @@ public class Animation {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean getIsRepeated() {
+        return isRepeated;
+    }
+
+    public void setIsRepeated(boolean isRepeated) {
+        this.isRepeated = isRepeated;
     }
 
     public int getCurrentFrame() {
@@ -72,6 +82,54 @@ public class Animation {
         delayFrames.add(timeToNextFrame);
     }
 
+    public void nextFrame(){
+        if(currentFrame >= frameImages.size()-1){
+            if(isRepeated) currentFrame = 0;
+        }
+        else {
+            currentFrame++;
+        }
+    }
+
+    public void update(long currentTime){
+        if(beginTime == 0){
+            beginTime = currentTime;
+        }
+        else{
+            if(currentTime - beginTime > delayFrames.get(currentFrame)){
+                nextFrame();
+                beginTime = currentTime;
+            }
+        }
+    }
+
+    public boolean isLastFrame(){
+        if(currentFrame == frameImages.size() - 1){
+            return true;
+        }
+        return false;
+    }
+
+    public void flipAllImage(){
+
+        for(int i=0; i<frameImages.size(); i++){
+
+            BufferedImage image = frameImages.get(i).getImage();
+            AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+            tx.translate(-image.getWidth(), 0);
+            AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+            image = op.filter(image, null);
+            frameImages.get(i).setImage(image);
+
+        }
+
+    }
+
+    public void draw(int x, int y, Graphics2D g2){
+
+        BufferedImage image = getCurrentImage();
+        g2.drawImage(image, x - image.getWidth()/2, y - image.getHeight()/2, null);
     
+    }
 
 }
