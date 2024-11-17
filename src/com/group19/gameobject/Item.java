@@ -18,6 +18,9 @@ public abstract class Item extends GameObject {
         this.value = value;
         this.random = new Random();
     }
+    public Image getImage() {
+        return image;
+    }
     public void setImage(String imagePath) {
         this.image = new ImageIcon(imagePath).getImage();
     }

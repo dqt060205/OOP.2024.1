@@ -1,17 +1,20 @@
 package com.group19.gameobject;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 public class Grades extends Item {
 
-    public Grades() {
-
+    public Grades(int value) {      //Constructor để gen mặc định toàn bộ thuộc tính (chỉ nhập vào value)
+        super.setValue(value);
+        super.randomPosition();
+        this.setWidth(100);
+        this.setHeight(100);
+        this.setImage(value);
     }
     public Grades(int value,int posX, int posY, int width, int height) {
         super(value, posX, posY, width, height);
     }
-    public void setImage(int value) {
+    public void setImage(int value) {   // Set ảnh cho các grades theo value
         switch (value) {
             case 0 ->  {
                 super.setImage("data/GradeF.png");
@@ -33,23 +36,19 @@ public class Grades extends Item {
     @Override
     public void updateSpeed() {
         int baseSpeed = 2;
-        this.setSpeed(this.getValue() * baseSpeed); // Tốc độ rơi tuỳ thuộc vào giá trị điểm
+        this.setSpeed(this.getValue() + baseSpeed); // Tốc độ rơi tuỳ thuộc vào giá trị điểm
     }
-
     
-
+    
     @Override
     public void update() {
-        while (this.posY <= 700) {                          // Chưa có map nên là để tạm theo SCREEN_HEIGHT
-            this.setPosY(this.getPosY() + this.getSpeed()); // Khi chưa chạm biên thì cập nhật toạ độ theo tốc độ
+        while (this.posY <= 800) {                          // Chưa có map nên là để tạm theo SCREEN_HEIGHT
+            this.falling(this.getSpeed()); // Khi chưa chạm biên thì rơi theo tốc độ
         }
     }
     @Override
-    public void render(Graphics g) {        // Tạm thời render hình ảnh điểm là màu đỏ (vì chưa có hình)
-        g.setColor(Color.RED);
-        g.fillRect(posX, posY, width, height);
+    public void render(Graphics g) {        // Đã render (draw) hình ảnh là ảnh của điểm trong folder data
+        g.drawImage(this.getImage(), posX, posY, null);
     }
 
-    
-    
 }
