@@ -1,45 +1,76 @@
 package com.group19.gameobject;
 
+import com.group19.effect.Animation;
+import com.group19.effect.CacheDataLoader;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 public class Dinosaur extends GameObject {
 
     private ImageIcon dinoImage;
-    public static final int width = 130; // Chiều rộng của Dino
-    public static final int height = 115; // Chiều cao của Dino
-    private boolean isJumping; // Trạng thái nhảy của Dino
+
     private static final int GRAVITY = 2; // Lực hấp dẫn
     private static final int JUMP_STRENGTH = 20; // Độ cao nhảy
     private static final int SCREEN_WIDTH = 1400; // Chiều rộng màn hình
     private static final int SCREEN_HEIGHT = 800; // Chiều cao màn hình
 
+    private boolean isJumping; // Trạng thái nhảy của Dino
+    private boolean isRunning;
+    private boolean isTurningLeft; // Kiểm tra hướng của Dino
+    public int lives;
+
+    private Animation runLeftAnimation, runRightAnimation;
+    private Animation jumpLeftAnimation, jumpRightAnimation;
+    private Animation deadLeftAnimation, deadRightAnimation;
+
     // Constructor khởi tạo Dino tại tọa độ (posX, posY)
     public Dinosaur(int posX, int posY) {
-        super(posX, posY, width, height); // Gọi constructor của GameObject
-        this.dinoImage = new ImageIcon(getClass().getResource("/images/Idle (10).png"));
+        super(posX, posY, 130, 115); // Gọi constructor của GameObject
         this.isJumping = false;
-    }
+        this.isTurningLeft = false;
+        this.lives = 3;
 
+        runRightAnimation = CacheDataLoader.getInstance().getAnimation("run");
+        runLeftAnimation = CacheDataLoader.getInstance().getAnimation("run");
+        runLeftAnimation.flipAllImage();
+
+        jumpRightAnimation = CacheDataLoader.getInstance().getAnimation("jump");
+        jumpLeftAnimation = CacheDataLoader.getInstance().getAnimation("jump");
+        jumpLeftAnimation.flipAllImage();
+
+        deadRightAnimation = CacheDataLoader.getInstance().getAnimation("dead");
+        deadLeftAnimation = CacheDataLoader.getInstance().getAnimation("dead");
+        deadLeftAnimation.flipAllImage();
+    }
+    public void setLives(int lives) {
+        this.lives  = lives;
+    }
+    public int getLives() {
+        return this.lives;
+    }
+    
     @Override
     public void render(Graphics g) {
         // Vẽ hình ảnh Dino tại vị trí posX, posY với chiều rộng và chiều cao
-        g.drawImage(dinoImage.getImage(), (int)posX, (int)posY, (int)width, (int)height, null); 
+        g.drawImage(dinoImage.getImage(), posX, posY, width, height, null); 
     }
 
     @Override
     public void update() {
-        move();  // Di chuyển Dino
+        run();  // Di chuyển Dino
         jump();  // Kiểm tra trạng thái nhảy và thực hiện nhảy
     }
 
     // Phương thức di chuyển Dino sang phải
-    private void move() {
-        posX += 10; // Di chuyển Dino sang phải mỗi lần cập nhật
-        
-        // Kiểm tra nếu Dino đã ra ngoài màn hình, dừng lại ở cạnh phải
-        if (posX + width > SCREEN_WIDTH) { // Nếu Dino đi ra ngoài màn hình
-            posX = SCREEN_WIDTH - width; // Dừng lại ở cạnh phải
+    private void run() {
+        if (!this.isRunning) {
+            this.isRunning = true;
+        }
+        if (this.isTurningLeft) {   // Quay sang trái thì di chuyển sang trái theo trục X
+            posX -= 3;
+        }
+        else {
+            posX += 3;
         }
     }
 
