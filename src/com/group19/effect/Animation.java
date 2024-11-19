@@ -12,12 +12,14 @@ public class Animation {
     private ArrayList<FrameImage> frameImages;
     private int currentFrame;
     private ArrayList<Double> delayFrames;
+    private ArrayList<Boolean> ignoreFrames;
     private long beginTime;
     private boolean isRepeated;
 
     public Animation(){
         frameImages = new ArrayList<FrameImage>();
         delayFrames = new ArrayList<Double>();
+        ignoreFrames = new ArrayList<Boolean>();
         currentFrame = 0;
         beginTime = 0;
         isRepeated = true;
@@ -30,8 +32,13 @@ public class Animation {
         }
 
         delayFrames = new ArrayList<Double>();
-        for(Double d : animation.delayFrames){
+        for(double d : animation.delayFrames){
             delayFrames.add(d);
+        }
+
+        ignoreFrames = new ArrayList<Boolean>();
+        for(boolean b : animation.ignoreFrames){
+            ignoreFrames.add(b);
         }
 
         currentFrame = animation.currentFrame;
@@ -68,6 +75,22 @@ public class Animation {
         }
     }
 
+    public boolean isIgnoreFrame(int id){
+        return ignoreFrames.get(id);
+    }
+
+    public void setIgnoreFrame(int id){
+        if(id>=0 && id<ignoreFrames.size()){
+            ignoreFrames.set(id, true);
+        }
+    }
+
+    public void unIgnoreFrame(int id){
+        if(id>=0 && id<ignoreFrames.size()){
+            ignoreFrames.set(id, false);
+        }
+    }
+
     public void reset(){
         currentFrame = 0;
         beginTime = 0;
@@ -80,6 +103,7 @@ public class Animation {
     public void add(FrameImage frameImage, double timeToNextFrame){
         frameImages.add(frameImage);
         delayFrames.add(timeToNextFrame);
+        ignoreFrames.add(false);
     }
 
     public void nextFrame(){
@@ -88,6 +112,9 @@ public class Animation {
         }
         else {
             currentFrame++;
+        }
+        if(ignoreFrames.get(currentFrame)){
+            nextFrame();
         }
     }
 
