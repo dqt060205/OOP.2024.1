@@ -15,7 +15,8 @@ public class Dinosaur extends GameObject {
     private static final int SCREEN_HEIGHT = 800; // Chiều cao màn hình
 
     private boolean isJumping; // Trạng thái nhảy của Dino
-    private boolean isRunning;
+    private boolean isRunningLeft;
+    private boolean isRunningRight;
     private boolean isTurningLeft; // Kiểm tra hướng của Dino
     public int lives;
 
@@ -29,6 +30,8 @@ public class Dinosaur extends GameObject {
         this.isJumping = false;
         this.isTurningLeft = false;
         this.lives = 3;
+        this.isRunningLeft = false;
+        this.isRunningRight = false;
 
         runRightAnimation = CacheDataLoader.getInstance().getAnimation("run");
         runLeftAnimation = CacheDataLoader.getInstance().getAnimation("run");
@@ -49,6 +52,18 @@ public class Dinosaur extends GameObject {
         return this.lives;
     }
     
+    public boolean getIsRunningLeft() {
+        return isRunningLeft;
+    }
+    public void setIsRunningLeft(boolean isRunningLeft) {
+        this.isRunningLeft = isRunningLeft;
+    }
+    public boolean getIsRunningRight() {
+        return isRunningRight;
+    }
+    public void setIsRunningRight(boolean isRunningRight) {
+        this.isRunningRight = isRunningRight;
+    }
     @Override
     public void render(Graphics g) {
         // Vẽ hình ảnh Dino tại vị trí posX, posY với chiều rộng và chiều cao
@@ -63,13 +78,10 @@ public class Dinosaur extends GameObject {
 
     // Phương thức di chuyển Dino sang phải
     private void run() {
-        if (!this.isRunning) {
-            this.isRunning = true;
-        }
-        if (this.isTurningLeft) {   // Quay sang trái thì di chuyển sang trái theo trục X
+        if (this.isRunningLeft) {   // Quay sang trái thì di chuyển sang trái theo trục X
             posX -= 3;
         }
-        else {
+        else if(this.isRunningRight) {
             posX += 3;
         }
     }
