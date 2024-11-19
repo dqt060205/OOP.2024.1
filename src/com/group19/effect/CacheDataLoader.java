@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.awt.Frame;
 import java.io.IOException;
 import java.util.Hashtable;
 import javax.imageio.ImageIO;
@@ -19,8 +18,10 @@ public class CacheDataLoader {
     public static final int HEIGHT_FRAME = 115;
 
     private String framefile = "data/frame.txt";
+    private String animationfile = "data/animation.txt";
 
     private Hashtable<String, FrameImage> frameImages;
+    private Hashtable<String, Animation> animations;
 
     private CacheDataLoader() {}
 
@@ -38,9 +39,15 @@ public class CacheDataLoader {
 
     }
 
+    public Animation getAnimation(String name){
+        Animation animation = new Animation(instance.animations.get(name));
+        return animation;
+    }
+
     public void LoadData() throws IOException{
 
         LoadFrame();
+        LoadAnimation();
 
     }
 
@@ -84,6 +91,43 @@ public class CacheDataLoader {
                 }
 
                 instance.frameImages.put(frame.getName(), frame);
+
+            }
+
+        }
+
+        br.close();
+
+    }
+
+    public void LoadAnimation() throws IOException {
+
+        animations = new Hashtable<String, Animation>();
+
+        FileReader fr = new FileReader(animationfile);
+        BufferedReader br = new BufferedReader(fr);
+
+        String line = br.readLine();
+        if(line == null){
+            System.out.println("No data");
+            throw new IOException();
+        }
+        else {
+
+            while((line = br.readLine()).equals(""));
+            int n = Integer.parseInt(line);
+
+            for(int i=0; i<n; i++){
+
+                while((line = br.readLine()).equals(""));
+                Animation animation = new Animation();
+                animation.setName(line);
+                while((line = br.readLine()).equals(""));
+                String[] str = line.split(" ");
+                for(int j=0; j<str.length; j+=2){
+                    animation.add(getFrameImage(str[j]), Double.parseDouble(str[j+1]));
+                }
+                animations.put(animation.getName(), animation);
 
             }
 
