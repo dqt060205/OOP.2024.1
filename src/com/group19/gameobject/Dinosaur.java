@@ -120,13 +120,13 @@ public class Dinosaur extends GameObject {
 
     // Phương thức di chuyển Dino sang phải
     public void run() {
-        if (this.isRunning && posX > 0) {   // Quay sang trái thì di chuyển sang trái theo trục X
-            this.isTurningLeft = true;
-            posX -= 3;
-        }
-        else if(this.isRunning && posX < SCREEN_WIDTH - this.width) {
-            this.isTurningLeft = false;
-            posX += 3;
+        if (this.isRunning) {
+            if (isTurningLeft && posX > 0) {  // Chạy sang trái
+                posX -= 3;
+            }
+            else if (!isTurningLeft && posX < SCREEN_WIDTH - this.width) {  // Chạy sang phải
+                posX += 3;
+            }
         }
     }
     // Phương thức kiểm tra và thực hiện nhảy

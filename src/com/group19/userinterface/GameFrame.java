@@ -1,4 +1,4 @@
-/*package com.group19.userinterface;
+package com.group19.userinterface;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -36,12 +36,12 @@ public class GameFrame extends JFrame {
         gameFrame.startGame();
     }
 
-}*/
+}
 
 
 
 
-package com.group19.userinterface;
+/*package com.group19.userinterface;
 
 import com.group19.gameobject.*;
 import java.awt.*;
@@ -112,5 +112,5 @@ class GamePanel extends JPanel {
         dinosaur.update(); // Cập nhật trạng thái của Dinosaur (như di chuyển và nhảy)
         repaint(); // Vẽ lại màn hình sau mỗi lần cập nhật
     }
-}
+}*/
 
