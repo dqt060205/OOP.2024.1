@@ -71,18 +71,14 @@ public class CacheDataLoader {
             int n = Integer.parseInt(line);
             String path = null;
             BufferedImage imageData = null;
-            String[] str = new String[70]; //Dùng để lưu tên và filepath
-            int currentStrIndex = 0;
 
             for(int i=0; i<n; i++){
 
                 FrameImage frame = new FrameImage();
                 while((line = br.readLine()).equals(""));
-                str = line.split(" ");
-                frame.setName(str[currentStrIndex]);
-                currentStrIndex++;
-                path = str[currentStrIndex];
-                currentStrIndex++;
+                String[] str = line.split(" ");
+                frame.setName(str[0]);
+                path = str[1];
 
                 imageData = ImageIO.read(new File(path));
                 if(imageData != null){
