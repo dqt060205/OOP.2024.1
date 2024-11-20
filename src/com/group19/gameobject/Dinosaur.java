@@ -2,6 +2,7 @@ package com.group19.gameobject;
 
 import com.group19.effect.Animation;
 import com.group19.effect.CacheDataLoader;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -96,12 +97,15 @@ public class Dinosaur extends GameObject {
         }
         else {
             if (isTurningLeft) {
-                g2.drawImage(idleLeft, posX, posY, width, height, null); // Có thê bị lỗi toạ độ khi vẽ ảnh
+                g2.drawImage(idleLeft, posX - idleLeft.getWidth()/2, posY - idleLeft.getHeight()/2, null);
             } else {
-                g2.drawImage(idleRight, posX, posY, width, height, null); 
+                g2.drawImage(idleRight, posX - idleRight.getWidth()/2, posY - idleRight.getHeight()/2, null);
             }
         }
         
+        g2.setColor(Color.RED);  // Màu sắc của hitbox (đỏ)
+        g2.setStroke(new java.awt.BasicStroke(2));  // Độ dày của đường viền
+        g2.drawRect(posX - idleLeft.getWidth()/2, posY - idleLeft.getHeight()/2, width, height);  // Vẽ hình chữ nhật bao quanh nhân vật
     }
 
     @Override
