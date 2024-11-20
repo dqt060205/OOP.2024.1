@@ -12,8 +12,9 @@ import javax.imageio.ImageIO;
 public class Dinosaur extends GameObject {
 
 
-    private static final int GRAVITY = 2; // Lực hấp dẫn
-    private static final int JUMP_STRENGTH = 20; // Độ cao nhảy
+    private static final int GRAVITY = 10; // Lực hấp dẫn
+    private static final int JUMP_STRENGTH = 40; // Độ cao nhảy
+    private int speedY = 0;
     private static final int SCREEN_WIDTH = 1300; // Chiều rộng màn hình
     private static final int SCREEN_HEIGHT = 700; // Chiều cao màn hình
 
@@ -29,12 +30,15 @@ public class Dinosaur extends GameObject {
     private Animation deadLeftAnimation, deadRightAnimation;
 
     // Constructor khởi tạo Dino tại tọa độ (posX, posY)
-    public Dinosaur(int posX, int posY) throws IOException {
-        super(posX, posY, 130, 115); // Gọi constructor của GameObject
+    public Dinosaur() throws IOException {
+        super(SCREEN_WIDTH / 2, SCREEN_HEIGHT, 130, 115); // Gọi constructor của GameObject
         this.isJumping = false;
+        this.speedY = 0;
         this.isTurningLeft = false;
         this.lives = 3;
         this.isRunning = false;
+
+        CacheDataLoader.getInstance().LoadData();
 
         idleLeft = ImageIO.read(new File("data/Idle_left_fix.png"));
         idleRight = ImageIO.read(new File("data/Idle_right_fix.png"));
@@ -92,7 +96,7 @@ public class Dinosaur extends GameObject {
         }
         else {
             if (isTurningLeft) {
-                g2.drawImage(idleLeft, posX, posY, width, height, null); //Có thê bị lỗi toạ độ khi vẽ ảnh
+                g2.drawImage(idleLeft, posX, posY, width, height, null); // Có thê bị lỗi toạ độ khi vẽ ảnh
             } else {
                 g2.drawImage(idleRight, posX, posY, width, height, null); 
             }
@@ -102,8 +106,16 @@ public class Dinosaur extends GameObject {
 
     @Override
     public void update() {
-        run();  // Di chuyển Dino
-        jump();  // Kiểm tra trạng thái nhảy và thực hiện nhảy
+        if (isJumping) {
+            speedY += GRAVITY;
+            this.setPosY(this.getPosY() + speedY);
+        }
+
+        if (this.getPosY() >= SCREEN_HEIGHT) {
+            this.setPosY(SCREEN_HEIGHT);
+            isJumping = false;
+            speedY = 0;
+        }
     }
 
     // Phương thức di chuyển Dino sang phải
@@ -119,29 +131,13 @@ public class Dinosaur extends GameObject {
     }
     // Phương thức kiểm tra và thực hiện nhảy
     public void jump() {
-        if (isJumping) {
-            posY -= JUMP_STRENGTH; // Di chuyển lên khi nhảy
-            if (posY <= 80) { // Giới hạn độ cao của nhảy
-                this.stopJump(); // Đổi trạng thái khi lên tới đỉnh
-            }
-        } else {
-            posY += GRAVITY; // Di chuyển xuống khi rơi
-            if (posY >= SCREEN_HEIGHT - this.height) { // Giới hạn khi chạm đất
-                posY = SCREEN_HEIGHT - this.height; // Reset lại vị trí khi chạm đất
-            }
-        }
-    }
-
-    // Phương thức bắt đầu nhảy
-    public void startJump() {
-        if (posY == SCREEN_HEIGHT - height) { // Đảm bảo Dino chỉ nhảy khi đang ở mặt đất
+        if (!isJumping) {
             isJumping = true;
-        }
-    }
+            speedY = - JUMP_STRENGTH;   // Khởi tạo ban đầu khi nhảy
 
-    // Phương thức dừng nhảy
-    public void stopJump() {
-        isJumping = false;
+            runLeftAnimation.reset();
+            runRightAnimation.reset();
+        }
     }
 
     public boolean isIsRunning() {

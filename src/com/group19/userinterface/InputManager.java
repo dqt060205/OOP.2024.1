@@ -8,8 +8,8 @@ public class InputManager {
 
     private Dinosaur dino;
 
-    public InputManager() throws IOException {
-        dino = new Dinosaur(700, 750);
+    public InputManager(Dinosaur dino) throws IOException {
+        this.dino = dino;
     }
 
     public void processKeyPressed(int keyCode){
@@ -29,7 +29,6 @@ public class InputManager {
                 break;
 
             case KeyEvent.VK_UP:
-                dino.startJump();
                 dino.jump();
                 break;
 
@@ -46,15 +45,11 @@ public class InputManager {
         switch(keyCode){
 
             case KeyEvent.VK_LEFT:
-                dino.setIsRunning(false);
-                break;
-
             case KeyEvent.VK_RIGHT:
                 dino.setIsRunning(false);
                 break;
 
             case KeyEvent.VK_UP:
-
                 break;
 
             case KeyEvent.VK_DOWN:

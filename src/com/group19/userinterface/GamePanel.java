@@ -1,10 +1,12 @@
 package com.group19.userinterface;
 
-import javax.swing.JPanel;
-import java.awt.image.BufferedImage;
+import com.group19.gameobject.Dinosaur;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements KeyListener, Runnable {
 
@@ -14,8 +16,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private BufferedImage bufImage;
     private Graphics2D buf2D;
 
-    public GamePanel(){
-        inputManager = new InputManager();
+    public GamePanel() throws IOException{
+        inputManager = new InputManager(new Dinosaur());
     }
 
     public void startGame(){
