@@ -1,15 +1,14 @@
 package com.group19.userinterface;
 
 import com.group19.gameobject.Dinosaur;
-
-import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 public class InputManager {
 
     private Dinosaur dino;
 
-    public InputManager(){
+    public InputManager() throws IOException {
         dino = new Dinosaur(700, 750);
     }
 
@@ -18,19 +17,24 @@ public class InputManager {
         switch(keyCode){
 
             case KeyEvent.VK_LEFT:
-                dino.setIsRunningLeft(true);
+                dino.setIsTurningLeft(true);
+                dino.setIsRunning(true);
+                dino.run();
                 break;
 
             case KeyEvent.VK_RIGHT:
-                dino.setIsRunningRight(true);
+                dino.setIsTurningLeft(false);
+                dino.setIsRunning(true);
+                dino.run();
                 break;
 
             case KeyEvent.VK_UP:
-
+                dino.startJump();
+                dino.jump();
                 break;
 
             case KeyEvent.VK_DOWN:
-            
+                // Do nothing
                 break;
 
         }
@@ -42,11 +46,11 @@ public class InputManager {
         switch(keyCode){
 
             case KeyEvent.VK_LEFT:
-                dino.setIsRunningLeft(false);
+                dino.setIsRunning(false);
                 break;
 
             case KeyEvent.VK_RIGHT:
-                dino.setIsRunningRight(false);
+                dino.setIsRunning(false);
                 break;
 
             case KeyEvent.VK_UP:

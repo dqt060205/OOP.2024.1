@@ -1,10 +1,10 @@
 package com.group19.gameobject;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class Grades extends Item {
 
-    public Grades(int value) {      //Constructor để gen mặc định toàn bộ thuộc tính (chỉ nhập vào value)
+    public Grades(int value) {      // Constructor để gen mặc định toàn bộ thuộc tính (chỉ nhập vào value)
         super.setValue(value);
         super.randomPosition();
         this.setWidth(100);
@@ -47,8 +47,8 @@ public class Grades extends Item {
         }
     }
     @Override
-    public void render(Graphics g) {        // Đã render (draw) hình ảnh là ảnh của điểm trong folder data
-        g.drawImage(this.getImage(), posX, posY, null);
+    public void render(Graphics2D g2) {        // Đã render (draw) hình ảnh là ảnh của điểm trong folder data
+        g2.drawImage(this.getImage(), posX, posY, null);
     }
 
 }
