@@ -59,7 +59,6 @@ public abstract class GameObject {
 
     // Phương thức kiểm tra va chạm (Dùng cho Object Dino và Item)
     public boolean isColliding(GameObject other) {
-        // Khởi tạo đối tượng Rectangle cho cả đối tượng hiện tại và đối tượng khác
         Rectangle thisRect = new Rectangle(this.posX, this.posY, this.width, this.height);
         Rectangle otherRect = new Rectangle(other.getPosX(), other.getPosY(), other.getWidth(), other.getHeight());
         return thisRect.intersects(otherRect); // Kiểm tra va chạm giữa hai hình chữ nhật
