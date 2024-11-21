@@ -32,7 +32,7 @@ public class Dinosaur extends GameObject {
 
     // Constructor khởi tạo Dino tại tọa độ (posX, posY)
     public Dinosaur() throws IOException {
-        super(SCREEN_WIDTH / 2, SCREEN_HEIGHT, 130, 115); // Gọi constructor của GameObject
+        super((SCREEN_WIDTH - 115)/ 2, SCREEN_HEIGHT - 130, 120, 130); // Gọi constructor của GameObject
         this.isJumping = false;
         this.speedY = 0;
         this.isTurningLeft = false;
@@ -97,15 +97,15 @@ public class Dinosaur extends GameObject {
         }
         else {
             if (isTurningLeft) {
-                g2.drawImage(idleLeft, posX - idleLeft.getWidth()/2, posY - idleLeft.getHeight()/2, null);
+                g2.drawImage(idleLeft, posX, posY, null);
             } else {
-                g2.drawImage(idleRight, posX - idleRight.getWidth()/2, posY - idleRight.getHeight()/2, null);
+                g2.drawImage(idleRight, posX, posY, null);
             }
         }
         
         g2.setColor(Color.RED);  // Màu sắc của hitbox (đỏ)
         g2.setStroke(new java.awt.BasicStroke(2));  // Độ dày của đường viền
-        g2.drawRect(posX - idleLeft.getWidth()/2, posY - idleLeft.getHeight()/2, width, height);  // Vẽ hình chữ nhật bao quanh nhân vật
+        g2.drawRect(posX, posY, width, height);  // Vẽ hình chữ nhật bao quanh nhân vật
     }
 
     @Override
@@ -115,8 +115,8 @@ public class Dinosaur extends GameObject {
             this.setPosY(this.getPosY() + speedY);
         }
 
-        if (this.getPosY() >= SCREEN_HEIGHT) {
-            this.setPosY(SCREEN_HEIGHT);
+        if (this.getPosY() >= SCREEN_HEIGHT - height) {
+            this.setPosY(SCREEN_HEIGHT - height);
             isJumping = false;
             speedY = 0;
         }
@@ -125,7 +125,7 @@ public class Dinosaur extends GameObject {
     // Phương thức di chuyển Dino sang phải
     public void run() {
         if (this.isRunning) {
-            if (isTurningLeft && posX > 0) {  // Chạy sang trái
+            if (isTurningLeft && posX > this.width) {  // Chạy sang trái
                 posX -= 3;
             }
             else if (!isTurningLeft && posX < SCREEN_WIDTH - this.width) {  // Chạy sang phải

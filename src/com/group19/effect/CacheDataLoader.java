@@ -15,7 +15,7 @@ public class CacheDataLoader {
     public static final int X_FRAME = 9;
     public static final int Y_FRAME = 20;
     public static final int WIDTH_FRAME = 130;
-    public static final int HEIGHT_FRAME = 115;
+    public static final int HEIGHT_FRAME = 120;
 
     private String framefile = "data/frame.txt";
     private String animationfile = "data/animation.txt";
