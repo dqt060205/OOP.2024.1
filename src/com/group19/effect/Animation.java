@@ -155,7 +155,7 @@ public class Animation {
     public void draw(int x, int y, Graphics2D g2){
 
         BufferedImage image = getCurrentImage();
-        g2.drawImage(image, x, y + 10, null);
+        g2.drawImage(image, x, y, null);
     
     }
 

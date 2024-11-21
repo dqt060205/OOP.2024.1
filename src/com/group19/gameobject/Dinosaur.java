@@ -13,11 +13,13 @@ import javax.imageio.ImageIO;
 public class Dinosaur extends GameObject {
 
 
-    private static final int GRAVITY = 10; // Lực hấp dẫn
-    private static final int JUMP_STRENGTH = 40; // Độ cao nhảy
+    private static final int GRAVITY = 1; // Lực hấp dẫn
+    private static final int JUMP_STRENGTH = 20; // Độ cao nhảy
     private int speedY = 0;
     private static final int SCREEN_WIDTH = 1300; // Chiều rộng màn hình
     private static final int SCREEN_HEIGHT = 700; // Chiều cao màn hình
+    private long lastUpdateTime = System.nanoTime();
+    private static final long DELAY_TIME = 20_000_000;
 
     private boolean isJumping; // Trạng thái nhảy của Dino
     private boolean isRunning;
@@ -32,11 +34,11 @@ public class Dinosaur extends GameObject {
 
     // Constructor khởi tạo Dino tại tọa độ (posX, posY)
     public Dinosaur() throws IOException {
-        super((SCREEN_WIDTH - 115)/ 2, SCREEN_HEIGHT - 130, 120, 130); // Gọi constructor của GameObject
+        super((SCREEN_WIDTH - 65)/ 2, SCREEN_HEIGHT - 140, 130, 140); // Gọi constructor của GameObject
         this.isJumping = false;
         this.speedY = 0;
         this.isTurningLeft = false;
-        this.lives = 3;
+        this.lives = 0;
         this.isRunning = false;
 
         CacheDataLoader.getInstance().LoadData();
@@ -68,11 +70,11 @@ public class Dinosaur extends GameObject {
         if (lives == 0) {
             if (isTurningLeft) {
                 deadLeftAnimation.update(System.nanoTime());
-                deadLeftAnimation.draw(posX, posY, g2);
+                deadLeftAnimation.draw(posX + 20, posY, g2);
             }
             else {
                 deadRightAnimation.update(System.nanoTime());
-                deadRightAnimation.draw(posX, posY, g2);
+                deadRightAnimation.draw(posX - 20, posY, g2);
             }
         }
         else if (isJumping) {
@@ -97,9 +99,9 @@ public class Dinosaur extends GameObject {
         }
         else {
             if (isTurningLeft) {
-                g2.drawImage(idleLeft, posX, posY, null);
+                g2.drawImage(idleLeft, posX + 10, posY + 10, null);
             } else {
-                g2.drawImage(idleRight, posX, posY, null);
+                g2.drawImage(idleRight, posX, posY + 10, null);
             }
         }
         
@@ -110,15 +112,22 @@ public class Dinosaur extends GameObject {
 
     @Override
     public void update() {
-        if (isJumping) {
-            speedY += GRAVITY;
-            this.setPosY(this.getPosY() + speedY);
-        }
+        long currentTime = System.nanoTime();
+        if (currentTime - lastUpdateTime >= DELAY_TIME) {
+            lastUpdateTime = currentTime;
 
-        if (this.getPosY() >= SCREEN_HEIGHT - height) {
-            this.setPosY(SCREEN_HEIGHT - height);
-            isJumping = false;
-            speedY = 0;
+            if (isJumping) {
+                speedY += GRAVITY;
+                this.setPosY(this.getPosY() + speedY);
+            }
+
+            if (this.getPosY() >= SCREEN_HEIGHT - height) {
+                this.setPosY(SCREEN_HEIGHT - height);
+                isJumping = false;
+                speedY = 0;
+                jumpLeftAnimation.reset();
+                jumpRightAnimation.reset();
+            }
         }
     }
 
