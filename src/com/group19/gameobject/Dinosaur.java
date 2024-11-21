@@ -38,7 +38,7 @@ public class Dinosaur extends GameObject {
         this.isJumping = false;
         this.speedY = 0;
         this.isTurningLeft = false;
-        this.lives = 0;
+        this.lives = 3;
         this.isRunning = false;
 
         CacheDataLoader.getInstance().LoadData();
