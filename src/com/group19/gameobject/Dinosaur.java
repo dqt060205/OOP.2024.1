@@ -80,7 +80,7 @@ public class Dinosaur extends GameObject {
         else if (isJumping) {
             if (isTurningLeft) {
                 jumpLeftAnimation.update(System.nanoTime());
-                jumpLeftAnimation.draw(posX, posY, g2);
+                jumpLeftAnimation.draw(posX - 65, posY, g2);
             }
             else {
                 jumpRightAnimation.update(System.nanoTime());
@@ -90,7 +90,7 @@ public class Dinosaur extends GameObject {
         else if (isRunning) {
             if (isTurningLeft) {
                 runLeftAnimation.update(System.nanoTime());
-                runLeftAnimation.draw(posX, posY, g2);
+                runLeftAnimation.draw(posX - 65, posY, g2);
             }
             else {
                 runRightAnimation.update(System.nanoTime());
@@ -99,7 +99,7 @@ public class Dinosaur extends GameObject {
         }
         else {
             if (isTurningLeft) {
-                g2.drawImage(idleLeft, posX + 10, posY + 10, null);
+                g2.drawImage(idleLeft, posX, posY + 10, null);
             } else {
                 g2.drawImage(idleRight, posX, posY + 10, null);
             }
