@@ -18,9 +18,9 @@ public class InforPage extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon imageIcon = new ImageIcon("data/MenuBackground.png"); // Đường dẫn tới ảnh nền
-                Image image = imageIcon.getImage();
-                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+                ImageIcon mainBackgroundIcon = new ImageIcon("data/MenuBackground.png"); // Đường dẫn tới ảnh nền
+                Image mainBackground = mainBackgroundIcon.getImage();
+                g.drawImage(mainBackground, 0, 0, getWidth(), getHeight(), this);
             }
         };
 
@@ -42,6 +42,7 @@ public class InforPage extends JFrame {
         settingButton.setContentAreaFilled(false);
         settingButton.setFocusPainted(false);
         settingButton.setOpaque(false);
+        settingButton.setVisible(false);
 
         //Tạo nút "Music"
         ImageIcon musicIcon = new ImageIcon("data/MusicButton.png");
@@ -104,6 +105,16 @@ public class InforPage extends JFrame {
         aboutUsButton.setFocusPainted(false);
         aboutUsButton.setOpaque(false);
 
+        // Tạo nút "Return"
+        ImageIcon returnIcon = new ImageIcon("data/ReturnButton.png");
+        JButton ReturnButton = new JButton(returnIcon);
+        ReturnButton.setBounds(12, 12, returnIcon.getIconWidth(), returnIcon.getIconHeight());
+        ReturnButton.setBorderPainted(false);
+        ReturnButton.setContentAreaFilled(false);
+        ReturnButton.setFocusPainted(false);
+        ReturnButton.setOpaque(false);
+        ReturnButton.setVisible(true);
+
         // Thêm nút vào contentPane
         contentPane.add(settingButton);
         contentPane.add(musicButton);
@@ -112,6 +123,7 @@ public class InforPage extends JFrame {
         contentPane.add(newGameButton);
         contentPane.add(instructionButton);
         contentPane.add(aboutUsButton);
+        contentPane.add(ReturnButton);
 
         // Tạo GamePanel nhưng ẩn ban đầu
         try {
