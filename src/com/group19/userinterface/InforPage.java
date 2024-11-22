@@ -1,15 +1,19 @@
+package com.group19.userinterface;
+
 import java.awt.*;
 import javax.swing.*;
 
 public class InforPage extends JFrame {
-    private JPanel contentPane;
+    private final JPanel contentPane;
+    private GamePanel gamePanel;
 
     public InforPage() {
-        setTitle("Like A Huster!");
+        setTitle("Like a Dino!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1300, 800);
         setLocationRelativeTo(null);
 
+        // Tạo contentPane với hình nền
         contentPane = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -24,47 +28,56 @@ public class InforPage extends JFrame {
         setContentPane(contentPane);
 
         // Thêm văn bản giới thiệu
-        JLabel label = new JLabel("Welcom to Like A Dino!");
-        label.setFont(new Font("Times New Roman", Font.BOLD, 40));
+        JLabel label = new JLabel("Welcome to Like A Dino!");
+        label.setFont(new Font("ComicGeckoPro", Font.BOLD, 40));
         label.setForeground(Color.BLACK);
         label.setBounds(450, 60, 600, 70);
         contentPane.add(label);
 
-        // Tạo nút information
-        ImageIcon icon = new ImageIcon("C:\\Users\\LAPTOP PC\\Desktop\\Test\\image\\infor.png");
-        JButton button = new JButton(icon);
-        button.setBounds(100, 200, icon.getIconWidth(), icon.getIconHeight());
-        button.setBorderPainted(false);
-        button.setContentAreaFilled(false);
-        button.setFocusPainted(false);
-        button.setOpaque(false);
+        // Tạo nút "Information"
+        ImageIcon infoIcon = new ImageIcon("C:\\Users\\LAPTOP PC\\Desktop\\Test\\image\\infor.png");
+        JButton infoButton = new JButton(infoIcon);
+        infoButton.setBounds(100, 200, infoIcon.getIconWidth(), infoIcon.getIconHeight());
+        infoButton.setBorderPainted(false);
+        infoButton.setContentAreaFilled(false);
+        infoButton.setFocusPainted(false);
+        infoButton.setOpaque(false);
 
-        // Tạo nút start
-        ImageIcon icon2 = new ImageIcon("C:\\Users\\LAPTOP PC\\Desktop\\Test\\image\\start.png");
-        JButton button2 = new JButton(icon2);
-        button2.setBounds(600, 200, icon2.getIconWidth(), icon2.getIconHeight());
-        button2.setBorderPainted(false);
-        button2.setContentAreaFilled(false);
-        button2.setFocusPainted(false);
-        button2.setOpaque(false);
+        // Hành động khi nhấn nút "Information"
+        infoButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "Thông tin về trò chơi!"));
 
-        // Thêm hành động cho nút information
-        button.addActionListener(e -> JOptionPane.showMessageDialog(this, "Nút Information đã được nhấn!"));
+        // Tạo nút "Start"
+        ImageIcon startIcon = new ImageIcon("C:\\Users\\LAPTOP PC\\Desktop\\Test\\image\\start.png");
+        JButton startButton = new JButton(startIcon);
+        startButton.setBounds(600, 200, startIcon.getIconWidth(), startIcon.getIconHeight());
+        startButton.setBorderPainted(false);
+        startButton.setContentAreaFilled(false);
+        startButton.setFocusPainted(false);
+        startButton.setOpaque(false);
 
-        // Thêm hành động cho nút Start
-        button2.addActionListener(e -> JOptionPane.showMessageDialog(this, "Nút Start được nhấn!"));
+        // Hành động khi nhấn nút "Start"
+        startButton.addActionListener(e -> startGame());
 
-        // Thêm hai nút vào contentPane
-        contentPane.add(button);
-        contentPane.add(button2);
+        // Thêm nút vào contentPane
+        contentPane.add(infoButton);
+        contentPane.add(startButton);
+
+        // Tạo GamePanel nhưng ẩn ban đầu
+        gamePanel = new GamePanel();
+        gamePanel.setVisible(false);
+        add(gamePanel);
 
         setVisible(true);
     }
 
+    // Hàm bắt đầu game
+    private void startGame() {
+        contentPane.setVisible(false); // Ẩn giao diện chính
+        gamePanel.setVisible(true);   // Hiển thị GamePanel
+        gamePanel.startGame();        // Bắt đầu game
+    }
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            InforPage frame = new InforPage();
-            frame.setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new InforPage());
     }
 }
