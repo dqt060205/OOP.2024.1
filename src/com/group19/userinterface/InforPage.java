@@ -134,3 +134,4 @@ public class InforPage extends JFrame {
         SwingUtilities.invokeLater(() -> new InforPage());
     }
 }
+
