@@ -8,7 +8,7 @@ public class InforPage extends JFrame {
     private GamePanel gamePanel;
 
     public InforPage() {
-        setTitle("Like a Dino!");
+        setTitle("Hust Adventure");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1300, 800);
         setLocationRelativeTo(null);
@@ -28,7 +28,7 @@ public class InforPage extends JFrame {
         setContentPane(contentPane);
 
         // Thêm văn bản giới thiệu
-        JLabel label = new JLabel("Welcome to Like A Dino!");
+        JLabel label = new JLabel("Welcome to Hust Adventure!");
         label.setFont(new Font("ComicGeckoPro", Font.BOLD, 40));
         label.setForeground(Color.BLACK);
         label.setBounds(450, 60, 600, 70);
@@ -63,7 +63,9 @@ public class InforPage extends JFrame {
         contentPane.add(startButton);
 
         // Tạo GamePanel nhưng ẩn ban đầu
-        gamePanel = new GamePanel();
+        try {
+            gamePanel = new GamePanel();
+        } catch(Exception e) {}
         gamePanel.setVisible(false);
         add(gamePanel);
 
