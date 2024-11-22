@@ -1,13 +1,14 @@
 package com.group19.userinterface;
 
 import java.awt.*;
+import java.io.IOException;
 import javax.swing.*;
 
 public class InforPage extends JFrame {
     private final JPanel contentPane;
     private GamePanel gamePanel;
 
-    public InforPage() {
+    public InforPage() throws IOException {
         setTitle("Like a Dino!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1300, 800);
@@ -78,6 +79,12 @@ public class InforPage extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new InforPage());
+        SwingUtilities.invokeLater(() -> {
+            try {
+                new InforPage();
+            } catch (IOException ex) {
+            }
+        });
     }
 }
+//>>>>>>> Stashed changes
