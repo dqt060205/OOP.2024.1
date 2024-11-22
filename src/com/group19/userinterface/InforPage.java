@@ -1,13 +1,17 @@
 package com.group19.userinterface;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.*;
 
-public class InforPage extends JFrame {
+public class InforPage extends JFrame implements MouseListener {
     private final JPanel contentPane;
     private GamePanel gamePanel;
+    private InputManager inputManager;
 
-    public InforPage() {
+    public InforPage(){
         setTitle("Hust Adventure");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1400, 800);
@@ -27,6 +31,16 @@ public class InforPage extends JFrame {
         contentPane.setLayout(null);
         setContentPane(contentPane);
 
+        try{
+            inputManager = new InputManager(this);
+        } catch (Exception e) {}
+
+        ImageIcon instructionBackgroundIcon = new ImageIcon("data/InstructionBackground.png");
+        Image instructionBackground = instructionBackgroundIcon.getImage();
+
+        ImageIcon selectLevelBackgroundIcon = new ImageIcon("data/SelectLevelBackground.png");
+        Image selectLevelBackground = selectLevelBackgroundIcon.getImage();
+
         // Thêm văn bản giới thiệu
         // JLabel label = new JLabel("Welcome to Hust Adventure!");
         // label.setFont(new Font("ComicGeckoPro", Font.BOLD, 40));
@@ -42,7 +56,6 @@ public class InforPage extends JFrame {
         settingButton.setContentAreaFilled(false);
         settingButton.setFocusPainted(false);
         settingButton.setOpaque(false);
-        settingButton.setVisible(false);
 
         //Tạo nút "Music"
         ImageIcon musicIcon = new ImageIcon("data/MusicButton.png");
@@ -107,13 +120,13 @@ public class InforPage extends JFrame {
 
         // Tạo nút "Return"
         ImageIcon returnIcon = new ImageIcon("data/ReturnButton.png");
-        JButton ReturnButton = new JButton(returnIcon);
-        ReturnButton.setBounds(12, 12, returnIcon.getIconWidth(), returnIcon.getIconHeight());
-        ReturnButton.setBorderPainted(false);
-        ReturnButton.setContentAreaFilled(false);
-        ReturnButton.setFocusPainted(false);
-        ReturnButton.setOpaque(false);
-        ReturnButton.setVisible(true);
+        JButton returnButton = new JButton(returnIcon);
+        returnButton.setBounds(12, 12, returnIcon.getIconWidth(), returnIcon.getIconHeight());
+        returnButton.setBorderPainted(false);
+        returnButton.setContentAreaFilled(false);
+        returnButton.setFocusPainted(false);
+        returnButton.setOpaque(false);
+        returnButton.setVisible(false);
 
         // Thêm nút vào contentPane
         contentPane.add(settingButton);
@@ -123,7 +136,7 @@ public class InforPage extends JFrame {
         contentPane.add(newGameButton);
         contentPane.add(instructionButton);
         contentPane.add(aboutUsButton);
-        contentPane.add(ReturnButton);
+        contentPane.add(returnButton);
 
         // Tạo GamePanel nhưng ẩn ban đầu
         try {
@@ -131,6 +144,8 @@ public class InforPage extends JFrame {
         } catch(Exception e) {}
         gamePanel.setVisible(false);
         add(gamePanel);
+
+        inputManager.addMouseListeners(musicButton, continueButton, newGameButton, instructionButton, aboutUsButton, returnButton);
 
         setVisible(true);
     }
@@ -142,8 +157,38 @@ public class InforPage extends JFrame {
         gamePanel.startGame();        // Bắt đầu game
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new InforPage());
     }
-}
 
+}
