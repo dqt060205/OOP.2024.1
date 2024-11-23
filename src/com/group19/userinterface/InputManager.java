@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.awt.Graphics2D;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -71,16 +72,31 @@ public class InputManager {
 
     }
 
-    public void addMouseListeners(JButton musicButton, JButton continueButton, JButton newGameButton, JButton instructionButton, JButton aboutUsButton, JButton returnButton){
+    public void processMouseClicked(MouseEvent e){
 
-        newGameButton.addMouseListener(new MouseAdapter() {
-            
-            public void mouseClicked(MouseEvent e){
-                
-            }
+        int posXClicked = e.getX();
+        int posYClicked = e.getY();
 
-        });
+        if((posXClicked >=570 && posXClicked <= 570 + inforPage.instructionIcon.getIconWidth()) && (posYClicked >= 565 && posYClicked <= 565 + inforPage.instructionIcon.getIconHeight())){
+            inforPage.setDrawInstructionBackground(true);
+            inforPage.setDrawMainBackground(false);
+            contentPane.repaint();
+        }
 
     }
+
+    // public void addMouseListeners(JButton musicButton, JButton continueButton, JButton newGameButton, JButton instructionButton, JButton aboutUsButton, JButton returnButton){
+
+    //     instructionButton.addMouseListener(new MouseAdapter() {
+            
+    //         public void mouseClicked(MouseEvent e){
+    //             Graphics2D g2 = (Graphics2D) inforPage.getInstructionBackground().getGraphics();
+    //             g2.drawImage(inforPage.getInstructionBackground(), 0, 0, null);
+                
+    //         }
+
+    //     });
+
+    // }
 
 }

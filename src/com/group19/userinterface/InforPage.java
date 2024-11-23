@@ -10,21 +10,43 @@ public class InforPage extends JFrame implements MouseListener {
     private final JPanel contentPane;
     private GamePanel gamePanel;
     private InputManager inputManager;
+    private Image mainBackground;
+    private Image instructionBackground;
+    private Image selectLevelBackground;
+    protected ImageIcon instructionIcon;
+    private boolean drawInstructionBackground;
+    private boolean drawMainBackground;
 
     public InforPage(){
         setTitle("Hust Adventure");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1400, 800);
         setLocationRelativeTo(null);
+        drawInstructionBackground = false;
+        drawMainBackground = true;
+
+        ImageIcon instructionBackgroundIcon = new ImageIcon("data/InstructionBackground.png");
+        instructionBackground = instructionBackgroundIcon.getImage();
+
+        ImageIcon selectLevelBackgroundIcon = new ImageIcon("data/SelectLevelBackground.png");
+        selectLevelBackground = selectLevelBackgroundIcon.getImage();
+
+        ImageIcon mainBackgroundIcon = new ImageIcon("data/MenuBackground.png"); // Đường dẫn tới ảnh nền
+        mainBackground = mainBackgroundIcon.getImage();
+
 
         // Tạo contentPane với hình nền
         contentPane = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon mainBackgroundIcon = new ImageIcon("data/MenuBackground.png"); // Đường dẫn tới ảnh nền
-                Image mainBackground = mainBackgroundIcon.getImage();
-                g.drawImage(mainBackground, 0, 0, getWidth(), getHeight(), this);
+                
+                if(drawMainBackground){
+                    g.drawImage(mainBackground, 0, 0, getWidth(), getHeight(), this);
+                }
+                else if(drawInstructionBackground){
+                    g.drawImage(instructionBackground, 0, 0, getWidth(), getHeight(), this);
+                }
             }
         };
 
@@ -34,12 +56,6 @@ public class InforPage extends JFrame implements MouseListener {
         try{
             inputManager = new InputManager(this);
         } catch (Exception e) {}
-
-        ImageIcon instructionBackgroundIcon = new ImageIcon("data/InstructionBackground.png");
-        Image instructionBackground = instructionBackgroundIcon.getImage();
-
-        ImageIcon selectLevelBackgroundIcon = new ImageIcon("data/SelectLevelBackground.png");
-        Image selectLevelBackground = selectLevelBackgroundIcon.getImage();
 
         // Thêm văn bản giới thiệu
         // JLabel label = new JLabel("Welcome to Hust Adventure!");
@@ -95,10 +111,10 @@ public class InforPage extends JFrame implements MouseListener {
         newGameButton.setOpaque(false);
 
         // Hành động khi nhấn nút "Information"
-        newGameButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "Thông tin về trò chơi!"));
+        //newGameButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "Thông tin về trò chơi!"));
 
         // Tạo nút "Instruction"
-        ImageIcon instructionIcon = new ImageIcon("data/InstructionButton.png");
+        instructionIcon = new ImageIcon("data/InstructionButton.png");
         JButton instructionButton = new JButton(instructionIcon);
         instructionButton.setBounds(570, 565, instructionIcon.getIconWidth(), instructionIcon.getIconHeight());
         instructionButton.setBorderPainted(false);
@@ -107,7 +123,7 @@ public class InforPage extends JFrame implements MouseListener {
         instructionButton.setOpaque(false);
 
         // Hành động khi nhấn nút "Start"
-        instructionButton.addActionListener(e -> startGame());
+        //instructionButton.addActionListener(e -> startGame());
 
         // Tạo nút "About Us"
         ImageIcon aboutUsIcon = new ImageIcon("data/AboutUsButton.png");
@@ -138,6 +154,8 @@ public class InforPage extends JFrame implements MouseListener {
         contentPane.add(aboutUsButton);
         contentPane.add(returnButton);
 
+        this.addMouseListener(this);
+
         // Tạo GamePanel nhưng ẩn ban đầu
         try {
             gamePanel = new GamePanel();
@@ -145,9 +163,49 @@ public class InforPage extends JFrame implements MouseListener {
         gamePanel.setVisible(false);
         add(gamePanel);
 
-        inputManager.addMouseListeners(musicButton, continueButton, newGameButton, instructionButton, aboutUsButton, returnButton);
+        //inputManager.addMouseListeners(musicButton, continueButton, newGameButton, instructionButton, aboutUsButton, returnButton);
 
         setVisible(true);
+    }
+
+    public boolean getDrawMainBackground() {
+        return drawMainBackground;
+    }
+
+    public void setDrawMainBackground(boolean drawMainBackground) {
+        this.drawMainBackground = drawMainBackground;
+    }
+
+    public boolean getDrawInstructionBackground() {
+        return drawInstructionBackground;
+    }
+
+    public void setDrawInstructionBackground(boolean drawInstructionBackground) {
+        this.drawInstructionBackground = drawInstructionBackground;
+    }
+
+    public Image getMainBackground() {
+        return mainBackground;
+    }
+
+    public void setMainBackground(Image mainBackground) {
+        this.mainBackground = mainBackground;
+    }
+
+    public Image getInstructionBackground() {
+        return instructionBackground;
+    }
+
+    public void setInstructionBackground(Image instructionBackground) {
+        this.instructionBackground = instructionBackground;
+    }
+
+    public Image getSelectLevelBackground() {
+        return selectLevelBackground;
+    }
+
+    public void setSelectLevelBackground(Image selectLevelBackground) {
+        this.selectLevelBackground = selectLevelBackground;
     }
 
     // Hàm bắt đầu game
@@ -159,8 +217,7 @@ public class InforPage extends JFrame implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+        inputManager.processMouseClicked(e);
     }
 
     @Override
