@@ -85,18 +85,4 @@ public class InputManager {
 
     }
 
-    // public void addMouseListeners(JButton musicButton, JButton continueButton, JButton newGameButton, JButton instructionButton, JButton aboutUsButton, JButton returnButton){
-
-    //     instructionButton.addMouseListener(new MouseAdapter() {
-            
-    //         public void mouseClicked(MouseEvent e){
-    //             Graphics2D g2 = (Graphics2D) inforPage.getInstructionBackground().getGraphics();
-    //             g2.drawImage(inforPage.getInstructionBackground(), 0, 0, null);
-                
-    //         }
-
-    //     });
-
-    // }
-
 }
