@@ -55,7 +55,7 @@ public abstract class GameObject {
     public abstract void render(Graphics2D g2);
 
     // Phương thức để cập nhật trạng thái của đối tượng (Cần được override trong lớp con)
-    public abstract void update();
+    // public abstract void update();
 
     // Phương thức kiểm tra va chạm (Dùng cho Object Dino và Item)
     public boolean isColliding(GameObject other) {

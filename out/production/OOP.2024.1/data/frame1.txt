@@ -1,0 +1,223 @@
+28
+
+run1
+image data/Run_fix_1.png
+x 0
+y 0
+w 150
+h 140
+
+run2
+image data/Run_fix_2.png
+x 0
+y 0
+w 150
+h 140
+
+run3
+image data/Run_fix_3.png
+x 0
+y 0
+w 145
+h 130
+
+run4
+image data/Run_fix_4.png
+x 0
+y 0
+w 150
+h 150
+
+run5
+image data/Run_fix_5.png
+x 0
+y 0
+w 150
+h 140
+
+run6
+image data/Run_fix_6.png
+x 0
+y 0
+w 150
+h 150
+
+run7
+image data/Run_fix_7.png
+x 0
+y 0
+w 150
+h 140
+
+run8
+image data/Run_fix_8.png
+x 0
+y 0
+w 150
+h 150
+
+run9
+image data/Run_fix_1.png
+x 0
+y 0
+w 150
+h 140
+
+
+
+
+
+flyingup1
+image data/Jump_fix_8.png
+x 10
+y 20
+w 140
+h 120
+
+flyingup2
+image data/Jump_fix_9.png
+x 20
+y 20
+w 130
+h 120
+
+flyingup3
+image data/Jump_fix_10.png
+x 20
+y 20
+w 130
+h 130
+
+flyingup4
+image data/Jump_fix_11.png
+x 0
+y 0
+w 150
+h 140
+
+flyingup5
+image data/Jump_fix_12.png
+x 0
+y 0
+w 140
+h 140
+
+flyingup6
+image data/Jump_fix_13.png
+x 0
+y 0
+w 150
+h 140
+
+flyingup7
+image data/Jump_fix_14.png
+x 0
+y 0
+w 150
+h 133
+
+flyingup8
+image data/Jump_fix_15.png
+x 0
+y 0
+w 150
+h 133
+
+flyingup9
+image data/Jump_fix_16.png
+x 0
+y 0
+w 140
+h 150
+
+
+
+
+
+landing1
+image data/Jump_fix_17.png
+x 0
+y 0
+w 140
+h 150
+
+landing2
+image data/Jump_fix_18.png
+x 10
+y 10
+w 130
+h 130
+
+landing3
+image data/Jump_fix_19.png
+x 0
+y 10
+w 120
+h 130
+
+
+
+
+
+
+hurting1
+image data/Dead_fix_1.png
+x 10
+y 20
+w 130
+h 120
+
+hurting2
+image data/Dead_fix_2.png
+x 20
+y 30
+w 140
+h 120
+
+hurting3
+image data/Dead_fix_3.png
+x 30
+y 44
+w 150
+h 106
+
+hurting4
+image data/Dead_fix_4.png
+x 40
+y 60
+w 160
+h 80
+
+hurting5
+image data/Dead_fix_5.png
+x 30
+y 67
+w 180
+h 73
+
+hurting6
+image data/Dead_fix_6.png
+x 30
+y 70
+w 180
+h 70
+
+hurting7
+image data/Dead_fix_7.png
+x 30
+y 70
+w 180
+h 70
+
+
+
+
+clim_wall
+image data/Jump_fix_16.png
+x 0
+y 0
+w 140
+h 150
+
+
+

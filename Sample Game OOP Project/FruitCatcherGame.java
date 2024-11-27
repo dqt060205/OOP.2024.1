@@ -20,7 +20,6 @@ public class FruitCatcherGame extends JPanel implements ActionListener {
         this.setFocusable(true);
         this.setBackground(Color.WHITE);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        
         // Khởi tạo đối tượng và biến
         player = new Player(screenWidth / 2, screenHeight - 50);
         fruits = new ArrayList<>();
@@ -51,7 +50,7 @@ public class FruitCatcherGame extends JPanel implements ActionListener {
             repaint();
         }
     }
-
+    
     private void spawnFruits() {
         // Tạo trái cây mới với tỷ lệ 3%
         if (random.nextInt(100) < 3) {  // 3% cơ hội tạo trái cây mỗi lần gọi

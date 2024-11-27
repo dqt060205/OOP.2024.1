@@ -110,7 +110,6 @@ public class Dinosaur extends GameObject {
         g2.drawRect(posX, posY, width, height);  // Vẽ hình chữ nhật bao quanh nhân vật
     }
 
-    @Override
     public void update() {
         long currentTime = System.nanoTime();
         if (currentTime - lastUpdateTime >= DELAY_TIME) {

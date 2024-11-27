@@ -1,6 +1,7 @@
 package com.group19.userinterface;
 
 import com.group19.gameobject.Dinosaur;
+import com.group19.gameobject.GameItem;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -17,9 +18,11 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private BufferedImage bufImage;
     private Graphics2D buf2D;
     private Dinosaur dino;
-
+    private GameItem grade;
+    
     public GamePanel() throws IOException{
         dino = new Dinosaur();
+        grade = new GameItem(3);
         inputManager = new InputManager(dino);
     }
 
@@ -27,39 +30,46 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         thread = new Thread(this);
         thread.start();
     }
+    private void updateGame() {
+        grade.update(dino);
+        dino.update();  // Cập nhật Dino
+        dino.run();     // Cập nhật hoạt ảnh Dino
+    }
 
     @Override
     public void run() {
         long previousTime = System.nanoTime();
         long currentTime;
-        long sleepTime;
-        long period = 1000000000/80;
-
-        while(isRunning){
-            //Update, render and repaint
-
+        long accumulatedTime = 0; // Tích lũy thời gian
+        long period = 1000000000 / 80; // 80 FPS (chu kỳ mỗi khung hình)
+    
+        while (isRunning) {
+            // Lấy thời gian hiện tại
             currentTime = System.nanoTime();
-            sleepTime = period - (currentTime - previousTime);
-
-            dino.update();
-            dino.run();
-
-            repaint();
-
-            try {
-                if(sleepTime > 0){
-                    Thread.sleep(sleepTime/1000000);
-                }
-                else{
-                    Thread.sleep(sleepTime/2000000);
-                }
+            long elapsedTime = currentTime - previousTime;
+            previousTime = currentTime;
+    
+            // Tích lũy thời gian trôi qua
+            accumulatedTime += elapsedTime;
+    
+            // Cập nhật logic theo từng khung
+            while (accumulatedTime >= period) {
+                updateGame(); // Cập nhật game theo từng bước thời gian
+                accumulatedTime -= period; // Giảm thời gian đã sử dụng
             }
-            catch(Exception e){
+    
+            // Vẽ nội dung (được điều khiển bởi tốc độ logic)
+            repaint();
+    
+            // Ngủ để duy trì FPS
+            long sleepTime = period - accumulatedTime;
+            try {
+                if (sleepTime > 0) {
+                    Thread.sleep(sleepTime / 1000000);
+                }
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-            previousTime = System.nanoTime();
-
         }
     }
 
@@ -84,5 +94,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         dino.render(g2);
+        grade.render(g2);
     }
 }

@@ -4,11 +4,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.IOException;
 import javax.swing.JFrame;
-//jujgyfytviguf
+
 public class GameFrame extends JFrame {
 
     public static final int SCREEN_WIDTH = 1400;
     public static final int SCREEN_HEIGHT = 800;
+
 
     GamePanel gamePanel;
 

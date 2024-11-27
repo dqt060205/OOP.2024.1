@@ -17,16 +17,16 @@ class GameLevel {
         this.isUnlocked = isUnlocked;
     }
     // Kiểm tra đủ điều kiện qua màn chưa
-    public boolean hasWon() {
-        return Dinosaur.score >= minimumScore;
+    public boolean hasWon(Dinosaur dinosaur) {
+        return dinosaur.getLives() >= minimumScore;
     }
     // Chưa có thuộc tính score trong Dinosaur. 
     public int getScore() {
         return Dinosaur.score;
     }
     // Chưa có thuộc tính lives trong Dinosaur
-    public int getLives() {
-        return Dinosaur.lives;
+    public int getLives(Dinosaur dinosaur) {
+        return dinosaur.getLives();
     }
     public int getMaximumScore() {
         return maximumScore;
@@ -36,8 +36,8 @@ class GameLevel {
         return this.isUnlocked;
     }
     //hàm kiểm tra xem màn này đã kết thúc chưa
-    public boolean isEnded() {
-        // code
+    public boolean isEnded(Dinosaur dinosaur) {
+        return this.hasWon() || dinosaur.getLives()== 0;
     }
 
     public void unlock() {

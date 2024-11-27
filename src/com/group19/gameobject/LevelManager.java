@@ -35,12 +35,14 @@ public class LevelManager {
                             level.isEnded = true;
                         }
                     }
+                    else {
+                        //Nếu không qua màn
+                    }
                     break;
                 }
             }
             int checkLevel = currentLevel;
             //code để chọn màn chơi muốn chơi tiếp theo (cập nhật currentLevel)
-            if (checkLevel == currentLevel) totalScore = 0;
         }
     }
     /*Thiết lập lại trò chơi về trạng thái ban đầu
