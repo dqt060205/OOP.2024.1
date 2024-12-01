@@ -11,7 +11,7 @@ public class GameItem extends Item {
     public GameItem(int value, long spawnTime) { // Constructor để gen mặc định toàn bộ thuộc tính (chỉ nhập vào value)
         super.setValue(value);
         super.randomPosition();
-        this.setWidth(100);
+        this.setWidth(100); 
         this.setHeight(100);
         this.setImage(value);
         setActive(true);
