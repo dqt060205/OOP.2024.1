@@ -18,11 +18,25 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private BufferedImage bufImage;
     private Graphics2D buf2D;
     private Dinosaur dino;
-    private GameItem grade;
+    private List<GameItem> grades;
     
     public GamePanel() throws IOException{
         dino = new Dinosaur();
-        grade = new GameItem(3);
+        //grade = new GameItem(3);
+        grades = new ArrayList<>();
+        
+        long currentTime = System.currentTimeMillis();
+        Random random = new Random();
+        
+        long spawnTime = currentTime;
+        for(int i = 0;i < 40; i++) {
+        	int value = new Random().nextInt(1,5);
+        	long delay = random.nextInt(1000) + 1500;
+        	spawnTime += delay;
+        	
+        	grades.add(new GameItem(value,spawnTime));
+        }
+        
         inputManager = new InputManager(dino);
     }
 
@@ -31,9 +45,35 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         thread.start();
     }
     private void updateGame() {
-        grade.update(dino);
+       try {
+    	long currentTime = System.currentTimeMillis();
+    	List<GameItem> itemsToRemove = new ArrayList<>();
+        for(GameItem grade : grades) {
+        	/*if(currentTime >= grade.getSpawnTime()) {
+        	  grade.update(dino);
+        	  if(grade.getPosY() > 800 || !grade.isActive()) {
+        		  itemsToRemove.add(grade);
+        	  }
+        	}  */
+        	if (currentTime >= grade.getSpawnTime()) {
+                if (grade.isActive()) {
+                    grade.update(dino);  // Cập nhật GameItem
+
+                    // Kiểm tra nếu GameItem đã rơi khỏi màn hình
+                    if (grade.getPosY() > 800) {
+                        itemsToRemove.add(grade);  // Đánh dấu để xóa
+                    }
+                } else {
+                    itemsToRemove.add(grade);  // Nếu không active thì cũng xóa
+                }
+            }
+        }
+        grades.removeAll(itemsToRemove);
         dino.update();  // Cập nhật Dino
-        dino.run();     // Cập nhật hoạt ảnh Dino
+        dino.run();  // Cập nhật hoạt ảnh Dino
+    	}catch(Exception e) {
+        	e.printStackTrace();
+        }
     }
 
     @Override
@@ -45,6 +85,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
         while (isRunning) {
             // Lấy thời gian hiện tại
+        	
             currentTime = System.nanoTime();
             long elapsedTime = currentTime - previousTime;
             previousTime = currentTime;
@@ -91,9 +132,15 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+       super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        
+        long currentTime = System.currentTimeMillis();
+        grades.sort(Comparator.comparingLong(GameItem :: getSpawnTime));
+        for(GameItem grade : grades) {
+        	if(currentTime >= grade.getSpawnTime())
+        	  grade.render(g2);
+        }
         dino.render(g2);
-        grade.render(g2);
     }
 }
