@@ -4,26 +4,21 @@ import java.awt.Graphics2D;
 
 public class GameItem extends Item {
 	
-	private long spawnTime;
     public GameItem() {
     }
     
-    public GameItem(int value, long spawnTime) { // Constructor để gen mặc định toàn bộ thuộc tính (chỉ nhập vào value)
+    public GameItem(int value) { // Constructor để gen mặc định toàn bộ thuộc tính (chỉ nhập vào value)
         super.setValue(value);
         super.randomPosition();
         this.setWidth(100);
         this.setHeight(100);
         this.setImage(value);
         setActive(true);
-        this.spawnTime = spawnTime;
+        //this.spawnTime = spawnTime;
     }
-    /*public GameItem(int value,int posX, int posY, int width, int height) {
+    public GameItem(int value,int posX, int posY, int width, int height) {
         super(value, posX, posY, width, height);
         setActive(true);
-    }
-    
-    public long getSpawnTime() {
-    	return spawnTime;
     }
     
     public void setImage(int value) {   // Set ảnh cho các grades theo value
@@ -43,15 +38,18 @@ public class GameItem extends Item {
             case 4 -> {
                 super.setImage("data/GradeA.png");
             }
-            /*case 5 -> { //Item bao ve
-                super.setImage(imagePath:"");
+            //Item bao ve
+            case 5 -> {
+                super.setImage("data/Buff_shield.png");
             }
-            case 6 -> { //Item x2 diem
-                super.setImage(imagePath:"");
+            //Item x2 diem
+            case 6 -> {
+                super.setImage("data/Buff_x2.png");
             }
-            case 7 -> { //Item giam toc do roi diem
-                super.setImage(imagePath:""); 
-            } */
+            //Item giam toc do roi diem
+            case 7 -> {
+                super.setImage("data/Buff_slowdown.png");
+            }
         }
     }
     @Override
@@ -63,9 +61,9 @@ public class GameItem extends Item {
     }
     @Override
     public void update (Dinosaur dinosaur) {
-        this.updateSpeed();
+        //this.updateSpeed();
         long currentTime = System.currentTimeMillis();
-        if(currentTime >= spawnTime) {
+        //if(currentTime >= spawnTime) {
         	this.updateSpeed();
         	if(this.posY <= 800) {
         		this.falling(this.getSpeed());
@@ -76,7 +74,7 @@ public class GameItem extends Item {
                 this.setActive(false);  // Vô hiệu hóa GameItem nếu đã ăn
             }
         	
-        }
+        //}
         
         super.update(dinosaur);
     }

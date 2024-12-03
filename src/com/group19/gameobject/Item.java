@@ -13,7 +13,7 @@ public abstract class Item extends GameObject {
     private Image image;
     private Random random;
     protected boolean isActive;
-    private int spawnTime;      
+    protected long spawnTime;      
     public Item(){
         
     }
@@ -42,7 +42,7 @@ public abstract class Item extends GameObject {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-    public int getSpawnTime() {
+    public long  getSpawnTime() {
         return this.spawnTime;
     }
     public void setSpawnTime(int spwanTime) {

@@ -1,16 +1,13 @@
 package com.group19.userinterface;
 
 import com.group19.gameobject.Dinosaur;
-import com.group19.gameobject.Level;
+import com.group19.gameobject.LevelManager;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements KeyListener, Runnable {
@@ -21,13 +18,14 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private BufferedImage bufImage;
     private Graphics2D buf2D;
     private Dinosaur dino;
-    private Level level;
-    
+    //private Level level;
+    private LevelManager levelManager;
     public GamePanel() throws IOException{
         dino = new Dinosaur();
         inputManager = new InputManager(dino);
-        List<Integer> MyList = new ArrayList<>(Arrays.asList(0,3,4,1,2,3));
-        level = new Level(MyList);
+        levelManager = new LevelManager("data/itemslist.text");
+        //List<Integer> MyList = new ArrayList<>(Arrays.asList(0,3,4,1,2,3,6,7,5,7));
+        //level = new Level(MyList);
     }
 
     public void startGame(){
@@ -38,7 +36,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         //grade.update(dino);
         dino.update();  // Cập nhật Dino
         dino.run();     // Cập nhật hoạt ảnh Dino */
-        level.update(dino);
+        levelManager.getCurrentLevel().update(dino);
     }
 
     @Override
@@ -99,14 +97,14 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         
-        long currentTime = System.currentTimeMillis();
+        /*long currentTime = System.currentTimeMillis();
         grades.sort(Comparator.comparingLong(GameItem :: getSpawnTime));
         for(GameItem grade : grades) {
         	if(currentTime >= grade.getSpawnTime())
         	  grade.render(g2);
-        }
+        }*/
         dino.render(g2);
         //grade.render(g2);
-        level.render(g2);
+        levelManager.getCurrentLevel().render(g2);
     }
 }

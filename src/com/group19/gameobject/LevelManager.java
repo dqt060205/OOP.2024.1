@@ -1,65 +1,72 @@
 package com.group19.gameobject;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class LevelManager {
-    private List<LevelState> levels; // Danh sách trạng thái màn chơi
-    private int currentLevel;        // Level hiện tại người chơi đang chơi
+    private List<Level> levels;       // Danh sách các màn chơi
+    private boolean[] unlockedLevels; // Trạng thái mở khóa của từng màn chơi
+    private int currentLevelIndex;    // Chỉ số của màn chơi hiện tại
 
-    public LevelManager(int totalLevels) {
+    public LevelManager(String filePath) throws IOException {
         levels = new ArrayList<>();
-        for (int i = 0; i < totalLevels; i++) {
-            levels.add(LevelState.LOCKED); // Mặc định tất cả các màn chơi bị khóa
-        }
-        levels.set(0, LevelState.UNLOCKED); // Mở khóa màn đầu tiên
-        currentLevel = 0;
+        loadLevelsFromFile(filePath); // Đọc dữ liệu từ file
+        unlockedLevels = new boolean[levels.size()];
+        unlockedLevels[0] = true; // Mở khóa màn đầu tiên
+        currentLevelIndex = 0;    // Bắt đầu từ màn đầu tiên
     }
 
-    public boolean isLevelUnlocked(int level) {
-        return levels.get(level) != LevelState.LOCKED;
-    }
-
-    public boolean isLevelCompleted(int level) {
-        return levels.get(level) == LevelState.COMPLETED;
-    }
-
-    public void completeCurrentLevel() {
-        levels.set(currentLevel, LevelState.COMPLETED); // Đánh dấu hoàn thành
-        if (currentLevel + 1 < levels.size()) {
-            levels.set(currentLevel + 1, LevelState.UNLOCKED); // Mở khóa màn tiếp theo
-        }
-    }
-
-    public void retryCurrentLevel() {
-        levels.set(currentLevel, LevelState.UNLOCKED); // Cho phép chơi lại màn hiện tại
-    }
-
-    public void setCurrentLevel(int level) {
-        if (isLevelUnlocked(level)) {
-            currentLevel = level;
-        } else {
-            throw new IllegalArgumentException("Màn chơi này chưa được mở khóa!");
+    // Đọc dữ liệu từ file text
+    private void loadLevelsFromFile(String filePath) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                List<Integer> itemTypes = new ArrayList<>();
+                String[] tokens = line.split(" ");
+                for (String token : tokens) {
+                    itemTypes.add(Integer.parseInt(token)); // Chuyển đổi từ chuỗi sang số
+                }
+                levels.add(new Level(itemTypes)); // Tạo màn chơi
+            }
         }
     }
 
-    public int getCurrentLevel() {
-        return currentLevel;
+    // Lấy màn chơi hiện tại
+    public Level getCurrentLevel() {
+        return levels.get(currentLevelIndex);
     }
 
+    // Kiểm tra màn chơi có được mở khóa không
+    public boolean isLevelUnlocked(int index) {
+        return index >= 0 && index < unlockedLevels.length && unlockedLevels[index];
+    }
+
+    // Chuyển đến màn chơi mới
+    public boolean switchToLevel(int index) {
+        if (isLevelUnlocked(index)) {
+            currentLevelIndex = index;
+            return true;
+        }
+        return false;
+    }
+
+    // Mở khóa màn chơi tiếp theo (nếu có)
+    public void unlockNextLevel() {
+        if (currentLevelIndex + 1 < levels.size()) {
+            unlockedLevels[currentLevelIndex + 1] = true;
+        }
+    }
+
+    // Lấy chỉ số màn chơi hiện tại
+    public int getCurrentLevelIndex() {
+        return currentLevelIndex;
+    }
+
+    // Lấy số lượng màn chơi
     public int getTotalLevels() {
         return levels.size();
-    }
-
-    public List<LevelState> getLevelStates() {
-        return levels;
-    }
-
-    // Enum để biểu diễn trạng thái của level
-    public enum LevelState {
-        LOCKED,
-        UNLOCKED,
-        COMPLETED
     }
 }
 /* 

@@ -36,5 +36,4 @@ public class GameFrame extends JFrame {
         GameFrame gameFrame = new GameFrame();
         gameFrame.startGame();
     }
-
 }
