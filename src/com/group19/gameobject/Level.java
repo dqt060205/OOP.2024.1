@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+//sao up len roi ma khong thay nhi
 
 public class Level {
     private List<Item> items; // Danh sách các Item trong màn chơi
