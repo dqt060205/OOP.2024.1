@@ -50,6 +50,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
         while (isRunning) {
             // Lấy thời gian hiện tại
+        	
             currentTime = System.nanoTime();
             long elapsedTime = currentTime - previousTime;
             previousTime = currentTime;
@@ -95,8 +96,15 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     }
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+       super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        
+        long currentTime = System.currentTimeMillis();
+        grades.sort(Comparator.comparingLong(GameItem :: getSpawnTime));
+        for(GameItem grade : grades) {
+        	if(currentTime >= grade.getSpawnTime())
+        	  grade.render(g2);
+        }
         dino.render(g2);
         //grade.render(g2);
         level.render(g2);
