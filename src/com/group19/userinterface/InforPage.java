@@ -3,7 +3,6 @@ package com.group19.userinterface;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.*;
 
 public class InforPage extends JFrame implements MouseListener {

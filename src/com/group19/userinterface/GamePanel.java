@@ -1,13 +1,16 @@
 package com.group19.userinterface;
 
 import com.group19.gameobject.Dinosaur;
-import com.group19.gameobject.GameItem;
+import com.group19.gameobject.Level;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements KeyListener, Runnable {
@@ -18,12 +21,13 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private BufferedImage bufImage;
     private Graphics2D buf2D;
     private Dinosaur dino;
-    private GameItem grade;
+    private Level level;
     
     public GamePanel() throws IOException{
         dino = new Dinosaur();
-        grade = new GameItem(3);
         inputManager = new InputManager(dino);
+        List<Integer> MyList = new ArrayList<>(Arrays.asList(0,3,4,1,2,3));
+        level = new Level(MyList);
     }
 
     public void startGame(){
@@ -31,9 +35,10 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         thread.start();
     }
     private void updateGame() {
-        grade.update(dino);
+        //grade.update(dino);
         dino.update();  // Cập nhật Dino
-        dino.run();     // Cập nhật hoạt ảnh Dino
+        dino.run();     // Cập nhật hoạt ảnh Dino */
+        level.update(dino);
     }
 
     @Override
@@ -88,12 +93,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     public void keyReleased(KeyEvent e) {
         inputManager.processKeyReleased(e.getKeyCode());
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         dino.render(g2);
-        grade.render(g2);
+        //grade.render(g2);
+        level.render(g2);
     }
 }

@@ -14,10 +14,10 @@ public class GameItem extends Item {
         this.setImage(value);
         setActive(true);
     }
-    public GameItem(int value,int posX, int posY, int width, int height) {
+    /*public GameItem(int value,int posX, int posY, int width, int height) {
         super(value, posX, posY, width, height);
         setActive(true);
-    }
+    }*/
     public void setImage(int value) {   // Set ảnh cho các grades theo value
         switch (value) {
             case 0 ->  {
@@ -66,4 +66,11 @@ public class GameItem extends Item {
     public void render(Graphics2D g2) {        // Đã render (draw) hình ảnh là ảnh của điểm trong folder data
         if (this.isActive() == true)  g2.drawImage(this.getImage(), posX, posY, null);
     }
+    public void remove() {
+        this.isActive = false;
+    }
+    public boolean isOutOfScreen() {
+        return this.height > 800; // Biến mất nếu rơi ra khỏi màn hình
+    }
+
 }

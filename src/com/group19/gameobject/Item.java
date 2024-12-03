@@ -12,7 +12,8 @@ public abstract class Item extends GameObject {
     protected int speed;      // Tốc độ rơi: Chưa xử lí
     private Image image;
     private Random random;
-    private boolean isActive;
+    protected boolean isActive;
+    private int spawnTime;      
     public Item(){
         
     }
@@ -21,12 +22,12 @@ public abstract class Item extends GameObject {
         this.value = value;
         this.random = new Random();
     }
-    public Item(Image image, int value, int posX, int posY, int width, int height) {
+    /*public Item(Image image, int value, int posX, int posY, int width, int height) {
         super(posX, posY, 100, 100); // Chiều dài = chiều rộng = 100 px
         this.value = value;
         this.image = image;
         this.random = new Random();
-    }
+    }*/
 
     public int getValue() {
         return this.value;
@@ -40,6 +41,12 @@ public abstract class Item extends GameObject {
     }
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+    public int getSpawnTime() {
+        return this.spawnTime;
+    }
+    public void setSpawnTime(int spwanTime) {
+        this.spawnTime = spwanTime;
     }
     public void setImage(String imagePath) {
         try {
@@ -59,6 +66,7 @@ public abstract class Item extends GameObject {
         //setPosY(new Random().nextInt(100, 700));
         setPosY(0);
     }
+ 
     public abstract void updateSpeed();
     public void falling(int speed) {
         this.posY += speed; // Tạm thời, khi có speed thì sửa lại
