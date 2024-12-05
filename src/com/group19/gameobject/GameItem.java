@@ -1,6 +1,7 @@
 package com.group19.gameobject;
 
 import java.awt.Graphics2D;
+import java.util.Comparator;
 
 public class GameItem extends Item {
 	
@@ -21,6 +22,11 @@ public class GameItem extends Item {
         setActive(true);
     }
     
+    @Override
+    public int getSpawnTime() {
+    	return getSpawnTime();
+    }
+    
     public void setImage(int value) {   // Set ảnh cho các grades theo value
         switch (value) {
             case 0 ->  {
@@ -38,18 +44,15 @@ public class GameItem extends Item {
             case 4 -> {
                 super.setImage("data/GradeA.png");
             }
-            //Item bao ve
-            case 5 -> {
+            case 5 -> { //Item bao ve
                 super.setImage("data/Buff_shield.png");
             }
-            //Item x2 diem
-            case 6 -> {
+            case 6 -> { //Item x2 diem
                 super.setImage("data/Buff_x2.png");
             }
-            //Item giam toc do roi diem
-            case 7 -> {
-                super.setImage("data/Buff_slowdown.png");
-            }
+            case 7 -> { //Item giam toc do roi diem
+                super.setImage("data/Buff_slowdown.png"); 
+            } 
         }
     }
     @Override
@@ -86,10 +89,14 @@ public class GameItem extends Item {
                this.posY + this.getHeight() > dinosaur.getPosY();
     }
     
-    @Override
     public void render(Graphics2D g2) {        // Đã render (draw) hình ảnh là ảnh của điểm trong folder data
         if (this.isActive() == true)  g2.drawImage(this.getImage(), posX, posY, null);
         //this.setActive(true);
+    }
+
+    public static void sort(Comparator<GameItem> comparingLong) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sort'");
     }
 }
 
