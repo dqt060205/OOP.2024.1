@@ -1,50 +1,33 @@
 package com.group19.userinterface;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.io.IOException;
 import javax.swing.*;
 
-public class InforPage extends JFrame implements MouseListener {
+public class inforPage extends JFrame {
     private final JPanel contentPane;
-    private GamePanel gamePanel;
-    private InputManager inputManager;
     private Image mainBackground;
-    private Image instructionBackground;
-    private Image selectLevelBackground;
-    protected ImageIcon instructionIcon;
-    private boolean drawInstructionBackground;
     private boolean drawMainBackground;
 
-    public InforPage(){
+    public inforPage() {
         setTitle("Hust Adventure");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1400, 800);
         setLocationRelativeTo(null);
-        drawInstructionBackground = false;
+
         drawMainBackground = true;
 
-        ImageIcon instructionBackgroundIcon = new ImageIcon("data/InstructionBackground.png");
-        instructionBackground = instructionBackgroundIcon.getImage();
-
-        ImageIcon selectLevelBackgroundIcon = new ImageIcon("data/SelectLevelBackground.png");
-        selectLevelBackground = selectLevelBackgroundIcon.getImage();
-
-        ImageIcon mainBackgroundIcon = new ImageIcon("data/MenuBackground.png"); // Đường dẫn tới ảnh nền
+        // Load hình nền chính
+        ImageIcon mainBackgroundIcon = new ImageIcon("data/MenuBackground.png");
         mainBackground = mainBackgroundIcon.getImage();
 
-
-        // Tạo contentPane với hình nền
+        // Tạo contentPane
         contentPane = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                
-                if(drawMainBackground){
+                if (drawMainBackground) {
                     g.drawImage(mainBackground, 0, 0, getWidth(), getHeight(), this);
-                }
-                else if(drawInstructionBackground){
-                    g.drawImage(instructionBackground, 0, 0, getWidth(), getHeight(), this);
                 }
             }
         };
@@ -52,96 +35,30 @@ public class InforPage extends JFrame implements MouseListener {
         contentPane.setLayout(null);
         setContentPane(contentPane);
 
-        try{
-            inputManager = new InputManager(this);
-        } catch (Exception e) {}
+        setupButtons();
 
-        // Thêm văn bản giới thiệu
-        // JLabel label = new JLabel("Welcome to Hust Adventure!");
-        // label.setFont(new Font("ComicGeckoPro", Font.BOLD, 40));
-        // label.setForeground(Color.BLACK);
-        // label.setBounds(450, 60, 600, 70);
-        // contentPane.add(label);
+        setVisible(true);
+    }
 
-        //Tạo nút "Setting"
-        ImageIcon settingIcon = new ImageIcon("data/SettingButton.png");
-        JButton settingButton = new JButton(settingIcon);
-        settingButton.setBounds(12, 12, settingIcon.getIconWidth(), settingIcon.getIconHeight());
-        settingButton.setBorderPainted(false);
-        settingButton.setContentAreaFilled(false);
-        settingButton.setFocusPainted(false);
-        settingButton.setOpaque(false);
+    private void setupButtons() {
+        // Tạo các nút với các vị trí và kích thước
+        JButton settingButton = createButton("data/SettingButton.png", 12, 12);
+        JButton musicButton = createButton("data/MusicButton.png", 1120, 12);
+        JButton noticeButton = createButton("data/NoticeButton.png", 1270, 12);
+        JButton continueButton = createButton("data/ContinueButton.png", 570, 325);
+        JButton newGameButton = createButton("data/NewGameButton.png", 570, 445);
+        JButton instructionButton = createButton("data/InstructionButton.png", 570, 565);
+        JButton aboutUsButton = createButton("data/AboutUsButton.png", 570, 685);
+        JButton returnButton = createButton("data/ReturnButton.png", 12, 12);
 
-        //Tạo nút "Music"
-        ImageIcon musicIcon = new ImageIcon("data/MusicButton.png");
-        JButton musicButton = new JButton(musicIcon);
-        musicButton.setBounds(1120, 12, musicIcon.getIconWidth(), musicIcon.getIconHeight());
-        musicButton.setBorderPainted(false);
-        musicButton.setContentAreaFilled(false);
-        musicButton.setFocusPainted(false);
-        musicButton.setOpaque(false);
-
-        //Tạo nút "Notice"
-        ImageIcon noticeIcon = new ImageIcon("data/NoticeButton.png");
-        JButton noticeButton = new JButton(noticeIcon);
-        noticeButton.setBounds(1270, 12, noticeIcon.getIconWidth(), noticeIcon.getIconHeight());
-        noticeButton.setBorderPainted(false);
-        noticeButton.setContentAreaFilled(false);
-        noticeButton.setFocusPainted(false);
-        noticeButton.setOpaque(false);
-        
-
-        // Tạo nút "Continue"
-        ImageIcon continueIcon = new ImageIcon("data/ContinueButton.png");
-        JButton continueButton = new JButton(continueIcon);
-        continueButton.setBounds(570, 325, continueIcon.getIconWidth(), continueIcon.getIconHeight());
-        continueButton.setBorderPainted(false);
-        continueButton.setContentAreaFilled(false);
-        continueButton.setFocusPainted(false);
-        continueButton.setOpaque(false);
-
-        // Tạo nút "New Game"
-        ImageIcon newGameIcon = new ImageIcon("data/NewGameButton.png");
-        JButton newGameButton = new JButton(newGameIcon);
-        newGameButton.setBounds(570, 445, newGameIcon.getIconWidth(), newGameIcon.getIconHeight());
-        newGameButton.setBorderPainted(false);
-        newGameButton.setContentAreaFilled(false);
-        newGameButton.setFocusPainted(false);
-        newGameButton.setOpaque(false);
-
-        // Hành động khi nhấn nút "Information"
-        //newGameButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "Thông tin về trò chơi!"));
-
-        // Tạo nút "Instruction"
-        instructionIcon = new ImageIcon("data/InstructionButton.png");
-        JButton instructionButton = new JButton(instructionIcon);
-        instructionButton.setBounds(570, 565, instructionIcon.getIconWidth(), instructionIcon.getIconHeight());
-        instructionButton.setBorderPainted(false);
-        instructionButton.setContentAreaFilled(false);
-        instructionButton.setFocusPainted(false);
-        instructionButton.setOpaque(false);
-
-        // Hành động khi nhấn nút "Start"
-        //instructionButton.addActionListener(e -> startGame());
-
-        // Tạo nút "About Us"
-        ImageIcon aboutUsIcon = new ImageIcon("data/AboutUsButton.png");
-        JButton aboutUsButton = new JButton(aboutUsIcon);
-        aboutUsButton.setBounds(570, 685, aboutUsIcon.getIconWidth(), aboutUsIcon.getIconHeight());
-        aboutUsButton.setBorderPainted(false);
-        aboutUsButton.setContentAreaFilled(false);
-        aboutUsButton.setFocusPainted(false);
-        aboutUsButton.setOpaque(false);
-
-        // Tạo nút "Return"
-        ImageIcon returnIcon = new ImageIcon("data/ReturnButton.png");
-        JButton returnButton = new JButton(returnIcon);
-        returnButton.setBounds(12, 12, returnIcon.getIconWidth(), returnIcon.getIconHeight());
-        returnButton.setBorderPainted(false);
-        returnButton.setContentAreaFilled(false);
-        returnButton.setFocusPainted(false);
-        returnButton.setOpaque(false);
+        // Đặt nút "Return" ẩn ban đầu
         returnButton.setVisible(false);
+
+        // Hành động cho nút "Instruction"
+        instructionButton.addActionListener(e -> openInstructionDialog());
+
+        // Hành động cho nút "New Game"
+        newGameButton.addActionListener(e -> startNewGame());
 
         // Thêm nút vào contentPane
         contentPane.add(settingButton);
@@ -152,99 +69,54 @@ public class InforPage extends JFrame implements MouseListener {
         contentPane.add(instructionButton);
         contentPane.add(aboutUsButton);
         contentPane.add(returnButton);
+    }
 
-        this.addMouseListener(this);
+    private JButton createButton(String iconPath, int x, int y) {
+        ImageIcon icon = new ImageIcon(iconPath);
+        JButton button = new JButton(icon);
+        button.setBounds(x, y, icon.getIconWidth(), icon.getIconHeight());
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setOpaque(false);
+        return button;
+    }
 
-        // Tạo GamePanel nhưng ẩn ban đầu
+    private void openInstructionDialog() {
+        // Tạo cửa sổ hướng dẫn
+        JDialog instructionDialog = new JDialog(this, "Instructions", true);
+        instructionDialog.setSize(1200, 800);
+        instructionDialog.setLocationRelativeTo(this);
+
+        // Load hình nền
+        ImageIcon instructionBackgroundIcon = new ImageIcon("C:\\Users\\LAPTOP PC\\Desktop\\BTL OOP\\OOP.2024.1\\data\\InstructionBackground.png");
+        JLabel instructionBackgroundLabel = new JLabel(instructionBackgroundIcon);
+
+        // Đặt kích thước cho hình nền
+        instructionBackgroundLabel.setBounds(0, 0, 1200, 800);
+
+        // Tạo panel và thêm hình nền vào
+        JPanel instructionPanel = new JPanel(null);
+        instructionPanel.add(instructionBackgroundLabel);
+
+        instructionDialog.setContentPane(instructionPanel);
+        instructionDialog.setVisible(true);
+    }
+
+    private void startNewGame() {
+        // Ẩn cửa sổ hiện tại (InforPage)
+        this.setVisible(false);
+
+        // Mở GameFrame
         try {
-            gamePanel = new GamePanel();
-        } catch(Exception e) {}
-        gamePanel.setVisible(false);
-        add(gamePanel);
-
-        //inputManager.addMouseListeners(musicButton, continueButton, newGameButton, instructionButton, aboutUsButton, returnButton);
-
-        setVisible(true);
-    }
-
-    public boolean getDrawMainBackground() {
-        return drawMainBackground;
-    }
-
-    public void setDrawMainBackground(boolean drawMainBackground) {
-        this.drawMainBackground = drawMainBackground;
-    }
-
-    public boolean getDrawInstructionBackground() {
-        return drawInstructionBackground;
-    }
-
-    public void setDrawInstructionBackground(boolean drawInstructionBackground) {
-        this.drawInstructionBackground = drawInstructionBackground;
-    }
-
-    public Image getMainBackground() {
-        return mainBackground;
-    }
-
-    public void setMainBackground(Image mainBackground) {
-        this.mainBackground = mainBackground;
-    }
-
-    public Image getInstructionBackground() {
-        return instructionBackground;
-    }
-
-    public void setInstructionBackground(Image instructionBackground) {
-        this.instructionBackground = instructionBackground;
-    }
-
-    public Image getSelectLevelBackground() {
-        return selectLevelBackground;
-    }
-
-    public void setSelectLevelBackground(Image selectLevelBackground) {
-        this.selectLevelBackground = selectLevelBackground;
-    }
-
-    // Hàm bắt đầu game
-    private void startGame() {
-        contentPane.setVisible(false); // Ẩn giao diện chính
-        gamePanel.setVisible(true);   // Hiển thị GamePanel
-        gamePanel.startGame();        // Bắt đầu game
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        inputManager.processMouseClicked(e);
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+            GameFrame gameFrame = new GameFrame();
+            gameFrame.startGame();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new InforPage());
+        SwingUtilities.invokeLater(inforPage::new);
     }
-
 }
