@@ -5,11 +5,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
-
+//note
 public abstract class Item extends GameObject {
 
     private int value;      // Giá trị của Item
-    protected int speed;      // Tốc độ rơi: Chưa xử lí
+    protected double speed;      // Tốc độ rơi: Chưa xử lí
     private Image image;
     private Random random;
     protected boolean isActive;
@@ -36,10 +36,10 @@ public abstract class Item extends GameObject {
         this.value = value;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return this.speed;
     }
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
     public long  getSpawnTime() {
@@ -68,7 +68,7 @@ public abstract class Item extends GameObject {
     }
  
     public abstract void updateSpeed();
-    public void falling(int speed) {
+    public void falling(double speed) {
         this.posY += speed; // Tạm thời, khi có speed thì sửa lại
     };
     // @Override
