@@ -58,12 +58,10 @@ public class LevelManager {
             unlockedLevels[currentLevelIndex + 1] = true;
         }
     }
-
     // Lấy chỉ số màn chơi hiện tại
     public int getCurrentLevelIndex() {
         return currentLevelIndex;
     }
-
     // Lấy số lượng màn chơi
     public int getTotalLevels() {
         return levels.size();
