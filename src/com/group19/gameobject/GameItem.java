@@ -1,6 +1,7 @@
 package com.group19.gameobject;
 
 import java.awt.Graphics2D;
+import java.util.Comparator;
 
 public class GameItem extends Item {
 	
@@ -17,13 +18,14 @@ public class GameItem extends Item {
         setActive(true);
         this.spawnTime = spawnTime;
     }
-    /*public GameItem(int value,int posX, int posY, int width, int height) {
+    public GameItem(int value,int posX, int posY, int width, int height) {
         super(value, posX, posY, width, height);
         setActive(true);
     }
     
-    public long getSpawnTime() {
-    	return spawnTime;
+    @Override
+    public int getSpawnTime() {
+    	return getSpawnTime();
     }
     
     public void setImage(int value) {   // Set ảnh cho các grades theo value
@@ -43,15 +45,15 @@ public class GameItem extends Item {
             case 4 -> {
                 super.setImage("data/GradeA.png");
             }
-            /*case 5 -> { //Item bao ve
-                super.setImage(imagePath:"");
+            case 5 -> { //Item bao ve
+                super.setImage("data/Buff_shield.png");
             }
             case 6 -> { //Item x2 diem
-                super.setImage(imagePath:"");
+                super.setImage("data/Buff_x2.png");
             }
             case 7 -> { //Item giam toc do roi diem
-                super.setImage(imagePath:""); 
-            } */
+                super.setImage("data/Buff_slowdown.png"); 
+            } 
         }
     }
     @Override
@@ -88,10 +90,14 @@ public class GameItem extends Item {
                this.posY + this.getHeight() > dinosaur.getPosY();
     }
     
-    @Override
     public void render(Graphics2D g2) {        // Đã render (draw) hình ảnh là ảnh của điểm trong folder data
         if (this.isActive() == true)  g2.drawImage(this.getImage(), posX, posY, null);
         //this.setActive(true);
+    }
+
+    public static void sort(Comparator<GameItem> comparingLong) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sort'");
     }
 }
 
