@@ -1,7 +1,7 @@
 package com.group19.gameobject;
 
 import java.awt.Graphics2D;
-
+//note
 public class GameItem extends Item {
 	
 	//private long spawnTime;
