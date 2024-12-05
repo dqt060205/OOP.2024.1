@@ -5,17 +5,18 @@ import java.util.Comparator;
 
 public class GameItem extends Item {
 	
+	private long spawnTime;
     public GameItem() {
     }
     
-    public GameItem(int value) { // Constructor để gen mặc định toàn bộ thuộc tính (chỉ nhập vào value)
+    public GameItem(int value, long spawnTime) { // Constructor để gen mặc định toàn bộ thuộc tính (chỉ nhập vào value)
         super.setValue(value);
         super.randomPosition();
         this.setWidth(100);
         this.setHeight(100);
         this.setImage(value);
         setActive(true);
-        //this.spawnTime = spawnTime;
+        this.spawnTime = spawnTime;
     }
     public GameItem(int value,int posX, int posY, int width, int height) {
         super(value, posX, posY, width, height);
@@ -57,16 +58,17 @@ public class GameItem extends Item {
     }
     @Override
     public void updateSpeed() {
-        int baseSpeed = 2;
+        double baseSpeed = 0.2;
         int temp = this.getValue();
-        int speed = baseSpeed + temp;
+        double speed = baseSpeed + temp;
         this.setSpeed(speed); // Tốc độ rơi tuỳ thuộc vào giá trị điểm 
     }
+    
     @Override
     public void update (Dinosaur dinosaur) {
-        //this.updateSpeed();
+        this.updateSpeed();
         long currentTime = System.currentTimeMillis();
-        //if(currentTime >= spawnTime) {
+        if(currentTime >= spawnTime) {
         	this.updateSpeed();
         	if(this.posY <= 800) {
         		this.falling(this.getSpeed());
@@ -77,7 +79,7 @@ public class GameItem extends Item {
                 this.setActive(false);  // Vô hiệu hóa GameItem nếu đã ăn
             }
         	
-        //}
+        }
         
         super.update(dinosaur);
     }
