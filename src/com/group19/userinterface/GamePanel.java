@@ -1,6 +1,7 @@
 package com.group19.userinterface;
 
 import com.group19.gameobject.Dinosaur;
+import com.group19.gameobject.GameItem;
 import com.group19.gameobject.Level;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.JPanel;
 
@@ -100,7 +102,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         Graphics2D g2 = (Graphics2D) g;
         
         long currentTime = System.currentTimeMillis();
-        grades.sort(Comparator.comparingLong(GameItem :: getSpawnTime));
+        GameItem.sort(Comparator.comparingLong(GameItem :: getSpawnTime));
+        Iterable<GameItem> grades = null;
         for(GameItem grade : grades) {
         	if(currentTime >= grade.getSpawnTime())
         	  grade.render(g2);
