@@ -89,7 +89,7 @@ public class inforPage extends JFrame {
         instructionDialog.setLocationRelativeTo(this);
 
         // Load hình nền
-        ImageIcon instructionBackgroundIcon = new ImageIcon("C:\\Users\\LAPTOP PC\\Desktop\\BTL OOP\\OOP.2024.1\\data\\InstructionBackground.png");
+        ImageIcon instructionBackgroundIcon = new ImageIcon("data/InstructionBackground.png");
         JLabel instructionBackgroundLabel = new JLabel(instructionBackgroundIcon);
 
         // Đặt kích thước cho hình nền
