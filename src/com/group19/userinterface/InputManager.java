@@ -2,25 +2,20 @@ package com.group19.userinterface;
 
 import com.group19.gameobject.Dinosaur;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.awt.Graphics2D;
-
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class InputManager {
 
     private Dinosaur dino;
     private JPanel contentPane;
-    private InforPage inforPage;
+    private inforPage inforPage;
 
     public InputManager(Dinosaur dino) throws IOException {
         this.dino = dino;
     }
 
-    public InputManager(InforPage inforPage) throws IOException {
+    public InputManager(inforPage inforPage) throws IOException {
         this.inforPage = inforPage;
     }
 
@@ -72,7 +67,7 @@ public class InputManager {
 
     }
 
-    public void processMouseClicked(MouseEvent e){
+    /*public void processMouseClicked(MouseEvent e){
 
         int posXClicked = e.getX();
         int posYClicked = e.getY();
@@ -83,6 +78,6 @@ public class InputManager {
             contentPane.repaint();
         }
 
-    }
+    }*/
 
 }

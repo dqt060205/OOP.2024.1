@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public abstract class Item extends GameObject {
 
     private int value;      // Giá trị của Item
-    protected double speed;      // Tốc độ rơi: Chưa xử lí
+    protected double speed;      
     private Image image;
     private Random random;
     protected boolean isActive;

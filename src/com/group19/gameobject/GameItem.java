@@ -58,7 +58,13 @@ public class GameItem extends Item {
     @Override
     public void updateSpeed() {
         double baseSpeed = 0.2;
-        int temp = this.getValue();
+        double temp;
+        if (this.getValue() >= 5 || this.getValue() == 0) {
+            temp = 2.2;
+        }
+        else {
+            temp = ((double) this.getValue()) / 2 + 1;
+        }
         double speed = baseSpeed + temp;
         this.setSpeed(speed); // Tốc độ rơi tuỳ thuộc vào giá trị điểm 
     }
