@@ -1,13 +1,17 @@
 package com.group19.userinterface;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 public class inforPage extends JFrame {
     private final JPanel contentPane;
     private Image mainBackground;
     private boolean drawMainBackground;
+    private Clip backgroundMusicClip;
+    private boolean isMusicPlaying; // Biến kiểm tra trạng thái nhạc (đang phát hay không)
 
     public inforPage() {
         setTitle("Hust Adventure");
@@ -16,6 +20,7 @@ public class inforPage extends JFrame {
         setLocationRelativeTo(null);
 
         drawMainBackground = true;
+        isMusicPlaying = false; // Bắt đầu với trạng thái nhạc tắt
 
         // Load hình nền chính
         ImageIcon mainBackgroundIcon = new ImageIcon("data/MenuBackground.png");
@@ -62,6 +67,9 @@ public class inforPage extends JFrame {
 
         // Hành động cho nút "Continue"
         continueButton.addActionListener(e -> openLevelSelectionDialog());
+
+        // Hành động cho nút "Music"
+        musicButton.addActionListener(e -> toggleMusic());
 
         // Thêm nút vào contentPane
         contentPane.add(settingButton);
@@ -118,92 +126,68 @@ public class inforPage extends JFrame {
         instructionDialog.setVisible(true);
     }
 
-   private void openLevelSelectionDialog() {
-   
-        //Image selectLevelBackground;
+    private void openLevelSelectionDialog() {
         this.setVisible(false);
         // tạo hộp thoại
-    	JDialog selectLevelDialog = new JDialog(this, "Select Level", true);
-    	selectLevelDialog.setSize(1400, 800);
-    	selectLevelDialog.setLocationRelativeTo(this);
-    	// đẩy background lên
-    	ImageIcon selectLevelIcon = new ImageIcon("data/SelectLevelBackground.png");
-    	JLabel selectBackground = new JLabel(selectLevelIcon);
-    	selectBackground.setBounds(0, 0, 1400, 800);
-    	 
-    	JPanel selectLevelPanel = new JPanel(null);
-    	// tạo các nút
-    	JButton level1Button = createButton("data/Level1.png", 337, 207);
-    	JButton level2Button = createButton("data/Level2.png", 604, 207);
-    	JButton level3Button = createButton("data/Level3.png", 863, 207);
-    	JButton level4Button = createButton("data/Level4.png", 337, 440);
-    	JButton level5Button = createButton("data/Level5.png", 604, 440);
-    	JButton level6Button = createButton("data/Level6.png", 863, 440);
-    	
-    	level1Button.addActionListener(e -> {
-    		selectLevelDialog.dispose();
-    		startNewGame();
-    	});
-    	level2Button.addActionListener(e -> {
-    		selectLevelDialog.dispose();
-    		startNewGame();
-    	});
-    	level3Button.addActionListener(e -> {
-    		selectLevelDialog.dispose();
-    		startNewGame();
-    	});
-    	level4Button.addActionListener(e -> {
-    		selectLevelDialog.dispose();
-    		startNewGame();
-    	});
-    	level5Button.addActionListener(e -> {
-    		selectLevelDialog.dispose();
-    		startNewGame();
-    	});
-    	level6Button.addActionListener(e -> {
-    		selectLevelDialog.dispose();
-    		startNewGame();
-    	});
-    	
-    	
-    	selectLevelPanel.add(level1Button);
-    	selectLevelPanel.add(level2Button);
-    	selectLevelPanel.add(level3Button);
-    	selectLevelPanel.add(level4Button);
-    	selectLevelPanel.add(level5Button);
-    	selectLevelPanel.add(level6Button);
-    	
-    	selectLevelPanel.add(selectBackground);
-    	selectLevelDialog.setContentPane(selectLevelPanel);
-    	
-    	selectLevelDialog.setVisible(true);
-    	
-        /*int totalLevels = 6;  // Số lượng màn chơi (hoặc lấy từ LevelManager nếu có)
+        JDialog selectLevelDialog = new JDialog(this, "Select Level", true);
+        selectLevelDialog.setSize(1400, 800);
+        selectLevelDialog.setLocationRelativeTo(this);
+        // đẩy background lên
+        ImageIcon selectLevelIcon = new ImageIcon("data/SelectLevelBackground.png");
+        JLabel selectBackground = new JLabel(selectLevelIcon);
+        selectBackground.setBounds(0, 0, 1400, 800);
 
-        // Tạo dialog chọn màn chơi
-        LevelSelectionDialog dialog = new LevelSelectionDialog(this, totalLevels);
-        dialog.setVisible(true);
+        JPanel selectLevelPanel = new JPanel(null);
+        // tạo các nút
+        JButton level1Button = createButton("data/Level1.png", 337, 207);
+        JButton level2Button = createButton("data/Level2.png", 604, 207);
+        JButton level3Button = createButton("data/Level3.png", 863, 207);
+        JButton level4Button = createButton("data/Level4.png", 337, 440);
+        JButton level5Button = createButton("data/Level5.png", 604, 440);
+        JButton level6Button = createButton("data/Level6.png", 863, 440);
+        JButton ReturnButton = createButton("data/ReturnButton.png", 20, 20);
 
-        // Lấy màn chơi người dùng chọn
-        int selectedLevel = dialog.getSelectedLevel();
-        if (selectedLevel != -1) {
-            System.out.println("Selected Level: " + selectedLevel);
-            startGameAtLevel(selectedLevel); // Bắt đầu game ở màn chơi đã chọn
-        } else {
-            System.out.println("No level selected.");
-        }*/
-    	
-    }
+        ReturnButton.addActionListener(e ->{
+            selectLevelDialog.dispose();
+            this.setVisible(true);
+        });
 
-    private void startGameAtLevel(int selectedLevel) {
-        this.setVisible(false); // Ẩn cửa sổ chính
+        level1Button.addActionListener(e -> {
+            selectLevelDialog.dispose();
+            startNewGame();
+        });
+        level2Button.addActionListener(e -> {
+            selectLevelDialog.dispose();
+            startNewGame();
+        });
+        level3Button.addActionListener(e -> {
+            selectLevelDialog.dispose();
+            startNewGame();
+        });
+        level4Button.addActionListener(e -> {
+            selectLevelDialog.dispose();
+            startNewGame();
+        });
+        level5Button.addActionListener(e -> {
+            selectLevelDialog.dispose();
+            startNewGame();
+        });
+        level6Button.addActionListener(e -> {
+            selectLevelDialog.dispose();
+            startNewGame();
+        });
 
-        try {
-            GameFrame gameFrame = new GameFrame();
-            gameFrame.startGameAtLevel(selectedLevel); // Bắt đầu game tại màn chơi đã chọn
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        selectLevelPanel.add(level1Button);
+        selectLevelPanel.add(level2Button);
+        selectLevelPanel.add(level3Button);
+        selectLevelPanel.add(level4Button);
+        selectLevelPanel.add(level5Button);
+        selectLevelPanel.add(level6Button);
+        selectLevelPanel.add(ReturnButton);
+        selectLevelPanel.add(selectBackground);
+        selectLevelDialog.setContentPane(selectLevelPanel);
+
+        selectLevelDialog.setVisible(true);
     }
 
     private void startNewGame() {
@@ -215,6 +199,39 @@ public class inforPage extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void toggleMusic() {
+        if (isMusicPlaying) {
+            stopBackgroundMusic();
+        } else {
+            playBackgroundMusic();
+        }
+        isMusicPlaying = !isMusicPlaying; // Thay đổi trạng thái nhạc
+    }
+
+    private void playBackgroundMusic() {
+        try {
+            File musicFile = new File("data/music.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
+            backgroundMusicClip = AudioSystem.getClip();
+            backgroundMusicClip.open(audioStream);
+            backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);  // Phát nhạc liên tục
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void stopBackgroundMusic() {
+        if (backgroundMusicClip != null && backgroundMusicClip.isRunning()) {
+            backgroundMusicClip.stop();
+        }
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        stopBackgroundMusic(); // Dừng nhạc khi đóng cửa sổ
     }
 
     public static void main(String[] args) {
