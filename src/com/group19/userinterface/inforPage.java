@@ -60,6 +60,9 @@ public class inforPage extends JFrame {
         // Hành động cho nút "New Game"
         newGameButton.addActionListener(e -> startNewGame());
 
+        // Hành động cho nút "Continue"
+        continueButton.addActionListener(e -> openLevelSelectionDialog());
+
         // Thêm nút vào contentPane
         contentPane.add(settingButton);
         contentPane.add(musicButton);
@@ -87,63 +90,67 @@ public class inforPage extends JFrame {
         JDialog instructionDialog = new JDialog(this, "Instructions", true);
         instructionDialog.setSize(1200, 800);
         instructionDialog.setLocationRelativeTo(this);
-    
+
         // Tạo panel chính với layout null
         JPanel instructionPanel = new JPanel(null);
-    
+
         // Load hình nền
         ImageIcon instructionBackgroundIcon = new ImageIcon("data/InstructionBackground.png");
         JLabel instructionBackgroundLabel = new JLabel(instructionBackgroundIcon);
-    
+
         // Đặt kích thước cho hình nền
         instructionBackgroundLabel.setBounds(0, 0, 1200, 800);
         instructionPanel.add(instructionBackgroundLabel);
-    
+
         // Tạo nút "Return"
         JButton returnButton = createButton("data/ReturnButton.png", 20, 20);
         returnButton.addActionListener(e -> {
             instructionDialog.dispose(); // Đóng cửa sổ hướng dẫn
             this.setVisible(true); // Hiển thị lại cửa sổ chính
         });
-    
-        // Thêm nút "Return" vào panel và đặt nó lên trên cùng
+
         instructionPanel.add(returnButton);
-        instructionPanel.setComponentZOrder(returnButton, 0); // Đảm bảo nút nằm trên cùng
-    
+        instructionPanel.setComponentZOrder(returnButton, 0);
+
         // Đặt panel làm nội dung cho dialog
         instructionDialog.setContentPane(instructionPanel);
         instructionDialog.setVisible(true);
     }
 
     private void openLevelSelectionDialog() {
-        int totalLevels = 4; 
-    
+        int totalLevels = 4;  // Số lượng màn chơi (hoặc lấy từ LevelManager nếu có)
+
+        // Tạo dialog chọn màn chơi
         LevelSelectionDialog dialog = new LevelSelectionDialog(this, totalLevels);
         dialog.setVisible(true);
-    
+
+        // Lấy màn chơi người dùng chọn
         int selectedLevel = dialog.getSelectedLevel();
         if (selectedLevel != -1) {
             System.out.println("Selected Level: " + selectedLevel);
-            startGameAtLevel(selectedLevel);
-                    } else {
-                        System.out.println("No level selected.");
-                    }
-                }
-                
-            
-                private void startGameAtLevel(int selectedLevel) {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'startGameAtLevel'");
-                }
-            
-    private void startNewGame() {
-        // Ẩn cửa sổ hiện tại (InforPage)
-        this.setVisible(false);
+            startGameAtLevel(selectedLevel); // Bắt đầu game ở màn chơi đã chọn
+        } else {
+            System.out.println("No level selected.");
+        }
+    }
 
-        // Mở GameFrame
+    private void startGameAtLevel(int selectedLevel) {
+        this.setVisible(false); // Ẩn cửa sổ chính
+
         try {
             GameFrame gameFrame = new GameFrame();
-            gameFrame.startGame();
+            gameFrame.startGameAtLevel(selectedLevel); // Bắt đầu game tại màn chơi đã chọn
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startNewGame() {
+        this.setVisible(false); // Ẩn cửa sổ chính
+
+        try {
+            GameFrame gameFrame = new GameFrame();
+            gameFrame.startGameAtLevel(1); // Bắt đầu từ màn 1
         } catch (IOException e) {
             e.printStackTrace();
         }
