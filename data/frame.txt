@@ -1,5 +1,5 @@
 
-34
+44
 
 dead1 data/Dead_fix_1.png
 dead2 data/Dead_fix_2.png
@@ -41,3 +41,13 @@ run7 data/Run_fix_7.png
 run8 data/Run_fix_8.png
 
 
+timerbar1 data/Timer_bar_1.png
+timerbar2 data/Timer_bar_2.png
+timerbar3 data/Timer_bar_3.png
+timerbar4 data/Timer_bar_4.png
+timerbar5 data/Timer_bar_5.png
+timerbar6 data/Timer_bar_6.png
+timerbar7 data/Timer_bar_7.png
+timerbar8 data/Timer_bar_8.png
+timerbar9 data/Timer_bar_9.png
+timerbar10 data/Timer_bar_10.png
