@@ -66,70 +66,11 @@ public class LevelManager {
     public int getTotalLevels() {
         return levels.size();
     }
+
+    public void setCurrentLevel(int i) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setCurrentLevel'");
+    }
 }
-/* 
-    public LevelManager(String filePath) {
-        try {
-            // Load dữ liệu màn chơi từ file
-            this.levels = Level.loadLevels(filePath);
-            this.currentLevel = 0; // Bắt đầu từ màn đầu tiên
-            this.totalScore = 0;
-            loadCurrentLevel();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    private void loadCurrentLevel() {
-        if (currentLevel < levels.size()) {
-            // Lấy danh sách các loại Item của màn chơi hiện tại
-            List<Integer> itemTypes = levels.get(currentLevel);
 
-            // Tạo màn chơi
-            this.level = new Level(itemTypes);
-        } else {
-            System.out.println("Không còn màn chơi nào!");
-        }
-    }
-
-    public static void play() {
-        while (currentLevel < levels.size()) {
-            // Lấy màn chơi
-            GameLevel level = levels.get(currentLevel);
-            // Kiểm tra xem màn đã mở chưa
-            if (!level.isUnlocked()) {
-                //code để thông báo màn chơi chưa mở, yêu cầu chọn lại
-            }
-            while (true) { //Thực hiện cho đến khi break
-                if (level.isEnded()) { //kiểm tra xem màn chơi kết thúc chưa
-                    if (level.hasWon()) { //nếu qua màn
-                        totalScore += level.getScore(); // Cộng điểm của màn vào điểm tổng
-                        if (currentLevel < levels.size()-1) { // Mở khóa màn tiếp theo
-                            levels.get(currentLevel + 1).unlock();
-                            level.isEnded = true;
-                        }
-                    }
-                    else {
-                        //Nếu không qua màn
-                    }
-                    break;
-                }
-            }
-            int checkLevel = currentLevel;
-            //code để chọn màn chơi muốn chơi tiếp theo (cập nhật currentLevel)
-        }
-    }
-    Thiết lập lại trò chơi về trạng thái ban đầu
-    public void resetGame() {
-        currentLevel = 0;
-        totalScore = 0;
-        for (int i = 0; i < levels.size(); i++) {
-            levels.get(i).reset();
-            levels.get(i).unlock();  // Mở khóa lại màn 1, các màn khác sẽ khóa lại
-            if (i > 0) {
-                levels.get(i).unlock(false); // khóa lại các màn từ 2 đến 6
-            }
-        }
-    } 
-} 
-*/
 

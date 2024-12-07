@@ -67,17 +67,4 @@ public class InputManager {
 
     }
 
-    /*public void processMouseClicked(MouseEvent e){
-
-        int posXClicked = e.getX();
-        int posYClicked = e.getY();
-
-        if((posXClicked >=570 && posXClicked <= 570 + inforPage.instructionIcon.getIconWidth()) && (posYClicked >= 565 && posYClicked <= 565 + inforPage.instructionIcon.getIconHeight())){
-            inforPage.setDrawInstructionBackground(true);
-            inforPage.setDrawMainBackground(false);
-            contentPane.repaint();
-        }
-
-    }*/
-
 }
