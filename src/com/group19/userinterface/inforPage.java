@@ -127,10 +127,11 @@ public class inforPage extends JFrame {
     	selectLevelDialog.setSize(1400, 800);
     	selectLevelDialog.setLocationRelativeTo(this);
     	// đẩy background lên
-    	JPanel selectLevelPanel = new JPanel(null);
     	ImageIcon selectLevelIcon = new ImageIcon("data/SelectLevelBackground.png");
-    	Image selectLevelBackground = selectLevelIcon.getImage();
+    	JLabel selectBackground = new JLabel(selectLevelIcon);
+    	selectBackground.setBounds(0, 0, 1400, 800);
     	 
+    	JPanel selectLevelPanel = new JPanel(null);
     	// tạo các nút
     	JButton level1Button = createButton("data/Level1.png", 337, 207);
     	JButton level2Button = createButton("data/Level2.png", 604, 207);
@@ -172,11 +173,11 @@ public class inforPage extends JFrame {
     	selectLevelPanel.add(level5Button);
     	selectLevelPanel.add(level6Button);
     	
-    	
+    	selectLevelPanel.add(selectBackground);
     	selectLevelDialog.setContentPane(selectLevelPanel);
     	
     	selectLevelDialog.setVisible(true);
-    	selectLevelPanel.setVisible(true);
+    	
         /*int totalLevels = 6;  // Số lượng màn chơi (hoặc lấy từ LevelManager nếu có)
 
         // Tạo dialog chọn màn chơi
