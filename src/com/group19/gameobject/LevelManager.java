@@ -43,7 +43,7 @@ public class LevelManager {
         }
     
         // Kiểm tra màn chơi có được mở khóa không
-        public static boolean isLevelUnlocked(int index) {
+        public boolean isLevelUnlocked(int index) {
             return index >= 0 && index < unlockedLevels.length && unlockedLevels[index];
         }
     
