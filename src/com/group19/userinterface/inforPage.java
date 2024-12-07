@@ -89,7 +89,7 @@ public class inforPage extends JFrame {
         this.setVisible(false);
         // Tạo cửa sổ hướng dẫn
         JDialog instructionDialog = new JDialog(this, "Instructions", true);
-        instructionDialog.setSize(1200, 800);
+        instructionDialog.setSize(1400, 800);
         instructionDialog.setLocationRelativeTo(this);
 
         // Tạo panel chính với layout null
@@ -100,7 +100,7 @@ public class inforPage extends JFrame {
         JLabel instructionBackgroundLabel = new JLabel(instructionBackgroundIcon);
 
         // Đặt kích thước cho hình nền
-        instructionBackgroundLabel.setBounds(0, 0, 1200, 800);
+        instructionBackgroundLabel.setBounds(0, 0, 1400, 800);
         instructionPanel.add(instructionBackgroundLabel);
 
         // Tạo nút "Return"
