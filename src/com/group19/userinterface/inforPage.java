@@ -183,7 +183,7 @@ public class inforPage extends JFrame {
         selectLevelPanel.add(level4Button);
         selectLevelPanel.add(level5Button);
         selectLevelPanel.add(level6Button);
-
+        selectLevelPanel.add(ReturnButton);
         selectLevelPanel.add(selectBackground);
         selectLevelDialog.setContentPane(selectLevelPanel);
 
