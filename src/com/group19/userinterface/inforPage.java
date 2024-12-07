@@ -83,6 +83,7 @@ public class inforPage extends JFrame {
     }
 
     private void openInstructionDialog() {
+        this.setVisible(false);
         // Tạo cửa sổ hướng dẫn
         JDialog instructionDialog = new JDialog(this, "Instructions", true);
         instructionDialog.setSize(1200, 800);
