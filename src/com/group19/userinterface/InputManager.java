@@ -3,21 +3,21 @@ package com.group19.userinterface;
 import com.group19.gameobject.Dinosaur;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import javax.swing.JPanel;
+// import javax.swing.JPanel;
 
 public class InputManager {
 
     private Dinosaur dino;
-    private JPanel contentPane;
-    private inforPage inforPage;
+    // private JPanel contentPane;
+    // private inforPage inforPage;
 
     public InputManager(Dinosaur dino) throws IOException {
         this.dino = dino;
     }
 
-    public InputManager(inforPage inforPage) throws IOException {
-        this.inforPage = inforPage;
-    }
+    // public InputManager(inforPage inforPage) throws IOException {
+    //     this.inforPage = inforPage;
+    // }
 
     public void processKeyPressed(int keyCode){
 
