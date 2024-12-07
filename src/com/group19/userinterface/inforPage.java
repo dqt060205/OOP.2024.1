@@ -89,7 +89,7 @@ public class inforPage extends JFrame {
         this.setVisible(false);
         // Tạo cửa sổ hướng dẫn
         JDialog instructionDialog = new JDialog(this, "Instructions", true);
-        instructionDialog.setSize(1200, 800);
+        instructionDialog.setSize(1400, 800);
         instructionDialog.setLocationRelativeTo(this);
 
         // Tạo panel chính với layout null
@@ -100,7 +100,7 @@ public class inforPage extends JFrame {
         JLabel instructionBackgroundLabel = new JLabel(instructionBackgroundIcon);
 
         // Đặt kích thước cho hình nền
-        instructionBackgroundLabel.setBounds(0, 0, 1200, 800);
+        instructionBackgroundLabel.setBounds(0, 0, 1400, 800);
         instructionPanel.add(instructionBackgroundLabel);
 
         // Tạo nút "Return"
@@ -118,8 +118,67 @@ public class inforPage extends JFrame {
         instructionDialog.setVisible(true);
     }
 
-    private void openLevelSelectionDialog() {
-        int totalLevels = 4;  // Số lượng màn chơi (hoặc lấy từ LevelManager nếu có)
+   private void openLevelSelectionDialog() {
+   
+        //Image selectLevelBackground;
+        this.setVisible(false);
+        // tạo hộp thoại
+    	JDialog selectLevelDialog = new JDialog(this, "Select Level", true);
+    	selectLevelDialog.setSize(1400, 800);
+    	selectLevelDialog.setLocationRelativeTo(this);
+    	// đẩy background lên
+    	ImageIcon selectLevelIcon = new ImageIcon("data/SelectLevelBackground.png");
+    	JLabel selectBackground = new JLabel(selectLevelIcon);
+    	selectBackground.setBounds(0, 0, 1400, 800);
+    	 
+    	JPanel selectLevelPanel = new JPanel(null);
+    	// tạo các nút
+    	JButton level1Button = createButton("data/Level1.png", 337, 207);
+    	JButton level2Button = createButton("data/Level2.png", 604, 207);
+    	JButton level3Button = createButton("data/Level3.png", 863, 207);
+    	JButton level4Button = createButton("data/Level4.png", 337, 440);
+    	JButton level5Button = createButton("data/Level5.png", 604, 440);
+    	JButton level6Button = createButton("data/Level6.png", 863, 440);
+    	
+    	level1Button.addActionListener(e -> {
+    		selectLevelDialog.dispose();
+    		startNewGame();
+    	});
+    	level2Button.addActionListener(e -> {
+    		selectLevelDialog.dispose();
+    		startNewGame();
+    	});
+    	level3Button.addActionListener(e -> {
+    		selectLevelDialog.dispose();
+    		startNewGame();
+    	});
+    	level4Button.addActionListener(e -> {
+    		selectLevelDialog.dispose();
+    		startNewGame();
+    	});
+    	level5Button.addActionListener(e -> {
+    		selectLevelDialog.dispose();
+    		startNewGame();
+    	});
+    	level6Button.addActionListener(e -> {
+    		selectLevelDialog.dispose();
+    		startNewGame();
+    	});
+    	
+    	
+    	selectLevelPanel.add(level1Button);
+    	selectLevelPanel.add(level2Button);
+    	selectLevelPanel.add(level3Button);
+    	selectLevelPanel.add(level4Button);
+    	selectLevelPanel.add(level5Button);
+    	selectLevelPanel.add(level6Button);
+    	
+    	selectLevelPanel.add(selectBackground);
+    	selectLevelDialog.setContentPane(selectLevelPanel);
+    	
+    	selectLevelDialog.setVisible(true);
+    	
+        /*int totalLevels = 6;  // Số lượng màn chơi (hoặc lấy từ LevelManager nếu có)
 
         // Tạo dialog chọn màn chơi
         LevelSelectionDialog dialog = new LevelSelectionDialog(this, totalLevels);
@@ -132,7 +191,8 @@ public class inforPage extends JFrame {
             startGameAtLevel(selectedLevel); // Bắt đầu game ở màn chơi đã chọn
         } else {
             System.out.println("No level selected.");
-        }
+        }*/
+    	
     }
 
     private void startGameAtLevel(int selectedLevel) {
