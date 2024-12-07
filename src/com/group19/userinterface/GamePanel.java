@@ -20,7 +20,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     public GamePanel() throws IOException {
         dino = new Dinosaur();
         inputManager = new InputManager(dino);
-        levelManager = new LevelManager("data/itemslist.text"); // Khởi tạo LevelManager từ file dữ liệu
+        levelManager = new LevelManager("data/itemslist.text", "data/game_saves.text"); // Khởi tạo LevelManager từ file dữ liệu
 
         // Có thể cần phải đặt level ban đầu, ví dụ: level 1
         levelManager.setCurrentLevel(0); // Giả sử màn chơi đầu tiên là màn 1 (index 0)

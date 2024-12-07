@@ -7,16 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelManager {
-    private static List<Level> levels;       // Danh sách các màn chơi
+        private static List<Level> levels;       // Danh sách các màn chơi
         private boolean[] unlockedLevels; // Trạng thái mở khóa của từng màn chơi
         private int currentLevelIndex;    // Chỉ số của màn chơi hiện tại
+        private SaveGame saveGame;
     
-        public LevelManager(String filePath) throws IOException {
+        public LevelManager(String filePath, String saveFilePath) throws IOException {
             levels = new ArrayList<>();
             loadLevelsFromFile(filePath); // Đọc dữ liệu từ file
             unlockedLevels = new boolean[levels.size()];
             unlockedLevels[0] = true; // Mở khóa màn đầu tiên
             currentLevelIndex = 0;    // Bắt đầu từ màn đầu tiên
+            saveGame = new SaveGame(saveFilePath);
         }
     
         // Đọc dữ liệu từ file text
@@ -80,5 +82,13 @@ public class LevelManager {
         } else {
             throw new IllegalArgumentException("Invalid level index");
         }
+    }
+
+    public void saveGame() {
+        saveGame.saveCurrentGame(currentLevelIndex, unlockedLevels);
+    }
+
+    public void loadGame() {
+        saveGame.loadGameState(new int[]{currentLevelIndex}, unlockedLevels);
     }
 }
