@@ -18,25 +18,33 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private BufferedImage bufImage;
     private Graphics2D buf2D;
     private Dinosaur dino;
-    //private Level level;
     private LevelManager levelManager;
-    public GamePanel() throws IOException{
+
+    public GamePanel() throws IOException {
         dino = new Dinosaur();
         inputManager = new InputManager(dino);
-        levelManager = new LevelManager("data/itemslist.text");
-        //List<Integer> MyList = new ArrayList<>(Arrays.asList(0,3,4,1,2,3,6,7,5,7));
-        //level = new Level(MyList);
+        levelManager = new LevelManager("data/itemslist.text"); // Khởi tạo LevelManager từ file dữ liệu
+
+        // Có thể cần phải đặt level ban đầu, ví dụ: level 1
+        levelManager.setCurrentLevel(0); // Giả sử màn chơi đầu tiên là màn 1 (index 0)
     }
 
-    public void startGame(){
+    // Phương thức khởi động game
+    public void startGame() {
         thread = new Thread(this);
         thread.start();
     }
+
+    // Phương thức bắt đầu game tại một màn chơi cụ thể
+    public void startGameAtLevel(int level) {
+        levelManager.setCurrentLevel(level - 1); // Cập nhật level hiện tại (0-based index)
+        startGame(); // Khởi động game với level đã chọn
+    }
+
     private void updateGame() {
-        //grade.update(dino);
         dino.update();  // Cập nhật Dino
-        dino.run();     // Cập nhật hoạt ảnh Dino */
-        levelManager.getCurrentLevel().update(dino);
+        dino.run();     // Cập nhật hoạt ảnh của Dino
+        levelManager.getCurrentLevel().update(dino); // Cập nhật level hiện tại
     }
 
     @Override
@@ -45,26 +53,23 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         long currentTime;
         long accumulatedTime = 0; // Tích lũy thời gian
         long period = 1000000000 / 80; // 80 FPS (chu kỳ mỗi khung hình)
-    
+
         while (isRunning) {
-            // Lấy thời gian hiện tại
-        	
             currentTime = System.nanoTime();
             long elapsedTime = currentTime - previousTime;
             previousTime = currentTime;
-    
-            // Tích lũy thời gian trôi qua
+
             accumulatedTime += elapsedTime;
-    
-            // Cập nhật logic theo từng khung
+
+            // Cập nhật game theo từng bước thời gian
             while (accumulatedTime >= period) {
-                updateGame(); // Cập nhật game theo từng bước thời gian
-                accumulatedTime -= period; // Giảm thời gian đã sử dụng
+                updateGame();
+                accumulatedTime -= period;
             }
-    
-            // Vẽ nội dung (được điều khiển bởi tốc độ logic)
+
+            // Vẽ nội dung
             repaint();
-    
+
             // Ngủ để duy trì FPS
             long sleepTime = period - accumulatedTime;
             try {
@@ -79,7 +84,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
     }
 
@@ -92,19 +96,16 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     public void keyReleased(KeyEvent e) {
         inputManager.processKeyReleased(e.getKeyCode());
     }
+
     @Override
     protected void paintComponent(Graphics g) {
-       super.paintComponent(g);
+        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        
-        /*long currentTime = System.currentTimeMillis();
-        grades.sort(Comparator.comparingLong(GameItem :: getSpawnTime));
-        for(GameItem grade : grades) {
-        	if(currentTime >= grade.getSpawnTime())
-        	  grade.render(g2);
-        }*/
+
+        // Vẽ nhân vật Dino
         dino.render(g2);
-        //grade.render(g2);
+
+        // Vẽ level hiện tại
         levelManager.getCurrentLevel().render(g2);
     }
 }

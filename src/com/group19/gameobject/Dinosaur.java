@@ -134,10 +134,10 @@ public class Dinosaur extends GameObject {
     public void run() {
         if (this.isRunning) {
             if (isTurningLeft && posX > this.width) {  // Chạy sang trái
-                posX -= 3;
+                posX -= 5;
             }
             else if (!isTurningLeft && posX < SCREEN_WIDTH - this.width) {  // Chạy sang phải
-                posX += 3;
+                posX += 5;
             }
         }
     }

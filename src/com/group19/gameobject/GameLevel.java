@@ -21,11 +21,12 @@ class GameLevel {
     public boolean hasWon(Dinosaur dinosaur) {
         return dinosaur.getLives() >= minimumScore;
     }
-    // Chưa có thuộc tính score trong Dinosaur. 
-    public int getScore() {
-        return Dinosaur.score;
-    }
+    // // Chưa có thuộc tính score trong Dinosaur. 
+    // public int getScore() {
+    //     return Dinosaur.score;
+    // }
     // Chưa có thuộc tính lives trong Dinosaur
+    
     public int getLives(Dinosaur dinosaur) {
         return dinosaur.getLives();
     }
