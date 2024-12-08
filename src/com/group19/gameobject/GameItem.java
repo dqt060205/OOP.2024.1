@@ -1,10 +1,8 @@
 package com.group19.gameobject;
 
 import java.awt.Graphics2D;
-//note
+
 public class GameItem extends Item {
-	
-	//private long spawnTime;
     public GameItem() {
     }
     
@@ -68,7 +66,6 @@ public class GameItem extends Item {
         double speed = baseSpeed + temp;
         this.setSpeed(speed); // Tốc độ rơi tuỳ thuộc vào giá trị điểm 
     }
-    
     @Override
     public void update (Dinosaur dinosaur) {
         this.updateSpeed();
@@ -79,7 +76,9 @@ public class GameItem extends Item {
         		this.falling(this.getSpeed());
         	}
         	
-        	if (this.collidesWith(dinosaur) && this.isActive()) {
+        	if (this.collidesWith(dinosaur)) {
+                System.out.println("Collision!!!");
+
                 System.out.println("Grade collected: " + this.getValue());
                 this.setActive(false);  // Vô hiệu hóa GameItem nếu đã ăn
             }
@@ -88,7 +87,10 @@ public class GameItem extends Item {
         
         super.update(dinosaur);
     }
-    
+    public int collect() {
+        if ((0 <= this.getValue()) && (this.getValue() <= 4)) return this.getValue();
+        else return 0;
+    }
     public boolean collidesWith(Dinosaur dinosaur) {
         return this.posX < dinosaur.getPosX() + dinosaur.getWidth() &&
                this.posX + this.getWidth() > dinosaur.getPosX() &&
