@@ -22,18 +22,20 @@ public class Dinosaur extends GameObject {
     private long lastUpdateTime = System.nanoTime();
     private static final long DELAY_TIME = 20_000_000;
     
-    private static boolean isSlowedDown;
+    private boolean isSlowedDown;
     private boolean isx2Score;
     private boolean isShielded;
     private boolean isJumping; // Trạng thái nhảy của Dino
     private boolean isRunning;
     private boolean isTurningLeft; // Kiểm tra hướng của Dino
     public int lives;
+
     private BufferedImage idleLeft;
     private BufferedImage idleRight;
     private Animation runLeftAnimation, runRightAnimation;
     private Animation jumpLeftAnimation, jumpRightAnimation;
     private Animation deadLeftAnimation, deadRightAnimation;
+    private Animation timerBarAnimation;
 
     // Constructor khởi tạo Dino tại tọa độ (posX, posY)
     public Dinosaur() throws IOException {
@@ -63,6 +65,8 @@ public class Dinosaur extends GameObject {
         deadRightAnimation = CacheDataLoader.getInstance().getAnimation("dead");
         deadLeftAnimation = CacheDataLoader.getInstance().getAnimation("dead");
         deadLeftAnimation.flipAllImage();
+
+        timerBarAnimation = CacheDataLoader.getInstance().getAnimation("timerbar");
     }
     public void setLives(int lives) {
         this.lives = lives;
@@ -75,22 +79,57 @@ public class Dinosaur extends GameObject {
         return isShielded;
     }
 
-    public void setShielded() { //can them thoi gian
-        this.isShielded = true;
-    }
     
-    public static boolean isSlowedDown() {
+    
+    public boolean isSlowedDown() {
         return isSlowedDown;
     }
     public boolean isx2Score() {
         return isx2Score;
     }
-    public void setx2Score() { //cần thêm thời gian
+
+    public void activateShielded() {
+        this.isShielded = true;
+        System.out.println("Shield Activated!");
+        new Thread(()-> {
+            try {
+                Thread.sleep(10_000); // 10 giây
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.isShielded = false;
+            System.out.println("Shield Deactivated!");
+        }).start();
+    }
+    public void activateX2Score() { //cần thêm thời gian
         this.isx2Score = true;
+        System.out.println("X2 Score Activated!");
+        new Thread(()-> {
+            try {
+                Thread.sleep(10_000); // 10 giây
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.isx2Score = false;
+            System.out.println("X2 Score Deactivated!");
+        }).start();
     }
 
-    public void setSlowedDown() { //can them thoi gian
-        isSlowedDown = true;
+    public void activateSlowedDown() {
+        this.isSlowedDown = true;
+        System.out.println("Slow Down Activated!");
+        new Thread(()-> {
+            try {
+                Thread.sleep(10_000); // 10 giây
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.isSlowedDown = false;
+            System.out.println("Slow Down Deactivated!");
+        }).start();
     }
     
     @Override
@@ -132,7 +171,11 @@ public class Dinosaur extends GameObject {
                 g2.drawImage(idleRight, posX, posY + 10, null);
             }
         }
-        
+        if (isShielded || isSlowedDown || isx2Score) {
+            timerBarAnimation.reset();
+            timerBarAnimation.update(System.nanoTime());
+            timerBarAnimation.draw(30, 80, g2);
+        }
         //g2.setColor(Color.RED);  // Màu sắc của hitbox (đỏ)
         //g2.setStroke(new java.awt.BasicStroke(2));  // Độ dày của đường viền
         //g2.drawRect(posX, posY, width, height);  // Vẽ hình chữ nhật bao quanh nhân vật

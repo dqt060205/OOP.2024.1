@@ -53,7 +53,6 @@ public class GameItem extends Item {
             } 
         }
     }
-    @Override
     public void updateSpeed(Dinosaur dino) {
         double baseSpeed = 0.2;
         double temp;
@@ -85,9 +84,9 @@ public class GameItem extends Item {
                 case 0 -> {if (!dinosaur.isShielded()) {
                     dinosaur.setLives(dinosaur.getLives()-1);
                 }}
-                case 6 -> dinosaur.setx2Score();
-                case 5 -> dinosaur.setShielded();
-                case 7 -> dinosaur.setSlowedDown();
+                case 6 -> dinosaur.activateX2Score();
+                case 5 -> dinosaur.activateShielded();
+                case 7 -> dinosaur.activateSlowedDown();
                 default -> {
                 }
             }

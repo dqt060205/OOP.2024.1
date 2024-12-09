@@ -67,7 +67,7 @@ public abstract class Item extends GameObject {
         setPosY(0);
     }
  
-    public abstract void updateSpeed();
+    //public abstract void updateSpeed();
     public void falling(double speed) {
         this.posY += speed; // Tạm thời, khi có speed thì sửa lại
     };
