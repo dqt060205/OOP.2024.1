@@ -54,7 +54,7 @@ public class GameItem extends Item {
         }
     }
     @Override
-    public void updateSpeed() {
+    public void updateSpeed(Dinosaur dino) {
         double baseSpeed = 0.2;
         double temp;
         if (this.getValue() >= 5 || this.getValue() == 0) {
@@ -64,23 +64,33 @@ public class GameItem extends Item {
             temp = ((double) this.getValue()) / 2 + 1;
         }
         double speed = baseSpeed + temp;
-        this.setSpeed(speed); // Tốc độ rơi tuỳ thuộc vào giá trị điểm 
+        if (dino.isSlowedDown()) {
+            this.setSpeed(speed*2/3);
+        }
+        else this.setSpeed(speed); // Tốc độ rơi tuỳ thuộc vào giá trị điểm 
     }
     @Override
     public void update (Dinosaur dinosaur) {
-        this.updateSpeed();
+        this.updateSpeed(dinosaur);
         long currentTime = System.currentTimeMillis();
         //if(currentTime >= spawnTime) {
-        	this.updateSpeed();
+        	this.updateSpeed(dinosaur);
         	if(this.posY <= 800) {
         		this.falling(this.getSpeed());
         	}
         	
         	if (this.collidesWith(dinosaur)) {
                 System.out.println("Collision!!!");
-                if (this.getValue()==6) {
-                    dinosaur.setx2Score();
+            switch (this.getValue()) {
+                case 0 -> {if (!dinosaur.isShielded()) {
+                    dinosaur.setLives(dinosaur.getLives()-1);
+                }}
+                case 6 -> dinosaur.setx2Score();
+                case 5 -> dinosaur.setShielded();
+                case 7 -> dinosaur.setSlowedDown();
+                default -> {
                 }
+            }
                 System.out.println("Grade collected: " + this.getValue());
                 this.setActive(false);  // Vô hiệu hóa GameItem nếu đã ăn
             }

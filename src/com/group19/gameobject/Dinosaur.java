@@ -75,8 +75,8 @@ public class Dinosaur extends GameObject {
         return isShielded;
     }
 
-    public void setShielded(boolean shielded) {
-        this.isShielded = shielded;
+    public void setShielded() { //can them thoi gian
+        this.isShielded = true;
     }
     
     public static boolean isSlowedDown() {
@@ -89,8 +89,8 @@ public class Dinosaur extends GameObject {
         this.isx2Score = true;
     }
 
-    public void setSlowedDown(boolean slowedDown) {
-        isSlowedDown = slowedDown;
+    public void setSlowedDown() { //can them thoi gian
+        isSlowedDown = true;
     }
     
     @Override
