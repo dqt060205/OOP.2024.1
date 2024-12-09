@@ -62,4 +62,9 @@ public class Level {
     public int getScore() {
         return this.totalScore;
     }
+     public void resetScore() {
+        this.totalScore = 0;  // Đặt lại điểm số về 0
+    }
+
 }
+
