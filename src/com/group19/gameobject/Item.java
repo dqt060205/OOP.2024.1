@@ -62,7 +62,7 @@ public abstract class Item extends GameObject {
         return image;
     }
     public void randomPosition() {              // Hàm sinh vị trí ngẫu nhiên trong màn hình
-        setPosX(new Random().nextInt(100, 1300));
+        setPosX(new Random().nextInt(300, 1050));
         //setPosY(new Random().nextInt(100, 700));
         setPosY(0);
     }
@@ -86,7 +86,7 @@ public abstract class Item extends GameObject {
     }
     public void update (Dinosaur dinosaur) {
         checkCollisionWithDinosaur(dinosaur);
-        if (this.posY >= 800-this.height) this.setActive(false);
+        if (this.posY >= 640-this.height) this.setActive(false);
     }
     
 

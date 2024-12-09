@@ -56,6 +56,9 @@ public class Level {
             }
         }    
     }
+    public boolean isTheEndLevel() {
+        return activeItems.size() == loadedItems.size();
+    }
     public int getScore() {
         return this.totalScore;
     }
