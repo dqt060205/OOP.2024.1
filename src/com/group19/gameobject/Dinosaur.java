@@ -2,8 +2,8 @@ package com.group19.gameobject;
 
 //package gameobject;
 
-import effect.Animation;
-import effect.CacheDataLoader;
+import com.group19.effect.Animation;
+import com.group19.effect.CacheDataLoader;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
