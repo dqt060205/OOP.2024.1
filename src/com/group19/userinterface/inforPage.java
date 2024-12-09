@@ -68,7 +68,7 @@ public class inforPage extends JFrame {
         instructionButton.addActionListener(e -> openInstructionDialog());
 
         // Hành động cho nút "New Game"
-        newGameButton.addActionListener(e -> startNewGame());
+        newGameButton.addActionListener(e -> openLevelSelectionDialog());
 
         // Hành động cho nút "Continue"
         continueButton.addActionListener(e -> openLevelSelectionDialog());
