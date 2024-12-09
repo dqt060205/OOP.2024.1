@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     public void showLevelCompletedMessage(Graphics g) {
     // Tải hình ảnh (lưu ý thay đường dẫn và tên tệp hình ảnh phù hợp)
     try {
-        Image image = ImageIO.read(new File("LevelCompletedBackground.png")); // Đường dẫn tới tệp hình ảnh
+        Image image = ImageIO.read(new File("data/LevelCompletedBackground.png")); // Đường dẫn tới tệp hình ảnh
         int imageWidth = image.getWidth(null);  // Lấy chiều rộng của hình ảnh
         int imageHeight = image.getHeight(null);  // Lấy chiều cao của hình ảnh
         
@@ -58,15 +58,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         e.printStackTrace(); 
     }
 }
-    // public void showLevelCompletedMessage(Graphics g) { //
-    //     // Thiết lập font và màu sắc cho thông báo
-    //     g.setColor(Color.WHITE);
-    //     g.setFont(new Font("Arial", Font.BOLD, 50));
-        
-    //     // Hiển thị thông báo "Bạn đã qua màn"
-    //     g.drawString("Bạn đã qua màn!", GameFrame.SCREEN_WIDTH / 2 - 150, GameFrame.SCREEN_HEIGHT / 2); // Vị trí của thông báo
-    // }
-
 
     // Phương thức khởi động game
     public void startGame() {
@@ -219,16 +210,18 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         
         // Hiển thị điểm số
         g2.setColor(Color.yellow);
-        g2.setFont(new Font("Arial", Font.BOLD, 70));
-        g2.drawString("  " + levelManager.getCurrentLevel().getScore(), 170, 730);
+        g2.setFont(new Font(".VnTime", Font.BOLD, 60)); // Sử dụng phông chữ Montserrat
+
+
+        // g2.setFont(new Font("Arial", Font.BOLD, 70));
+        g2.drawString("  " + levelManager.getCurrentLevel().getScore(), 185, 727);
     
         // Vẽ các hình ảnh tim đại diện cho mạng sống
         if (heartImage != null) {
-            int heartWidth = heartImage.getWidth(null); // Lấy chiều rộng của hình ảnh tim
-            int heartHeight = heartImage.getHeight(null); // Lấy chiều cao của hình ảnh tim
+            int heartWidth = heartImage.getWidth(null); 
+            int heartHeight = heartImage.getHeight(null);
             int lives = dino.getLives(); // Lấy số mạng sống
             
-            // Vẽ hình ảnh tim tại các vị trí khác nhau, căn theo số mạng sống
             for (int i = 0; i < lives; i++) {
                 // Tính toán vị trí vẽ các hình ảnh tim
                 int x = 5 + i * (heartWidth + 3); // Khoảng cách giữa các hình ảnh tim
@@ -239,14 +232,34 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     }
     
     
+    // private void showGameOverMessage(Graphics g) {
+    //     g.setColor(Color.RED);
+    //     g.setFont(new Font("Arial", Font.BOLD, 50));
+    //     g.drawString("GAME OVER", GameFrame.SCREEN_WIDTH / 2 - 150, GameFrame.SCREEN_HEIGHT / 2);
+    //     g.setFont(new Font("Arial", Font.BOLD, 20));
+    //     g.setColor(Color.WHITE);
+    //     g.drawString("Nhấn Enter để chơi lại màn này", GameFrame.SCREEN_WIDTH / 2 - 150, GameFrame.SCREEN_HEIGHT / 2 + 50);
+    // }
     private void showGameOverMessage(Graphics g) {
-        g.setColor(Color.RED);
-        g.setFont(new Font("Arial", Font.BOLD, 50));
-        g.drawString("GAME OVER", GameFrame.SCREEN_WIDTH / 2 - 150, GameFrame.SCREEN_HEIGHT / 2);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.setColor(Color.WHITE);
-        g.drawString("Nhấn Enter để chơi lại màn này", GameFrame.SCREEN_WIDTH / 2 - 150, GameFrame.SCREEN_HEIGHT / 2 + 50);
+        Image gameOverImage = null;
+        try {
+            gameOverImage = ImageIO.read(new File("data/GameOver.png")); // Đường dẫn tới hình ảnh game over
+        } catch (Exception e) {
+            e.printStackTrace(); // Nếu có lỗi khi tải hình ảnh
+        }
+    
+        // Nếu hình ảnh game over đã được tải thành công, vẽ nó lên màn hình
+        if (gameOverImage != null) {
+            int imageWidth = gameOverImage.getWidth(null); // Lấy chiều rộng của hình ảnh
+            int imageHeight = gameOverImage.getHeight(null); // Lấy chiều cao của hình ảnh
+    
+            // Tính toán vị trí vẽ hình ảnh game over (căn giữa màn hình)
+            int xPosition = (GameFrame.SCREEN_WIDTH - imageWidth) / 2;
+            int yPosition = (GameFrame.SCREEN_HEIGHT - imageHeight) / 2;
+            g.drawImage(gameOverImage, xPosition, yPosition, imageWidth, imageHeight, null);
+        }
     }
+    
 
     @Override
     protected void paintComponent(Graphics g) {
