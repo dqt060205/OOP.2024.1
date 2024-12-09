@@ -29,7 +29,6 @@ public class Dinosaur extends GameObject {
     private boolean isRunning;
     private boolean isTurningLeft; // Kiểm tra hướng của Dino
     public int lives;
-
     private BufferedImage idleLeft;
     private BufferedImage idleRight;
     private Animation runLeftAnimation, runRightAnimation;
@@ -66,7 +65,7 @@ public class Dinosaur extends GameObject {
         deadLeftAnimation.flipAllImage();
     }
     public void setLives(int lives) {
-        this.lives  = lives;
+        this.lives = lives;
     }
     public int getLives() {
         return this.lives;

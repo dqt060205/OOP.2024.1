@@ -101,7 +101,7 @@ public class GameItem extends Item {
     }
     
     public void render(Graphics2D g2) {        // Đã render (draw) hình ảnh là ảnh của điểm trong folder data
-        if (this.isActive() == true)  g2.drawImage(this.getImage(), posX, posY, null);
+        if (this.isActive())  g2.drawImage(this.getImage(), posX, posY, null);
         //this.setActive(true);
     }
 

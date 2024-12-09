@@ -47,9 +47,9 @@ public class Level {
             GameItem type = iterator.next();
             type.update(dino);
     
-            if (!type.isActive()) {
-                if (dino.isx2Score) {
-                    totalScore += 2*type.collect();
+            if (type.collidesWith(dino))  {
+                if (dino.isx2Score()) {
+                    totalScore = totalScore + type.collect()*2;
                 }
                 else {
                     totalScore += type.collect();
