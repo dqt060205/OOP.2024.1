@@ -78,7 +78,9 @@ public class GameItem extends Item {
         	
         	if (this.collidesWith(dinosaur)) {
                 System.out.println("Collision!!!");
-
+                if (this.getValue()==6) {
+                    dinosaur.setx2Score();
+                }
                 System.out.println("Grade collected: " + this.getValue());
                 this.setActive(false);  // Vô hiệu hóa GameItem nếu đã ăn
             }

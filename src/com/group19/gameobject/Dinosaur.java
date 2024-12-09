@@ -23,6 +23,7 @@ public class Dinosaur extends GameObject {
     private static final long DELAY_TIME = 20_000_000;
     
     private static boolean isSlowedDown;
+    private boolean isx2Score;
     private boolean isShielded;
     private boolean isJumping; // Trạng thái nhảy của Dino
     private boolean isRunning;
@@ -45,6 +46,7 @@ public class Dinosaur extends GameObject {
         this.isRunning = false;
         isShielded = false;
         isSlowedDown = false;
+        isx2Score = false;
 
         CacheDataLoader.getInstance().LoadData();
 
@@ -80,6 +82,12 @@ public class Dinosaur extends GameObject {
     
     public static boolean isSlowedDown() {
         return isSlowedDown;
+    }
+    public boolean isx2Score() {
+        return isx2Score;
+    }
+    public void setx2Score() { //cần thêm thời gian
+        this.isx2Score = true;
     }
 
     public void setSlowedDown(boolean slowedDown) {

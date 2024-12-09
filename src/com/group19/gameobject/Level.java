@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-//sao up len roi ma khong thay nhi
-
 public class Level {
     private List<GameItem> loadedItems; // Danh sách các Item trong màn chơi
     private List<GameItem> activeItems; // Danh sách các Item đến lượt xuất hiện
@@ -50,7 +48,12 @@ public class Level {
             type.update(dino);
     
             if (!type.isActive()) {
-                totalScore += type.collect();
+                if (dino.isx2Score) {
+                    totalScore += 2*type.collect();
+                }
+                else {
+                    totalScore += type.collect();
+                } 
                 System.out.println("Total Score: " + totalScore);
                 iterator.remove();  
             }
