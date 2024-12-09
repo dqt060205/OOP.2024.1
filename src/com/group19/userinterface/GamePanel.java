@@ -313,12 +313,14 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     // Phương thức bắt đầu game tại một màn chơi cụ thể
     public void startGameAtLevel(int level) {
         levelManager.setCurrentLevel(level - 1); // Cập nhật level hiện tại (0-based index)
-        resetForNewLevel();
+        levelManager.getCurrentLevel().resetScore();
+	resetForNewLevel();
         startGame(); // Khởi động game với level đã chọn
     }
 
     private void updateGame() {
     	if(isGameOver) {
+		levelManager.getCurrentLevel().resetScore();
     		return;
     	}
     	
@@ -329,6 +331,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         if(dino.getLives() <= 0) {
         	isGameOver = true;
         	isRunning = false;
+		levelManager.getCurrentLevel().resetScore();
         	return;
         }
         
@@ -358,6 +361,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private void resetForNewLevel() {
         levelCompleted = false;
         isGameOver = false;
+	levelManager.getCurrentLevel().resetScore();
         dino.reset();
         backgroundImage = new javax.swing.ImageIcon("data/BackgroundLevel" + (levelManager.getCurrentLevelIndex() + 1) + ".png").getImage();
     }
