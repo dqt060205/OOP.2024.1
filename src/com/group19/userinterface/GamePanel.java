@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     public void showLevelCompletedMessage(Graphics g) {
     // Tải hình ảnh (lưu ý thay đường dẫn và tên tệp hình ảnh phù hợp)
     try {
-        Image image = ImageIO.read(new File("path_to_image.png")); // Đường dẫn tới tệp hình ảnh
+        Image image = ImageIO.read(new File("LevelCompletedBackground.png")); // Đường dẫn tới tệp hình ảnh
         int imageWidth = image.getWidth(null);  // Lấy chiều rộng của hình ảnh
         int imageHeight = image.getHeight(null);  // Lấy chiều cao của hình ảnh
         
@@ -195,18 +195,49 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     public void keyReleased(KeyEvent e) {
         inputManager.processKeyReleased(e.getKeyCode());
     }
-    
-    private void drawHUD(Graphics2D g2) {
+
+    // private void drawHUD(Graphics2D g2) {
        
-        g2.setColor(Color.yellow);
-        g2.setFont(new Font("Arial", Font.BOLD, 20));
-        g2.drawString("Màn chơi: " + (levelManager.getCurrentLevelIndex() + 1), 20, 70);
-        g2.drawString("Mạng sống: " + dino.getLives(), 20, 90); // Hiển thị số mạng
+    //     g2.setColor(Color.yellow);
+    //     g2.setFont(new Font("Arial", Font.BOLD, 20));
+    //     g2.drawString("Màn chơi: " + (levelManager.getCurrentLevelIndex() + 1), 20, 70);
+    //     g2.drawString("Mạng sống: " + dino.getLives(), 20, 90); // Hiển thị số mạng
         
+    //     g2.setColor(Color.yellow);
+    //     g2.setFont(new Font("Arial", Font.BOLD, 70));
+    //     g2.drawString("  " + levelManager.getCurrentLevel().getScore(), 170, 730);
+    // }
+
+    private void drawHUD(Graphics2D g2) {
+        // Tải hình ảnh tim từ thư mục data
+        Image heartImage = null;
+        try {
+            heartImage = ImageIO.read(new File("data/heart.png")); // Đường dẫn tới hình ảnh tim
+        } catch (Exception e) {
+            e.printStackTrace(); // Nếu có lỗi khi tải hình ảnh
+        }
+        
+        // Hiển thị điểm số
         g2.setColor(Color.yellow);
         g2.setFont(new Font("Arial", Font.BOLD, 70));
         g2.drawString("  " + levelManager.getCurrentLevel().getScore(), 170, 730);
+    
+        // Vẽ các hình ảnh tim đại diện cho mạng sống
+        if (heartImage != null) {
+            int heartWidth = heartImage.getWidth(null); // Lấy chiều rộng của hình ảnh tim
+            int heartHeight = heartImage.getHeight(null); // Lấy chiều cao của hình ảnh tim
+            int lives = dino.getLives(); // Lấy số mạng sống
+            
+            // Vẽ hình ảnh tim tại các vị trí khác nhau, căn theo số mạng sống
+            for (int i = 0; i < lives; i++) {
+                // Tính toán vị trí vẽ các hình ảnh tim
+                int x = 5 + i * (heartWidth + 3); // Khoảng cách giữa các hình ảnh tim
+                int y = 20; // Vị trí Y cho hình ảnh tim
+                g2.drawImage(heartImage, x, y, heartWidth, heartHeight, null);
+            }
+        }
     }
+    
     
     private void showGameOverMessage(Graphics g) {
         g.setColor(Color.RED);
