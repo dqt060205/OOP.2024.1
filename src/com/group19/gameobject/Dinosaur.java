@@ -250,6 +250,16 @@ public class Dinosaur extends GameObject {
 	}
 	
 	public void reset() {
-		this.setLives(3);
+        this.setPosX((SCREEN_WIDTH - 65)/ 2);
+        this.setPosY(SCREEN_HEIGHT - 140);
+        this.isJumping = false;
+        this.speedY = 0;
+        this.isTurningLeft = false;
+        this.lives = 3;
+        this.isRunning = false;
+        isShielded = false;
+        isSlowedDown = false;
+        isx2Score = false;
+
 	}
 }
