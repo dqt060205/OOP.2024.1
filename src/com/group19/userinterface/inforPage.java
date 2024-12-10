@@ -17,7 +17,7 @@ public class inforPage extends JFrame {
 
     public static final int SCREEN_WIDTH = 1400;
     public static final int SCREEN_HEIGHT = 800;
-
+//note
     public inforPage() {
         setTitle("Hust Adventure");
         Toolkit toolkit = this.getToolkit();
