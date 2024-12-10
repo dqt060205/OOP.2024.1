@@ -15,10 +15,10 @@ public class Dinosaur extends GameObject {
 
 
     private static final int GRAVITY = 1; // Lực hấp dẫn
-    private static final int JUMP_STRENGTH = 18; // Độ cao nhảy
+    private static final int JUMP_STRENGTH = 15; // Độ cao nhảy
     private int speedY = 0;
-    private static final int SCREEN_WIDTH = 1170; // Chiều rộng màn hình
-    private static final int SCREEN_HEIGHT = 640; // Chiều cao màn hình
+    private static final int SCREEN_WIDTH = 1100; // Chiều rộng màn hình
+    private static final int SCREEN_HEIGHT = 600; // Chiều cao màn hình
     private long lastUpdateTime = System.nanoTime();
     private static final long DELAY_TIME = 20_000_000;
     
@@ -39,7 +39,7 @@ public class Dinosaur extends GameObject {
 
     // Constructor khởi tạo Dino tại tọa độ (posX, posY)
     public Dinosaur() throws IOException {
-        super((SCREEN_WIDTH - 65)/ 2, SCREEN_HEIGHT - 140, 130, 140); // Gọi constructor của GameObject
+        super((SCREEN_WIDTH + 130)/ 2, SCREEN_HEIGHT - 140, 130, 140); // Gọi constructor của GameObject
         this.isJumping = false;
         this.speedY = 0;
         this.isTurningLeft = false;
@@ -210,11 +210,14 @@ public class Dinosaur extends GameObject {
     // Phương thức di chuyển Dino sang phải
     public void run() {
         if (this.isRunning && lives > 0) {
-            if (isTurningLeft && posX > this.width + 80) {  // Chạy sang trái
+            if (isTurningLeft && posX > this.width + 120) {  // Chạy sang trái
                 posX -= 4;
             }
-            else if (!isTurningLeft && posX < SCREEN_WIDTH - this.width) {  // Chạy sang phải
+            else if (!isTurningLeft && posX < SCREEN_WIDTH + 40 - this.width) {  // Chạy sang phải
                 posX += 4;
+            }
+            else {
+                this.isRunning = false;
             }
         }
     }
@@ -250,7 +253,7 @@ public class Dinosaur extends GameObject {
 	}
 	
 	public void reset() {
-        this.setPosX((SCREEN_WIDTH - 65)/ 2);
+        this.setPosX((SCREEN_WIDTH + 130)/ 2);
         this.setPosY(SCREEN_HEIGHT - 140);
         this.isJumping = false;
         this.speedY = 0;
