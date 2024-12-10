@@ -214,7 +214,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 
 
         // g2.setFont(new Font("Arial", Font.BOLD, 70));
-        g2.drawString("  " + levelManager.getCurrentLevel().getScore(), 165,625 ); //727
+        g2.drawString("  " + levelManager.getCurrentLevel().getScore(), 190,727 ); //727
     
         // Vẽ các hình ảnh tim đại diện cho mạng sống
         if (heartImage != null) {
@@ -224,8 +224,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             
             for (int i = 0; i < lives; i++) {
                 // Tính toán vị trí vẽ các hình ảnh tim
-                int x = 5 + i * (heartWidth + 3); // Khoảng cách giữa các hình ảnh tim
-                int y = 20; // Vị trí Y cho hình ảnh tim
+                int x = 1182 + i * (heartWidth + 3); // Khoảng cách giữa các hình ảnh tim
+                int y = 35; // Vị trí Y cho hình ảnh tim
                 g2.drawImage(heartImage, x, y, heartWidth, heartHeight, null);
             }
         }
