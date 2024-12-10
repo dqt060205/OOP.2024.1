@@ -1,12 +1,15 @@
 package com.group19.userinterface;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+
 
 public class inforPage extends JFrame {
     private final JPanel mainPanel; // Panel chính chứa CardLayout
@@ -15,15 +18,12 @@ public class inforPage extends JFrame {
     private boolean isMusicPlaying;
     private GamePanel gamePanel;
 
-    public static final int SCREEN_WIDTH = 1400;
-    public static final int SCREEN_HEIGHT = 800;
 //note
     public inforPage() {
         setTitle("Hust Adventure");
-        Toolkit toolkit = this.getToolkit();
-        Dimension dimension = toolkit.getScreenSize();
-        this.setBounds((dimension.width - SCREEN_WIDTH) / 2, (dimension.height - SCREEN_HEIGHT) / 2 - 25, SCREEN_WIDTH, SCREEN_HEIGHT);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1400, 800);
+        setLocationRelativeTo(null);
         isMusicPlaying = false;
 
 
@@ -160,6 +160,19 @@ public class inforPage extends JFrame {
         button.setContentAreaFilled(false);
         button.setFocusPainted(false);
         button.setOpaque(false);
+        // Thêm hiệu ứng hover
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setIcon(new ImageIcon(iconPath.replace(".png", "_hover.png"))); // Đổi hình ảnh khi hover
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setIcon(new ImageIcon(iconPath)); // Quay lại hình ảnh ban đầu
+            }
+        });
+
         return button;
     }
 
