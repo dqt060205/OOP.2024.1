@@ -88,8 +88,5 @@ public abstract class Item extends GameObject {
         checkCollisionWithDinosaur(dinosaur);
         if (this.posY >= 640-this.height) this.setActive(false);
     }
-    
-
-
-    
+  
 }
