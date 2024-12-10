@@ -39,7 +39,7 @@ public class Dinosaur extends GameObject {
 
     // Constructor khởi tạo Dino tại tọa độ (posX, posY)
     public Dinosaur() throws IOException {
-        super((SCREEN_WIDTH + 130)/ 2, SCREEN_HEIGHT - 140, 130, 140); // Gọi constructor của GameObject
+        super((SCREEN_WIDTH + 130)/ 2, SCREEN_HEIGHT - 120, 130, 140); // Gọi constructor của GameObject
         this.isJumping = false;
         this.speedY = 0;
         this.isTurningLeft = false;
@@ -213,7 +213,7 @@ public class Dinosaur extends GameObject {
             if (isTurningLeft && posX > this.width + 120) {  // Chạy sang trái
                 posX -= 4;
             }
-            else if (!isTurningLeft && posX < SCREEN_WIDTH + 40 - this.width) {  // Chạy sang phải
+            else if (!isTurningLeft && posX < SCREEN_WIDTH + 50 - this.width) {  // Chạy sang phải
                 posX += 4;
             }
             else {
@@ -254,7 +254,7 @@ public class Dinosaur extends GameObject {
 	
 	public void reset() {
         this.setPosX((SCREEN_WIDTH + 130)/ 2);
-        this.setPosY(SCREEN_HEIGHT - 140);
+        this.setPosY(SCREEN_HEIGHT - 120);
         this.isJumping = false;
         this.speedY = 0;
         this.isTurningLeft = false;
