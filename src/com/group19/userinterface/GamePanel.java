@@ -85,21 +85,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     }
     
     public void startGame() {
-<<<<<<< Updated upstream
-        if (thread == null || !thread.isAlive()) {
-            isRunning = true;
-            thread = new Thread(this);
-            thread.start();
-        }
-    }
-=======
         stopGame(); // Dừng luồng cũ trước khi bắt đầu luồng mới
         isRunning = true;
         thread = new Thread(this);
         thread.start();
     }
     
->>>>>>> Stashed changes
     // Phương thức bắt đầu game tại một màn chơi cụ thể
     public void startGameAtLevel(int level) {
         if (levelManager.isLevelUnlocked(level-1)) {
