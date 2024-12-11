@@ -12,6 +12,7 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
@@ -21,13 +22,13 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 
     private Thread thread;
     private boolean isRunning = true;
-    private InputManager inputManager;
-    private Dinosaur dino;
-    private LevelManager levelManager;
+    private final InputManager inputManager;
+    private final Dinosaur dino;
+    private final LevelManager levelManager;
     private Image backgroundImage;
     
-    private long levelCompletedTime = 0;  // Thời gian hoàn thành level
-    private final long levelCompleteDelay = 4000;  // Thời gian chờ trước khi chuyển level (2 giây)
+    //private long levelCompletedTime = 0;  // Thời gian hoàn thành level
+    //private final long levelCompleteDelay = 4000;  // Thời gian chờ trước khi chuyển level (2 giây)
     private boolean levelTransitionInProgress = false;  // Kiểm tra quá trình chuyển màn
  
 
@@ -43,21 +44,33 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     }
     
     public void showLevelCompletedMessage(Graphics g) {
-    // Tải hình ảnh (lưu ý thay đường dẫn và tên tệp hình ảnh phù hợp)
-    try {
-        Image image = ImageIO.read(new File("data/LevelCompletedBackground.png")); // Đường dẫn tới tệp hình ảnh
-        int imageWidth = image.getWidth(null);  // Lấy chiều rộng của hình ảnh
-        int imageHeight = image.getHeight(null);  // Lấy chiều cao của hình ảnh
-        
-        // Vẽ hình ảnh lên màn hình
-        int xPosition = (GameFrame.SCREEN_WIDTH - imageWidth) / 2; // Vị trí X để căn giữa
-        int yPosition = (GameFrame.SCREEN_HEIGHT - imageHeight) / 2; // Vị trí Y để căn giữa
-        g.drawImage(image, xPosition, yPosition, imageWidth, imageHeight, null);
-        
-    } catch (Exception e) {
-        e.printStackTrace(); 
+        try {
+            // Vẽ hình nền cho màn hoàn thành level
+            Image image = ImageIO.read(new File("data/LevelCompletedBackground.png"));
+            int imageWidth = image.getWidth(null);
+            int imageHeight = image.getHeight(null);
+            
+            // Vẽ hình ảnh lên màn hình
+            int xPosition = (GameFrame.SCREEN_WIDTH - imageWidth) / 2;
+            int yPosition = (GameFrame.SCREEN_HEIGHT - imageHeight) / 2;
+            g.drawImage(image, xPosition, yPosition, imageWidth, imageHeight, null);
+    
+            // Tạo nút "Next"
+            setLayout(null);
+            JButton nextButton = createButton("data/NextLevelButton.png", 550, 500);
+            nextButton.addActionListener(e -> moveToNextLevel());  // Chuyển sang màn tiếp theo khi nhấn
+    
+            // Thêm nút vào panel
+            this.add(nextButton);
+    
+            // Cập nhật lại giao diện để nút hiển thị
+            this.revalidate();  // Đảm bảo các thành phần giao diện được xác nhận lại
+            this.repaint();  // Vẽ lại giao diện để hiển thị nút
+    
+        } catch (Exception e) {
+        }
     }
-}
+    
 
     // Phương thức khởi động game
     public void startGame() {
@@ -94,30 +107,31 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             levelCompleted = true;
             levelTransitionInProgress = true;
             //moveToNextLevel();
-            levelCompletedTime = System.currentTimeMillis();
+            //levelCompletedTime = System.currentTimeMillis();
             
         }
-        if (levelTransitionInProgress && (System.currentTimeMillis() - levelCompletedTime) > levelCompleteDelay) {
-            moveToNextLevel();
-        }
+        // if (levelTransitionInProgress && (System.currentTimeMillis() - levelCompletedTime) > levelCompleteDelay) {
+        //     moveToNextLevel();
+        // }
     }
     
     private void moveToNextLevel() {
         int nextLevelIndex = levelManager.getCurrentLevelIndex() + 1;
-        
-        if (levelManager.getCurrentLevel().getScore() < 25) {
-            resetForNewLevel(); // Chơi lại màn hiện tại
-            return;
-        }
-        
+    
+        // Nếu còn màn chơi tiếp theo, chuyển đến màn đó
         if (nextLevelIndex < LevelManager.getTotalLevels()) {
             levelManager.setCurrentLevel(nextLevelIndex);
-            resetForNewLevel(); // Reset trạng thái cho màn mới
+            resetForNewLevel();  // Reset trạng thái cho màn mới
         } else {
             System.out.println("Bạn đã hoàn thành tất cả các màn!");
-            isRunning = false; // Kết thúc game
+            isRunning = false; // Kết thúc game nếu không còn màn chơi nào nữa
         }
+    
+        // Cập nhật lại giao diện sau khi chuyển level
+        this.revalidate();
+        this.repaint();
     }
+    
     
     private void resetForNewLevel() {
     	//levelManager.getCurrentLevel().resetScore();
@@ -134,7 +148,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         long previousTime = System.nanoTime();
         long currentTime;
         long accumulatedTime = 0; // Tích lũy thời gian
-        long period = 1000000000 / 80; // 80 FPS (chu kỳ mỗi khung hình)
+        final long period = 1000000000 / 80; // 80 FPS (chu kỳ mỗi khung hình)
 
         while (isRunning) {
             currentTime = System.nanoTime();
@@ -159,7 +173,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
                     Thread.sleep(sleepTime / 1000000);
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -187,25 +200,14 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         inputManager.processKeyReleased(e.getKeyCode());
     }
 
-    // private void drawHUD(Graphics2D g2) {
-       
-    //     g2.setColor(Color.yellow);
-    //     g2.setFont(new Font("Arial", Font.BOLD, 20));
-    //     g2.drawString("Màn chơi: " + (levelManager.getCurrentLevelIndex() + 1), 20, 70);
-    //     g2.drawString("Mạng sống: " + dino.getLives(), 20, 90); // Hiển thị số mạng
-        
-    //     g2.setColor(Color.yellow);
-    //     g2.setFont(new Font("Arial", Font.BOLD, 70));
-    //     g2.drawString("  " + levelManager.getCurrentLevel().getScore(), 170, 730);
-    // }
-
     private void drawHUD(Graphics2D g2) {
         // Tải hình ảnh tim từ thư mục data
         Image heartImage = null;
         try {
             heartImage = ImageIO.read(new File("data/heart.png")); // Đường dẫn tới hình ảnh tim
         } catch (Exception e) {
-            e.printStackTrace(); // Nếu có lỗi khi tải hình ảnh
+            // Nếu có lỗi khi tải hình ảnh
+            
         }
         
         // Hiển thị điểm số
@@ -230,22 +232,41 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             }
         }
     }
+
+    public void resetGame() {
+        levelManager.setCurrentLevel(0); 
+        levelManager.getCurrentLevel().resetScore();
     
+        // Reset Dino
+        dino.reset(); 
+
+        levelCompleted = false;
+        isGameOver = false;
+        levelTransitionInProgress = false;
     
-    // private void showGameOverMessage(Graphics g) {
-    //     g.setColor(Color.RED);
-    //     g.setFont(new Font("Arial", Font.BOLD, 50));
-    //     g.drawString("GAME OVER", GameFrame.SCREEN_WIDTH / 2 - 150, GameFrame.SCREEN_HEIGHT / 2);
-    //     g.setFont(new Font("Arial", Font.BOLD, 20));
-    //     g.setColor(Color.WHITE);
-    //     g.drawString("Nhấn Enter để chơi lại màn này", GameFrame.SCREEN_WIDTH / 2 - 150, GameFrame.SCREEN_HEIGHT / 2 + 50);
-    // }
+        // Đặt lại background
+        backgroundImage = new javax.swing.ImageIcon("data/BackgroundLevel1.png").getImage(); // Background của màn đầu tiên
+    
+        // Khởi động lại Thread nếu nó đã dừng
+        if (thread != null && !isRunning) {
+            isRunning = true; // Bật lại trạng thái chạy
+            thread = new Thread(this); // Tạo mới thread
+            thread.start(); // Bắt đầu lại game
+        }
+    
+        // Cập nhật lại giao diện sau khi reset
+        this.revalidate();
+        this.repaint();
+    }
+    
+
     private void showGameOverMessage(Graphics g) {
         Image gameOverImage = null;
         try {
             gameOverImage = ImageIO.read(new File("data/GameOver.png")); // Đường dẫn tới hình ảnh game over
         } catch (Exception e) {
-            e.printStackTrace(); // Nếu có lỗi khi tải hình ảnh
+            // Nếu có lỗi khi tải hình ảnh
+            
         }
     
         // Nếu hình ảnh game over đã được tải thành công, vẽ nó lên màn hình
@@ -282,5 +303,9 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             showLevelCompletedMessage(g2);
         }
         
+    }
+
+    private JButton createButton(String dataNextButtonpng, int i, int i0) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

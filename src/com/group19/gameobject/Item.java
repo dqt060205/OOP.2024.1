@@ -11,7 +11,6 @@ public abstract class Item extends GameObject {
     private int value;      // Giá trị của Item
     protected double speed;      
     private Image image;
-    private Random random;
     protected boolean isActive;
     protected long spawnTime;      
     public Item(){
@@ -20,7 +19,6 @@ public abstract class Item extends GameObject {
     public Item(int value, int posX, int posY, int width, int height) {
         super(posX, posY, 100, 100); // Chiều dài = chiều rộng = 100 px
         this.value = value;
-        this.random = new Random();
     }
     /*public Item(Image image, int value, int posX, int posY, int width, int height) {
         super(posX, posY, 100, 100); // Chiều dài = chiều rộng = 100 px

@@ -43,7 +43,7 @@ public class inforPage extends JFrame {
             gamePanel = new GamePanel();
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }
         mainPanel.add(gamePanel, "Game");
         this.addKeyListener(gamePanel);
@@ -101,23 +101,23 @@ public class inforPage extends JFrame {
         new Thread(() -> {
             try {
                 // Hiệu ứng fade-in (tăng độ trong suốt)
-                for (int i = 0; i <= 230; i += 20) {
+                for (int i = 0; i <= 240; i += 20) {
                     blackOverlay.setBackground(new Color(0, 0, 0, i)); // Thay đổi alpha
                     blackOverlay.setVisible(true);
-                    Thread.sleep(40); // Điều chỉnh tốc độ hiệu ứng
+                    Thread.sleep(30); // Điều chỉnh tốc độ hiệu ứng
                 }
     
-                onComplete.run(); // Gọi callback khi fade-in hoàn tất
+                //onComplete.run(); // Gọi callback khi fade-in hoàn tất
     
                 // Hiệu ứng fade-out (giảm độ trong suốt)
-                for (int i = 230; i >= 0; i -= 20) {
+                for (int i = 240; i >= 0; i -= 20) {
                     blackOverlay.setBackground(new Color(0, 0, 0, i));
-                    Thread.sleep(40);
+                    Thread.sleep(30);
                 }
-    
+                onComplete.run(); // Gọi callback khi fade-in hoàn tất
+
                 blackOverlay.setVisible(false); // Ẩn lớp đen khi hiệu ứng kết thúc
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }).start();
     }
@@ -169,11 +169,36 @@ public class inforPage extends JFrame {
                 startGameAtLevel(1);
             });
         });
-        level2Button.addActionListener(e -> startGameAtLevel(2));
-        level3Button.addActionListener(e -> startGameAtLevel(3));
-        level4Button.addActionListener(e -> startGameAtLevel(4));
-        level5Button.addActionListener(e -> startGameAtLevel(5));
-        level6Button.addActionListener(e -> startGameAtLevel(6));
+        level2Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(2);
+            });
+        });
+        level3Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(3);
+            });
+        });
+        level4Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(4);
+            });
+        });
+        level5Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(5);
+            });
+        });
+        level6Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(6);
+            });
+        });
 
         levelSelectionPanel.add(returnButton);
         levelSelectionPanel.add(level1Button);
@@ -244,7 +269,6 @@ public class inforPage extends JFrame {
             backgroundMusicClip.open(audioStream);
             backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

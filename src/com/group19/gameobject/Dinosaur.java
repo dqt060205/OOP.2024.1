@@ -30,12 +30,15 @@ public class Dinosaur extends GameObject {
     private boolean isTurningLeft; // Kiểm tra hướng của Dino
     public int lives;
 
-    private BufferedImage idleLeft;
-    private BufferedImage idleRight;
-    private Animation runLeftAnimation, runRightAnimation;
-    private Animation jumpLeftAnimation, jumpRightAnimation;
-    private Animation deadLeftAnimation, deadRightAnimation;
-    private Animation timerBarAnimation;
+    private final BufferedImage idleLeft;
+    private final BufferedImage idleRight;
+    private final Animation runLeftAnimation;
+    private final Animation runRightAnimation;
+    private final Animation jumpLeftAnimation;
+    private final Animation jumpRightAnimation;
+    private final Animation deadLeftAnimation;
+    private final Animation deadRightAnimation;
+    private final Animation timerBarAnimation;
 
     // Constructor khởi tạo Dino tại tọa độ (posX, posY)
     public Dinosaur() throws IOException {
@@ -96,7 +99,6 @@ public class Dinosaur extends GameObject {
                 Thread.sleep(10_000); // 10 giây
             }
             catch (InterruptedException e) {
-                e.printStackTrace();
             }
             this.isShielded = false;
             System.out.println("Shield Deactivated!");
@@ -110,7 +112,6 @@ public class Dinosaur extends GameObject {
                 Thread.sleep(10_000); // 10 giây
             }
             catch (InterruptedException e) {
-                e.printStackTrace();
             }
             this.isx2Score = false;
             System.out.println("X2 Score Deactivated!");
@@ -125,7 +126,6 @@ public class Dinosaur extends GameObject {
                 Thread.sleep(10_000); // 10 giây
             }
             catch (InterruptedException e) {
-                e.printStackTrace();
             }
             this.isSlowedDown = false;
             System.out.println("Slow Down Deactivated!");
