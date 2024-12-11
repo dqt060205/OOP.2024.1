@@ -22,12 +22,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 
     private Thread thread;
     private boolean isRunning = true;
-    private InputManager inputManager;
-    private Dinosaur dino;
-    private LevelManager levelManager;
+    private final InputManager inputManager;
+    private final Dinosaur dino;
+    private final LevelManager levelManager;
     private Image backgroundImage;
     
-    private long levelCompletedTime = 0;  // Thời gian hoàn thành level
+    //private long levelCompletedTime = 0;  // Thời gian hoàn thành level
     //private final long levelCompleteDelay = 4000;  // Thời gian chờ trước khi chuyển level (2 giây)
     private boolean levelTransitionInProgress = false;  // Kiểm tra quá trình chuyển màn
  
@@ -68,7 +68,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             this.repaint();  // Vẽ lại giao diện để hiển thị nút
     
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     
@@ -108,7 +107,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             levelCompleted = true;
             levelTransitionInProgress = true;
             //moveToNextLevel();
-            levelCompletedTime = System.currentTimeMillis();
+            //levelCompletedTime = System.currentTimeMillis();
             
         }
         // if (levelTransitionInProgress && (System.currentTimeMillis() - levelCompletedTime) > levelCompleteDelay) {
@@ -149,7 +148,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         long previousTime = System.nanoTime();
         long currentTime;
         long accumulatedTime = 0; // Tích lũy thời gian
-        long period = 1000000000 / 80; // 80 FPS (chu kỳ mỗi khung hình)
+        final long period = 1000000000 / 80; // 80 FPS (chu kỳ mỗi khung hình)
 
         while (isRunning) {
             currentTime = System.nanoTime();
@@ -174,7 +173,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
                     Thread.sleep(sleepTime / 1000000);
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -208,7 +206,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         try {
             heartImage = ImageIO.read(new File("data/heart.png")); // Đường dẫn tới hình ảnh tim
         } catch (Exception e) {
-            e.printStackTrace(); // Nếu có lỗi khi tải hình ảnh
+            // Nếu có lỗi khi tải hình ảnh
+            
         }
         
         // Hiển thị điểm số
@@ -266,7 +265,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         try {
             gameOverImage = ImageIO.read(new File("data/GameOver.png")); // Đường dẫn tới hình ảnh game over
         } catch (Exception e) {
-            e.printStackTrace(); // Nếu có lỗi khi tải hình ảnh
+            // Nếu có lỗi khi tải hình ảnh
+            
         }
     
         // Nếu hình ảnh game over đã được tải thành công, vẽ nó lên màn hình

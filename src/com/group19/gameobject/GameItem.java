@@ -54,7 +54,6 @@ public class GameItem extends Item {
         }
     }
     public void updateSpeed(Dinosaur dino) {
-        double baseSpeed = 0.2;
         double temp;
         if (this.getValue() >= 5 || this.getValue() == 0) {
             temp = 2.2;
@@ -62,11 +61,10 @@ public class GameItem extends Item {
         else {
             temp = ((double) this.getValue()) / 2 + 1;
         }
-        double speed = baseSpeed + temp;
         if (dino.isSlowedDown()) {
-            this.setSpeed(speed*2/3);
+            this.setSpeed(temp*2/3);
         }
-        else this.setSpeed(speed); // Tốc độ rơi tuỳ thuộc vào giá trị điểm 
+        else this.setSpeed(temp); // Tốc độ rơi tuỳ thuộc vào giá trị điểm 
     }
     @Override
     public void update (Dinosaur dinosaur) {
@@ -109,6 +107,7 @@ public class GameItem extends Item {
                this.posY + this.getHeight() > dinosaur.getPosY();
     }
     
+    @Override
     public void render(Graphics2D g2) {        // Đã render (draw) hình ảnh là ảnh của điểm trong folder data
         if (this.isActive())  g2.drawImage(this.getImage(), posX, posY, null);
         //this.setActive(true);

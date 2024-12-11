@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 public class Level {
     private List<GameItem> loadedItems; // Danh sách các Item trong màn chơi
     private List<GameItem> activeItems; // Danh sách các Item đến lượt xuất hiện
-    private Random random;   // Sinh vị trí ngẫu nhiên cho Item
     private final long spawnCycle = 1_000_000_000; //1 giây sẽ sinh 1 item
     private long lastSpawnTime;
     private int totalScore = 0;

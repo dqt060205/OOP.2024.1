@@ -43,7 +43,7 @@ public class inforPage extends JFrame {
             gamePanel = new GamePanel();
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }
         mainPanel.add(gamePanel, "Game");
         this.addKeyListener(gamePanel);
@@ -118,7 +118,6 @@ public class inforPage extends JFrame {
 
                 blackOverlay.setVisible(false); // Ẩn lớp đen khi hiệu ứng kết thúc
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }).start();
     }
@@ -170,11 +169,36 @@ public class inforPage extends JFrame {
                 startGameAtLevel(1);
             });
         });
-        level2Button.addActionListener(e -> startGameAtLevel(2));
-        level3Button.addActionListener(e -> startGameAtLevel(3));
-        level4Button.addActionListener(e -> startGameAtLevel(4));
-        level5Button.addActionListener(e -> startGameAtLevel(5));
-        level6Button.addActionListener(e -> startGameAtLevel(6));
+        level2Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(2);
+            });
+        });
+        level3Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(3);
+            });
+        });
+        level4Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(4);
+            });
+        });
+        level5Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(5);
+            });
+        });
+        level6Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(6);
+            });
+        });
 
         levelSelectionPanel.add(returnButton);
         levelSelectionPanel.add(level1Button);
@@ -245,7 +269,6 @@ public class inforPage extends JFrame {
             backgroundMusicClip.open(audioStream);
             backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
