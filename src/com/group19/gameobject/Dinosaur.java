@@ -284,6 +284,7 @@ public class Dinosaur extends GameObject {
         isShielded = false;
         isSlowedDown = false;
         isx2Score = false;
-
+        timerBarAnimation.reset();
+        timerBarEndTime = System.currentTimeMillis();
 	}
 }
