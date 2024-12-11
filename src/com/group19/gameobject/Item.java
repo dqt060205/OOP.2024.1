@@ -1,5 +1,4 @@
 package com.group19.gameobject;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +9,7 @@ public abstract class Item extends GameObject {
 
     private int value;      // Giá trị của Item
     protected double speed;      
-    private Image image;
+    private BufferedImage image;
     protected boolean isActive;
     protected long spawnTime;      
     public Item(){
@@ -56,7 +55,7 @@ public abstract class Item extends GameObject {
         }
     }
     // Getter để truy cập hình ảnh
-    public Image getImage() {
+    public BufferedImage getImage() {
         return image;
     }
     public void randomPosition() {              // Hàm sinh vị trí ngẫu nhiên trong màn hình
