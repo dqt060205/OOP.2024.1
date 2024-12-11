@@ -11,8 +11,9 @@ public class Level {
     private final long spawnCycle = 1_000_000_000; //1 giây sẽ sinh 1 item
     private long lastSpawnTime;
     private int totalScore = 0;
-
+    private List<Integer> originalItemTypes; 
     public Level(List<Integer> itemTypes) throws IOException {
+        originalItemTypes = new ArrayList<>(itemTypes);
         loadedItems = new ArrayList<>();
         activeItems = new ArrayList<>();
         lastSpawnTime = System.nanoTime();
@@ -55,16 +56,28 @@ public class Level {
                 System.out.println("Total Score: " + totalScore);
                 iterator.remove();  
             }
-        }    
+            if (type.getPosY() > (640 - type.getHeight())) iterator.remove();  
+
+        }
     }
     public boolean isTheEndLevel() {
-        return (loadedItems.isEmpty() && activeItems.isEmpty());
+        return loadedItems.isEmpty() && activeItems.isEmpty();
     }
     public int getScore() {
         return this.totalScore;
     }
      public void resetScore() {
         this.totalScore = 0;  // Đặt lại điểm số về 0
+    }
+    public void resetLevel() {
+        loadedItems = new ArrayList<>();
+        activeItems = new ArrayList<>();
+        lastSpawnTime = System.nanoTime();
+
+        for (int type : originalItemTypes) {
+            loadedItems.add(new GameItem(type)); // Khởi tạo Item
+        }
+        resetScore();
     }
 
 }

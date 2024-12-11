@@ -72,7 +72,7 @@ public class GameItem extends Item {
         long currentTime = System.currentTimeMillis();
         //if(currentTime >= spawnTime) {
         	this.updateSpeed(dinosaur);
-        	if(this.posY <= 800) {
+        	if(this.posY <= 640 - this.getHeight()) {
         		this.falling(this.getSpeed());
         	}
         	

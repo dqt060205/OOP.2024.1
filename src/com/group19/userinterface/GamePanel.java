@@ -73,19 +73,41 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
 
     // Phương thức khởi động game
+    public void stopGame() {
+        isRunning = false; // Đặt cờ dừng vòng lặp
+        try {
+            if (thread != null) {
+                thread.join(); // Chờ luồng cũ kết thúc
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void startGame() {
+<<<<<<< Updated upstream
         if (thread == null || !thread.isAlive()) {
             isRunning = true;
             thread = new Thread(this);
             thread.start();
         }
     }
+=======
+        stopGame(); // Dừng luồng cũ trước khi bắt đầu luồng mới
+        isRunning = true;
+        thread = new Thread(this);
+        thread.start();
+    }
+    
+>>>>>>> Stashed changes
     // Phương thức bắt đầu game tại một màn chơi cụ thể
     public void startGameAtLevel(int level) {
-        levelManager.setCurrentLevel(level - 1); // Cập nhật level hiện tại (0-based index)
-        levelManager.getCurrentLevel().resetScore();
-        resetForNewLevel();
-        startGame(); // Khởi động game với level đã chọn
+        if (levelManager.isLevelUnlocked(level-1)) {
+            levelManager.setCurrentLevel(level - 1); // Cập nhật level hiện tại (0-based index)
+            levelManager.getCurrentLevel().resetScore();
+            resetForNewLevel();
+            startGame(); // Khởi động game với level đã chọn
+        }
     }
 
     private void updateGame() {
@@ -98,9 +120,9 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         dino.run();     // Cập nhật hoạt ảnh của Dino
         levelManager.getCurrentLevel().update(dino); // Cập nhật level hiện tại
         
-        if(dino.getLives() <= 0) {
+        if(dino.getLives() <= 0 ||(levelManager.getCurrentLevel().isTheEndLevel() && levelManager.getCurrentLevel().getScore() < 25)) {
         	isGameOver = true;
-        	isRunning = false;
+        	//isRunning = false;
         	levelManager.getCurrentLevel().resetScore();
         	return;
         }
@@ -108,6 +130,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         if (levelManager.getCurrentLevel().getScore() >= 25 && !levelCompleted && !levelTransitionInProgress) {
             levelCompleted = true;
             levelTransitionInProgress = true;
+            levelManager.unlockNextLevel();
+
             //moveToNextLevel();
             //levelCompletedTime = System.currentTimeMillis();
             
@@ -152,7 +176,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     	levelCompleted = false;
         isGameOver = false;
         dino.reset();
-        levelManager.getCurrentLevel().resetScore();
+        levelManager.getCurrentLevel().resetLevel();
         backgroundImage = new javax.swing.ImageIcon("data/BackgroundLevel" + (levelManager.getCurrentLevelIndex() + 1) + ".png").getImage();
         levelTransitionInProgress = false; 
     }
