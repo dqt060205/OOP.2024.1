@@ -214,7 +214,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 
 
         // g2.setFont(new Font("Arial", Font.BOLD, 70));
-        g2.drawString("  " + levelManager.getCurrentLevel().getScore(), 190,727 ); //727
+        g2.drawString("  " + levelManager.getCurrentLevel().getScore(), 175,727 ); //727
     
         // Vẽ các hình ảnh tim đại diện cho mạng sống
         if (heartImage != null) {

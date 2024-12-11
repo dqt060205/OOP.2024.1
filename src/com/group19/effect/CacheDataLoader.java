@@ -12,11 +12,6 @@ public class CacheDataLoader {
 
     private static CacheDataLoader instance = null;
 
-    public static final int X_FRAME = 0;
-    public static final int Y_FRAME = 0;
-    public static final int WIDTH_FRAME = 210;
-    public static final int HEIGHT_FRAME = 140;
-
     private String framefile = "data/frame.txt";
     private String animationfile = "data/animation.txt";
 
@@ -79,10 +74,14 @@ public class CacheDataLoader {
                 String[] str = line.split(" ");
                 frame.setName(str[0]);
                 path = str[1];
+                int xFrame = Integer.parseInt(str[2]);
+                int yFrame = Integer.parseInt(str[3]);
+                int widthFrame = Integer.parseInt(str[4]);
+                int heightFrame = Integer.parseInt(str[5]);
 
                 imageData = ImageIO.read(new File(path));
                 if(imageData != null){
-                    BufferedImage image = imageData.getSubimage(X_FRAME, Y_FRAME, WIDTH_FRAME, HEIGHT_FRAME);
+                    BufferedImage image = imageData.getSubimage(xFrame, yFrame, widthFrame, heightFrame);
                     frame.setImage(image);
                 }
 

@@ -1,53 +1,53 @@
 
 44
 
-dead1 data/Dead_fix_1.png
-dead2 data/Dead_fix_2.png
-dead3 data/Dead_fix_3.png
-dead4 data/Dead_fix_4.png
-dead5 data/Dead_fix_5.png
-dead6 data/Dead_fix_6.png
-dead7 data/Dead_fix_7.png
-dead8 data/Dead_fix_8.png
+dead1 data/Dead_fix_1.png 0 0 210 140
+dead2 data/Dead_fix_2.png 0 0 210 140
+dead3 data/Dead_fix_3.png 0 0 210 140
+dead4 data/Dead_fix_4.png 0 0 210 140
+dead5 data/Dead_fix_5.png 0 0 210 140
+dead6 data/Dead_fix_6.png 0 0 210 140
+dead7 data/Dead_fix_7.png 0 0 210 140
+dead8 data/Dead_fix_8.png 0 0 210 140
 
 
-jump1 data/Jump_fix_1.png
-jump2 data/Jump_fix_2.png
-jump3 data/Jump_fix_3.png
-jump4 data/Jump_fix_4.png
-jump5 data/Jump_fix_5.png
-jump6 data/Jump_fix_6.png
-jump7 data/Jump_fix_7.png
-jump8 data/Jump_fix_8.png
-jump9 data/Jump_fix_9.png
-jump10 data/Jump_fix_10.png
-jump11 data/Jump_fix_11.png
-jump12 data/Jump_fix_12.png
-jump13 data/Jump_fix_13.png
-jump14 data/Jump_fix_14.png
-jump15 data/Jump_fix_15.png
-jump16 data/Jump_fix_16.png
-jump17 data/Jump_fix_17.png
-jump18 data/Jump_fix_18.png
+jump1 data/Jump_fix_1.png 0 0 210 140
+jump2 data/Jump_fix_2.png 0 0 210 140
+jump3 data/Jump_fix_3.png 0 0 210 140
+jump4 data/Jump_fix_4.png 0 0 210 140
+jump5 data/Jump_fix_5.png 0 0 210 140
+jump6 data/Jump_fix_6.png 0 0 210 140
+jump7 data/Jump_fix_7.png 0 0 210 140
+jump8 data/Jump_fix_8.png 0 0 210 140
+jump9 data/Jump_fix_9.png 0 0 210 140
+jump10 data/Jump_fix_10.png 0 0 210 140
+jump11 data/Jump_fix_11.png 0 0 210 140
+jump12 data/Jump_fix_12.png 0 0 210 140
+jump13 data/Jump_fix_13.png 0 0 210 140
+jump14 data/Jump_fix_14.png 0 0 210 140
+jump15 data/Jump_fix_15.png 0 0 210 140
+jump16 data/Jump_fix_16.png 0 0 210 140
+jump17 data/Jump_fix_17.png 0 0 210 140
+jump18 data/Jump_fix_18.png 0 0 210 140
 
 
-run1 data/Run_fix_1.png
-run2 data/Run_fix_2.png
-run3 data/Run_fix_3.png
-run4 data/Run_fix_4.png
-run5 data/Run_fix_5.png
-run6 data/Run_fix_6.png
-run7 data/Run_fix_7.png
-run8 data/Run_fix_8.png
+run1 data/Run_fix_1.png 0 0 210 140
+run2 data/Run_fix_2.png 0 0 210 140
+run3 data/Run_fix_3.png 0 0 210 140
+run4 data/Run_fix_4.png 0 0 210 140
+run5 data/Run_fix_5.png 0 0 210 140
+run6 data/Run_fix_6.png 0 0 210 140
+run7 data/Run_fix_7.png 0 0 210 140
+run8 data/Run_fix_8.png 0 0 210 140
 
 
-timerbar1 data/Timer_bar_1.png
-timerbar2 data/Timer_bar_2.png
-timerbar3 data/Timer_bar_3.png
-timerbar4 data/Timer_bar_4.png
-timerbar5 data/Timer_bar_5.png
-timerbar6 data/Timer_bar_6.png
-timerbar7 data/Timer_bar_7.png
-timerbar8 data/Timer_bar_8.png
-timerbar9 data/Timer_bar_9.png
-timerbar10 data/Timer_bar_10.png
+timerbar1 data/Timer_bar_1.png 365 420 70 560
+timerbar2 data/Timer_bar_2.png 365 420 70 560
+timerbar3 data/Timer_bar_3.png 365 420 70 560
+timerbar4 data/Timer_bar_4.png 365 420 70 560
+timerbar5 data/Timer_bar_5.png 365 420 70 560
+timerbar6 data/Timer_bar_6.png 365 420 70 560
+timerbar7 data/Timer_bar_7.png 365 420 70 560
+timerbar8 data/Timer_bar_8.png 365 420 70 560
+timerbar9 data/Timer_bar_9.png 365 420 70 560
+timerbar10 data/Timer_bar_10.png 365 420 70 560
