@@ -74,10 +74,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
 
     // Phương thức khởi động game
     public void startGame() {
-        thread = new Thread(this);
-        thread.start();
+        if (thread == null || !thread.isAlive()) {
+            isRunning = true;
+            thread = new Thread(this);
+            thread.start();
+        }
     }
-
     // Phương thức bắt đầu game tại một màn chơi cụ thể
     public void startGameAtLevel(int level) {
         levelManager.setCurrentLevel(level - 1); // Cập nhật level hiện tại (0-based index)
@@ -116,6 +118,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     }
     
     private void moveToNextLevel() {
+        stopGameLoop();
         int nextLevelIndex = levelManager.getCurrentLevelIndex() + 1;
     
         // Nếu còn màn chơi tiếp theo, chuyển đến màn đó
@@ -132,8 +135,19 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         this.repaint();
     }
     
-    
+    public void stopGameLoop() {
+        isRunning = false; // Ngừng game loop
+        if (thread != null && thread.isAlive()) {
+            try {
+                thread.join(); // Đợi thread dừng hoàn toàn
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        thread = null; // Giải phóng thread
+    }
     private void resetForNewLevel() {
+        stopGameLoop();
     	//levelManager.getCurrentLevel().resetScore();
     	levelCompleted = false;
         isGameOver = false;
@@ -187,6 +201,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         inputManager.processKeyPressed(e.getKeyCode());
         
         if (e.getKeyCode() == KeyEvent.VK_ENTER && isGameOver) {
+            stopGameLoop();
             isGameOver = false;
             isRunning = true;
             dino.reset();  // Reset lại Dino

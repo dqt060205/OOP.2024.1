@@ -134,7 +134,10 @@ public class inforPage extends JFrame {
 
         // Nút "Return" quay lại menu chính
         JButton returnButton = createButton("data/ReturnButton.png", 20, 20);
-        returnButton.addActionListener(e -> cardLayout.show(mainPanel, "Menu"));
+        returnButton.addActionListener(e -> {
+            gamePanel.stopGameLoop(); // Dừng game loop hiện tại
+            cardLayout.show(mainPanel, "MainMenu"); // Quay lại màn hình chính
+        });
 
         instructionPanel.add(returnButton);
         return instructionPanel;
@@ -240,6 +243,7 @@ public class inforPage extends JFrame {
         gamePanel.startGameAtLevel(level); 
         JButton returnButton = createButton("data/ReturnButton.png", 20, 20);
         returnButton.addActionListener(e -> {
+            gamePanel.stopGameLoop();
             cardLayout.show(mainPanel, "LevelSelection");
             gamePanel.remove(returnButton);
             gamePanel.revalidate();
