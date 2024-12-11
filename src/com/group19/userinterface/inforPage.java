@@ -101,20 +101,21 @@ public class inforPage extends JFrame {
         new Thread(() -> {
             try {
                 // Hiệu ứng fade-in (tăng độ trong suốt)
-                for (int i = 0; i <= 230; i += 20) {
+                for (int i = 0; i <= 240; i += 20) {
                     blackOverlay.setBackground(new Color(0, 0, 0, i)); // Thay đổi alpha
                     blackOverlay.setVisible(true);
-                    Thread.sleep(40); // Điều chỉnh tốc độ hiệu ứng
+                    Thread.sleep(30); // Điều chỉnh tốc độ hiệu ứng
                 }
     
-                onComplete.run(); // Gọi callback khi fade-in hoàn tất
+                //onComplete.run(); // Gọi callback khi fade-in hoàn tất
     
                 // Hiệu ứng fade-out (giảm độ trong suốt)
-                for (int i = 230; i >= 0; i -= 20) {
+                for (int i = 240; i >= 0; i -= 20) {
                     blackOverlay.setBackground(new Color(0, 0, 0, i));
-                    Thread.sleep(40);
+                    Thread.sleep(30);
                 }
-    
+                onComplete.run(); // Gọi callback khi fade-in hoàn tất
+
                 blackOverlay.setVisible(false); // Ẩn lớp đen khi hiệu ứng kết thúc
             } catch (InterruptedException e) {
                 e.printStackTrace();
