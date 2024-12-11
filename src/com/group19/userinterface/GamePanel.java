@@ -234,6 +234,33 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         }
     }
 
+    public void resetGame() {
+        levelManager.setCurrentLevel(0); 
+        levelManager.getCurrentLevel().resetScore();
+    
+        // Reset Dino
+        dino.reset(); 
+
+        levelCompleted = false;
+        isGameOver = false;
+        levelTransitionInProgress = false;
+    
+        // Đặt lại background
+        backgroundImage = new javax.swing.ImageIcon("data/BackgroundLevel1.png").getImage(); // Background của màn đầu tiên
+    
+        // Khởi động lại Thread nếu nó đã dừng
+        if (thread != null && !isRunning) {
+            isRunning = true; // Bật lại trạng thái chạy
+            thread = new Thread(this); // Tạo mới thread
+            thread.start(); // Bắt đầu lại game
+        }
+    
+        // Cập nhật lại giao diện sau khi reset
+        this.revalidate();
+        this.repaint();
+    }
+    
+
     private void showGameOverMessage(Graphics g) {
         Image gameOverImage = null;
         try {
