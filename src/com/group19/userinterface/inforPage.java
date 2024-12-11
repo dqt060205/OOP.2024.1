@@ -13,6 +13,7 @@ import javax.swing.*;
 
 public class inforPage extends JFrame {
     private final JPanel mainPanel; // Panel chính chứa CardLayout
+    private final JPanel blackOverlay;
     private final CardLayout cardLayout; // CardLayout để chuyển đổi giữa các màn hình
     private Clip backgroundMusicClip;
     private boolean isMusicPlaying;
@@ -48,7 +49,11 @@ public class inforPage extends JFrame {
         this.addKeyListener(gamePanel);
         this.setFocusable(true);
         this.requestFocusInWindow();
-
+        blackOverlay = new JPanel();
+        blackOverlay.setBackground(new Color(0, 0, 0, 255)); // Màu đen hoàn toàn
+        blackOverlay.setBounds(0, 0, 1400, 800); // Kích thước phủ toàn màn hình
+        blackOverlay.setVisible(false); // Ẩn ban đầu
+        add(blackOverlay); // Thêm vào JFrame hoặc JPanel chính
         // Hiển thị màn hình đầu tiên (menu chính)
         cardLayout.show(mainPanel, "Menu");
 
@@ -92,7 +97,30 @@ public class inforPage extends JFrame {
 
         return menuPanel;
     }
-
+    public void showBlackEffect(Runnable onComplete) {
+        new Thread(() -> {
+            try {
+                // Hiệu ứng fade-in (tăng độ trong suốt)
+                for (int i = 0; i <= 230; i += 20) {
+                    blackOverlay.setBackground(new Color(0, 0, 0, i)); // Thay đổi alpha
+                    blackOverlay.setVisible(true);
+                    Thread.sleep(40); // Điều chỉnh tốc độ hiệu ứng
+                }
+    
+                onComplete.run(); // Gọi callback khi fade-in hoàn tất
+    
+                // Hiệu ứng fade-out (giảm độ trong suốt)
+                for (int i = 230; i >= 0; i -= 20) {
+                    blackOverlay.setBackground(new Color(0, 0, 0, i));
+                    Thread.sleep(40);
+                }
+    
+                blackOverlay.setVisible(false); // Ẩn lớp đen khi hiệu ứng kết thúc
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
     private JPanel createInstructionPanel() {
         JPanel instructionPanel = new JPanel(null) {
             @Override
@@ -134,7 +162,12 @@ public class inforPage extends JFrame {
 
         // Hành động cho các nút
         returnButton.addActionListener(e -> cardLayout.show(mainPanel, "Menu"));
-        level1Button.addActionListener(e -> startGameAtLevel(1));
+        level1Button.addActionListener(e -> {
+            showBlackEffect(() -> {
+                // Logic chuyển sang game panel
+                startGameAtLevel(1);
+            });
+        });
         level2Button.addActionListener(e -> startGameAtLevel(2));
         level3Button.addActionListener(e -> startGameAtLevel(3));
         level4Button.addActionListener(e -> startGameAtLevel(4));
