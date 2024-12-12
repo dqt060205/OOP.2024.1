@@ -20,6 +20,7 @@ public class inforPage extends JFrame {
     private boolean isMusicPlaying;
     private GamePanel gamePanel;
     private List<JButton> levelButtons = new ArrayList<>();
+    final boolean[] isToggled = {false};
 
 
 //note
@@ -75,14 +76,42 @@ public class inforPage extends JFrame {
 
         // Tạo các nút trong menu
         JButton settingButton = createButton("data/SettingButton.png", 12, 12);
-        JButton musicButton = createButton("data/MusicButton.png", 1120, 12);
+        JButton musicButton = createButton("data/MuteButton.png", 1120, 12);
         JButton noticeButton = createButton("data/NoticeButton.png", 1270, 12);
         JButton continueButton = createButton("data/ContinueButton.png", 570, 325);
         JButton newGameButton = createButton("data/NewGameButton.png", 570, 445);
         JButton instructionButton = createButton("data/InstructionButton.png", 570, 565);
         JButton aboutUsButton = createButton("data/AboutUsButton.png", 570, 685);
         // Hành động cho các nút
-        musicButton.addActionListener(e -> toggleMusic());
+        musicButton.addActionListener(e -> {
+            toggleMusic();
+            if (isToggled[0]) {
+            musicButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                musicButton.setIcon(new ImageIcon("data/MuteButton_hover.png")); // Đổi hình ảnh khi hover
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                musicButton.setIcon(new ImageIcon("data/MuteButton.png")); // Quay lại hình ảnh ban đầu
+            }
+        }); }
+            else {
+                musicButton.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        musicButton.setIcon(new ImageIcon("data/MusicButton_hover.png")); // Đổi hình ảnh khi hover
+                    }
+                    
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        musicButton.setIcon(new ImageIcon("data/MusicButton.png")); // Quay lại hình ảnh ban đầu
+                    }
+                });
+            }
+            isToggled[0] = !isToggled[0];
+        });
         instructionButton.addActionListener(e -> cardLayout.show(mainPanel, "Instruction"));
         newGameButton.addActionListener(e -> cardLayout.show(mainPanel, "LevelSelection"));
         continueButton.addActionListener(e -> cardLayout.show(mainPanel, "LevelSelection"));
