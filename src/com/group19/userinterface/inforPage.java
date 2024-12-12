@@ -5,11 +5,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-
 
 public class inforPage extends JFrame {
     private final JPanel mainPanel; // Panel chính chứa CardLayout
@@ -18,6 +19,8 @@ public class inforPage extends JFrame {
     private Clip backgroundMusicClip;
     private boolean isMusicPlaying;
     private GamePanel gamePanel;
+    private List<JButton> levelButtons = new ArrayList<>();
+
 
 //note
     public inforPage() {
@@ -27,7 +30,12 @@ public class inforPage extends JFrame {
         setLocationRelativeTo(null);
         isMusicPlaying = false;
 
+        try {
+            gamePanel = new GamePanel();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
 
+        }
         // Khởi tạo CardLayout và mainPanel
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
@@ -39,12 +47,6 @@ public class inforPage extends JFrame {
         mainPanel.add(createLevelSelectionPanel(), "LevelSelection");
         
         // Tạo GamePanel và thêm vào CardLayout
-        try {
-            gamePanel = new GamePanel();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-
-        }
         mainPanel.add(gamePanel, "Game");
         this.addKeyListener(gamePanel);
         this.setFocusable(true);
@@ -79,7 +81,6 @@ public class inforPage extends JFrame {
         JButton newGameButton = createButton("data/NewGameButton.png", 570, 445);
         JButton instructionButton = createButton("data/InstructionButton.png", 570, 565);
         JButton aboutUsButton = createButton("data/AboutUsButton.png", 570, 685);
-
         // Hành động cho các nút
         musicButton.addActionListener(e -> toggleMusic());
         instructionButton.addActionListener(e -> cardLayout.show(mainPanel, "Instruction"));
@@ -157,51 +158,15 @@ public class inforPage extends JFrame {
 
         // Tạo các nút chọn cấp độ
         JButton returnButton = createButton("data/ReturnButton.png", 12, 12);
-        JButton level1Button = createButton("data/Level1.png", 337, 207);
-        JButton level2Button = createButton("data/Level2.png", 604, 207);
-        JButton level3Button = createButton("data/Level3.png", 863, 207);
-        JButton level4Button = createButton("data/Level4.png", 337, 440);
-        JButton level5Button = createButton("data/Level5.png", 604, 440);
-        JButton level6Button = createButton("data/Level6.png", 863, 440);
+        JButton level1Button = createButton("data/Level1.png", true, 1, 337, 207);
+        JButton level2Button = createButton("data/Level2.png", false, 2, 604, 207);
+        JButton level3Button = createButton("data/Level3.png", false, 3, 863, 207);
+        JButton level4Button = createButton("data/Level4.png", false, 4, 337, 440);
+        JButton level5Button = createButton("data/Level5.png", false, 5, 604, 440);
+        JButton level6Button = createButton("data/Level6.png", false, 6, 863, 440);
 
         // Hành động cho các nút
         returnButton.addActionListener(e -> cardLayout.show(mainPanel, "Menu"));
-        level1Button.addActionListener(e -> {
-            showBlackEffect(() -> {
-                // Logic chuyển sang game panel
-                startGameAtLevel(1);
-            });
-        });
-        level2Button.addActionListener(e -> {
-            showBlackEffect(() -> {
-                // Logic chuyển sang game panel
-                startGameAtLevel(2);
-            });
-        });
-        level3Button.addActionListener(e -> {
-            showBlackEffect(() -> {
-                // Logic chuyển sang game panel
-                startGameAtLevel(3);
-            });
-        });
-        level4Button.addActionListener(e -> {
-            showBlackEffect(() -> {
-                // Logic chuyển sang game panel
-                startGameAtLevel(4);
-            });
-        });
-        level5Button.addActionListener(e -> {
-            showBlackEffect(() -> {
-                // Logic chuyển sang game panel
-                startGameAtLevel(5);
-            });
-        });
-        level6Button.addActionListener(e -> {
-            showBlackEffect(() -> {
-                // Logic chuyển sang game panel
-                startGameAtLevel(6);
-            });
-        });
 
         levelSelectionPanel.add(returnButton);
         levelSelectionPanel.add(level1Button);
@@ -211,6 +176,12 @@ public class inforPage extends JFrame {
         levelSelectionPanel.add(level5Button);
         levelSelectionPanel.add(level6Button);
 
+        levelButtons.add(level1Button);
+        levelButtons.add(level2Button);
+        levelButtons.add(level3Button);
+        levelButtons.add(level4Button);
+        levelButtons.add(level5Button);
+        levelButtons.add(level6Button);
         return levelSelectionPanel;
     }
 
@@ -237,7 +208,78 @@ public class inforPage extends JFrame {
 
         return button;
     }
-
+    public boolean isLevelUnlocked(int level) {
+        return gamePanel.isLevelUnlocked(level);
+    }
+    public void updateLevelButtons() {
+        for (int i = 0; i < levelButtons.size(); i++) {
+            int levelIndex = i + 1;
+            JButton levelButton = levelButtons.get(i);
+            ImageIcon icon = new ImageIcon("data/Level" + levelIndex + ".png");
+    
+            if (isLevelUnlocked(levelIndex)) {
+                levelButton.setEnabled(true);
+                levelButton.setIcon(icon); // Ảnh mở khóa
+            } else {
+                levelButton.setEnabled(false);
+                levelButton.setDisabledIcon(new ImageIcon("data/Level" + levelIndex + "_lock.png")); // Ảnh khóa
+            }
+                levelButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    levelButton.setIcon(new ImageIcon("data/Level" + levelIndex + "_hover.png")); // Đổi hình ảnh khi hover
+                }
+                
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    levelButton.setIcon(icon); // Quay lại hình ảnh ban đầu
+                }
+                });
+                levelButton.addActionListener(e -> {
+                showBlackEffect(() -> {
+                    // Logic chuyển sang game panel
+                    startGameAtLevel(levelIndex);
+                });
+                });
+            }
+        }
+    
+    public JButton createButton(String iconPath, boolean isUnlocked, int levelIndex, int x, int y) {
+        ImageIcon icon = new ImageIcon(iconPath);
+        JButton button = new JButton();        
+        // Kiểm tra trạng thái mở khóa
+        if (isUnlocked) {
+            button.setIcon(icon); // Hình level mở khóa
+            button.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    button.setIcon(new ImageIcon(iconPath.replace(".png", "_hover.png"))); // Đổi hình ảnh khi hover
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    button.setIcon(icon); // Quay lại hình ảnh ban đầu
+                }
+            });
+            button.addActionListener(e -> {
+                showBlackEffect(() -> {
+                    // Logic chuyển sang game panel
+                    startGameAtLevel(levelIndex);
+                });
+            });
+        } else {
+            button.setIcon(new ImageIcon(iconPath.replace(".png", "_lock.png"))); // Hình level bị khóa
+            //button.setEnabled(false); // Vô hiệu hóa nút khi chưa mở khóa
+        }
+    
+        // Thiết lập các thuộc tính chung
+        button.setBounds(x, y, 184, 184); // Vị trí và kích thước
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setOpaque(false);
+    
+        return button;
+    }
     private void startGameAtLevel(int level) {
         cardLayout.show(mainPanel, "Game");
         gamePanel.startGameAtLevel(level); 
@@ -246,6 +288,7 @@ public class inforPage extends JFrame {
             gamePanel.stopGameLoop();
             cardLayout.show(mainPanel, "LevelSelection");
             gamePanel.remove(returnButton);
+            updateLevelButtons();
             gamePanel.revalidate();
             gamePanel.repaint();
         });

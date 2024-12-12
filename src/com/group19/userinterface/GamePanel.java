@@ -100,6 +100,9 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             startGame(); // Khởi động game với level đã chọn
         }
     }
+    public boolean isLevelUnlocked(int level) {
+        return levelManager.isLevelUnlocked(level-1);
+    }
 
     private void updateGame() {
     	if(isGameOver) {
