@@ -46,6 +46,7 @@ public class inforPage extends JFrame {
         mainPanel.add(createMenuPanel(), "Menu");
         mainPanel.add(createInstructionPanel(), "Instruction");
         mainPanel.add(createLevelSelectionPanel(), "LevelSelection");
+        mainPanel.add(createAboutUsPanel(), "AboutUs");
         
         // Tạo GamePanel và thêm vào CardLayout
         mainPanel.add(gamePanel, "Game");
@@ -63,6 +64,25 @@ public class inforPage extends JFrame {
         setVisible(true);
     }
 
+    private JPanel createAboutUsPanel(){
+        JPanel AboutUsPanel = new JPanel(null){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                //Vẽ hình nền cho About Us
+                ImageIcon AboutUsIcon = new ImageIcon("data/AboutUsBackground.png");
+                g.drawImage(AboutUsIcon.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        // Nút "Return" quay lại menu chính
+        JButton returnButton = createButton("data/ReturnButton.png", 20, 20);
+        returnButton.addActionListener(e -> {
+            cardLayout.show(mainPanel, "Menu"); // Quay lại màn hình chính
+        });
+        // Tạo các Button các ảnh...
+        AboutUsPanel.add(returnButton);
+        return AboutUsPanel;
+    }
     private JPanel createMenuPanel() {
         JPanel menuPanel = new JPanel(null) {
             @Override
@@ -115,6 +135,8 @@ public class inforPage extends JFrame {
         instructionButton.addActionListener(e -> cardLayout.show(mainPanel, "Instruction"));
         newGameButton.addActionListener(e -> cardLayout.show(mainPanel, "LevelSelection"));
         continueButton.addActionListener(e -> cardLayout.show(mainPanel, "LevelSelection"));
+        aboutUsButton.addActionListener(e -> cardLayout.show(mainPanel, "AboutUs")); 
+
 
         // Thêm nút vào panel
         menuPanel.add(settingButton);
@@ -165,7 +187,6 @@ public class inforPage extends JFrame {
         // Nút "Return" quay lại menu chính
         JButton returnButton = createButton("data/ReturnButton.png", 20, 20);
         returnButton.addActionListener(e -> {
-            gamePanel.stopGameLoop(); // Dừng game loop hiện tại
             cardLayout.show(mainPanel, "Menu"); // Quay lại màn hình chính
         });
 
