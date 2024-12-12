@@ -85,7 +85,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     }
     
     public void startGame() {
-        stopGame(); // Dừng luồng cũ trước khi bắt đầu luồng mới
+        stopGameLoop(); // Dừng luồng cũ trước khi bắt đầu luồng mới
         isRunning = true;
         thread = new Thread(this);
         thread.start();
