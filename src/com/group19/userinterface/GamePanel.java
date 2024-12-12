@@ -121,7 +121,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         	return;
         }
         
-        if (levelManager.getCurrentLevel().getScore() >= 250 && levelManager.getCurrentLevel().isTheEndLevel() && !levelCompleted && !levelTransitionInProgress) {
+        if (levelManager.getCurrentLevel().getScore() >= 125 && !levelCompleted && !levelTransitionInProgress) {
             levelCompleted = true;
             levelTransitionInProgress = true;
             levelManager.unlockNextLevel();
