@@ -195,10 +195,10 @@ public class Dinosaur extends GameObject {
         }
         if (System.currentTimeMillis() < timerBarEndTime) {
             timerBarAnimation.update(System.nanoTime());
-            timerBarAnimation.draw(30, 80, g2);
+            timerBarAnimation.draw(50, 130, g2);
         }
         if (currentBuffImage != null) {
-            g2.drawImage(currentBuffImage, 150, 80, 50, 50, null); // Vẽ ảnh buff bên cạnh timerbar
+            g2.drawImage(currentBuffImage, 35, 570, 70, 70, null); // Vẽ ảnh buff bên cạnh timerbar
         }
         //g2.setColor(Color.RED);  // Màu sắc của hitbox (đỏ)
         //g2.setStroke(new java.awt.BasicStroke(2));  // Độ dày của đường viền

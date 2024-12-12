@@ -41,13 +41,13 @@ run7 data/Run_fix_7.png 0 0 210 140
 run8 data/Run_fix_8.png 0 0 210 140
 
 
-timerbar1 data/Timer_bar_1.png 365 420 70 560
-timerbar2 data/Timer_bar_2.png 365 420 70 560
-timerbar3 data/Timer_bar_3.png 365 420 70 560
-timerbar4 data/Timer_bar_4.png 365 420 70 560
-timerbar5 data/Timer_bar_5.png 365 420 70 560
-timerbar6 data/Timer_bar_6.png 365 420 70 560
-timerbar7 data/Timer_bar_7.png 365 420 70 560
-timerbar8 data/Timer_bar_8.png 365 420 70 560
-timerbar9 data/Timer_bar_9.png 365 420 70 560
-timerbar10 data/Timer_bar_10.png 365 420 70 560
+timerbar1 data/Timer_bar_1.png 275 310 50 430
+timerbar2 data/Timer_bar_2.png 275 310 50 430
+timerbar3 data/Timer_bar_3.png 275 310 50 430
+timerbar4 data/Timer_bar_4.png 275 310 50 430
+timerbar5 data/Timer_bar_5.png 275 310 50 430
+timerbar6 data/Timer_bar_6.png 275 310 50 430
+timerbar7 data/Timer_bar_7.png 275 310 50 430
+timerbar8 data/Timer_bar_8.png 275 310 50 430
+timerbar9 data/Timer_bar_9.png 275 310 50 430
+timerbar10 data/Timer_bar_10.png 275 310 50 430
