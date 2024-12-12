@@ -29,7 +29,7 @@ public class LevelManager {
                     List<Integer> itemTypes = new ArrayList<>();
                     String[] tokens = line.split(" ");
                     for (String token : tokens) {
-                        itemTypes.add(Integer.valueOf(token)); // Chuyển đổi từ chuỗi sang số
+                        itemTypes.add(Integer.parseInt(token)); // Chuyển đổi từ chuỗi sang số
                     }
                     levels.add(new Level(itemTypes)); // Tạo màn chơi
                 }
