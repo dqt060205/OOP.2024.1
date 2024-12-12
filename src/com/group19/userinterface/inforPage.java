@@ -136,7 +136,7 @@ public class inforPage extends JFrame {
         JButton returnButton = createButton("data/ReturnButton.png", 20, 20);
         returnButton.addActionListener(e -> {
             gamePanel.stopGameLoop(); // Dừng game loop hiện tại
-            cardLayout.show(mainPanel, "MainMenu"); // Quay lại màn hình chính
+            cardLayout.show(mainPanel, "Menu"); // Quay lại màn hình chính
         });
 
         instructionPanel.add(returnButton);

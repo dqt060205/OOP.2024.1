@@ -69,22 +69,20 @@ public class GameItem extends Item {
     @Override
     public void update (Dinosaur dinosaur) {
         this.updateSpeed(dinosaur);
-        long currentTime = System.currentTimeMillis();
-        //if(currentTime >= spawnTime) {
-        	this.updateSpeed(dinosaur);
-        	if(this.posY <= 800) {
-        		this.falling(this.getSpeed());
-        	}
+
+        if(this.posY <= 800) {
+        	this.falling(this.getSpeed());
+        }
         	
-        	if (this.collidesWith(dinosaur)) {
-                System.out.println("Collision!!!");
+        if (this.collidesWith(dinosaur)) {
+            System.out.println("Collision!!!");
             switch (this.getValue()) {
                 case 0 -> {if (!dinosaur.isShielded()) {
                     dinosaur.setLives(dinosaur.getLives()-1);
                 }}
-                case 6 -> dinosaur.activateX2Score();
-                case 5 -> dinosaur.activateShielded();
-                case 7 -> dinosaur.activateSlowedDown();
+                case 6 -> dinosaur.activateX2Score(this.getImage());
+                case 5 -> dinosaur.activateShielded(this.getImage());
+                case 7 -> dinosaur.activateSlowedDown(this.getImage());
                 default -> {
                 }
             }
