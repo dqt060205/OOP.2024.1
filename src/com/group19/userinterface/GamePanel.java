@@ -111,14 +111,14 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         dino.run();     // Cập nhật hoạt ảnh của Dino
         levelManager.getCurrentLevel().update(dino); // Cập nhật level hiện tại
         
-        if(dino.getLives() <= 0 ||(levelManager.getCurrentLevel().isTheEndLevel() && levelManager.getCurrentLevel().getScore() < 25)) {
+        if(dino.getLives() <= 0 ||(levelManager.getCurrentLevel().isTheEndLevel() && levelManager.getCurrentLevel().getScore() < 250)) {
         	isGameOver = true;
         	//isRunning = false;
         	levelManager.getCurrentLevel().resetScore();
         	return;
         }
         
-        if (levelManager.getCurrentLevel().getScore() >= 25 && !levelCompleted && !levelTransitionInProgress) {
+        if (levelManager.getCurrentLevel().getScore() >= 250 && levelManager.getCurrentLevel().isTheEndLevel() && !levelCompleted && !levelTransitionInProgress) {
             levelCompleted = true;
             levelTransitionInProgress = true;
             levelManager.unlockNextLevel();
