@@ -46,11 +46,11 @@ public class Dinosaur extends GameObject {
     // Constructor khởi tạo Dino tại tọa độ (posX, posY)
     public Dinosaur() throws IOException {
         super((SCREEN_WIDTH + 130)/ 2, SCREEN_HEIGHT - 120, 130, 140); // Gọi constructor của GameObject
-        this.isJumping = false;
-        this.speedY = 0;
-        this.isTurningLeft = false;
-        this.lives = 3;
-        this.isRunning = false;
+        isJumping = false;
+        speedY = 0;
+        isTurningLeft = false;
+        lives = 3;
+        isRunning = false;
         isShielded = false;
         isSlowedDown = false;
         isx2Score = false;
@@ -95,8 +95,9 @@ public class Dinosaur extends GameObject {
     }
 
     public void activateShielded(BufferedImage buffImage) {
-        this.isShielded = true;
-        this.currentBuffImage = buffImage;
+        isShielded = true;
+        isx2Score = isSlowedDown = false;
+        currentBuffImage = buffImage;
         System.out.println("Shield Activated!");
         resetTimerBar(); // Reset timerbar
         new Thread(() -> {
@@ -105,15 +106,16 @@ public class Dinosaur extends GameObject {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            this.isShielded = false;
-            this.currentBuffImage = null;
+            isShielded = false;
+            currentBuffImage = null;
             System.out.println("Shield Deactivated!");
         }).start();
     }
     
     public void activateX2Score(BufferedImage buffImage) {
-        this.isx2Score = true;
-        this.currentBuffImage = buffImage;
+        isx2Score = true;
+        isShielded = isSlowedDown = false;
+        currentBuffImage = buffImage;
         System.out.println("X2 Score Activated!");
         resetTimerBar(); // Reset timerbar
         new Thread(() -> {
@@ -122,15 +124,16 @@ public class Dinosaur extends GameObject {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            this.isx2Score = false;
-            this.currentBuffImage = null;
+            isx2Score = false;
+            currentBuffImage = null;
             System.out.println("X2 Score Deactivated!");
         }).start();
     }
     
     public void activateSlowedDown(BufferedImage buffImage) {
-        this.isSlowedDown = true;
-        this.currentBuffImage = buffImage;
+        isSlowedDown = true;
+        isShielded = isx2Score = false;
+        currentBuffImage = buffImage;
         System.out.println("Slow Down Activated!");
         resetTimerBar(); // Reset timerbar
         new Thread(() -> {
@@ -139,8 +142,8 @@ public class Dinosaur extends GameObject {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            this.isSlowedDown = false;
-            this.currentBuffImage = null;
+            isSlowedDown = false;
+            currentBuffImage = null;
             System.out.println("Slow Down Deactivated!");
         }).start();
     }
@@ -276,14 +279,12 @@ public class Dinosaur extends GameObject {
 	public void reset() {
         this.setPosX((SCREEN_WIDTH + 130)/ 2);
         this.setPosY(SCREEN_HEIGHT - 120);
-        this.isJumping = false;
-        this.speedY = 0;
-        this.isTurningLeft = false;
-        this.lives = 3;
-        this.isRunning = false;
-        isShielded = false;
-        isSlowedDown = false;
-        isx2Score = false;
+        isJumping = false;
+        speedY = 0;
+        isTurningLeft = false;
+        lives = 3;
+        isRunning = false;
+        isShielded = isSlowedDown = isx2Score = false;
         timerBarAnimation.reset();
         timerBarEndTime = System.currentTimeMillis();
 	}
