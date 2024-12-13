@@ -62,6 +62,7 @@ public class inforPage extends JFrame {
         cardLayout.show(mainPanel, "Menu");
 
         setVisible(true);
+        playBackgroundMusic();
     }
 
     private JPanel createAboutUsPanel(){
@@ -96,7 +97,7 @@ public class inforPage extends JFrame {
 
         // Tạo các nút trong menu
         JButton settingButton = createButton("data/SettingButton.png", 12, 12);
-        JButton musicButton = createButton("data/MuteButton.png", 1120, 12);
+        JButton musicButton = createButton("data/MusicButton.png", 1120, 12);
         JButton noticeButton = createButton("data/NoticeButton.png", 1270, 12);
         JButton continueButton = createButton("data/ContinueButton.png", 570, 325);
         JButton newGameButton = createButton("data/NewGameButton.png", 570, 445);
@@ -105,6 +106,7 @@ public class inforPage extends JFrame {
         // Hành động cho các nút
         musicButton.addActionListener(e -> {
             toggleMusic();
+            isToggled[0] = !isToggled[0];
             if (isToggled[0]) {
             musicButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -130,7 +132,6 @@ public class inforPage extends JFrame {
                     }
                 });
             }
-            isToggled[0] = !isToggled[0];
         });
         instructionButton.addActionListener(e -> cardLayout.show(mainPanel, "Instruction"));
         newGameButton.addActionListener(e -> cardLayout.show(mainPanel, "LevelSelection"));
@@ -362,12 +363,12 @@ public class inforPage extends JFrame {
     }
 
     private void toggleMusic() {
-        if (isMusicPlaying) {
-            stopBackgroundMusic();
-        } else {
-            playBackgroundMusic();
-        }
         isMusicPlaying = !isMusicPlaying;
+        if (isMusicPlaying) {
+            playBackgroundMusic();
+        } else {
+            stopBackgroundMusic();
+        }      
     }
 
     private void playBackgroundMusic() {

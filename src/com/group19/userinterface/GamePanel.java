@@ -93,7 +93,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
     // Phương thức bắt đầu game tại một màn chơi cụ thể
     public void startGameAtLevel(int level) {
-        if (levelManager.isLevelUnlocked(level-1)) {
+        if (levelManager.isLevelUnlocked(level - 1)) {
             levelManager.setCurrentLevel(level - 1); // Cập nhật level hiện tại (0-based index)
             levelManager.getCurrentLevel().resetScore();
             resetForNewLevel();
