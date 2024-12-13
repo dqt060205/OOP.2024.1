@@ -88,12 +88,12 @@ public class Level {
                 lastSpawnTime = currentTime;
             }
         }
-    
+      int currentLevel = LevelManager.getCurrentLevelIndex() + 1;
         // Update items and remove inactive ones
         Iterator<GameItem> iterator = activeItems.iterator();
         while (iterator.hasNext()) {
             GameItem type = iterator.next();
-            type.update(dino);
+            type.update(dino, currentLevel);
             
             if (type.collidesWith(dino))  {
                 System.out.println("Collision!!!");
@@ -128,9 +128,9 @@ public class Level {
             }
         }
     }
-    public boolean isTheEndLevel() {
+   /* public boolean isTheEndLevel() {
         return loadedItems.isEmpty() && activeItems.isEmpty();
-    }
+    }*/
     public int getScore() {
         return this.totalScore;
     }
