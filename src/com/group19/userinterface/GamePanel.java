@@ -12,12 +12,12 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 
 
@@ -129,7 +129,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         	return;
         }
         //125125
-        if (levelManager.getCurrentLevel().getScore() >= 5 && !levelCompleted && !levelTransitionInProgress) {
+        if (levelManager.getCurrentLevel().getScore() >= 125 && !levelCompleted && !levelTransitionInProgress) {
             levelCompleted = true;
             levelTransitionInProgress = true;
             levelManager.unlockNextLevel();
