@@ -15,6 +15,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 
 
@@ -31,6 +34,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     //private long levelCompletedTime = 0;  // Thời gian hoàn thành level
     //private final long levelCompleteDelay = 4000;  // Thời gian chờ trước khi chuyển level (2 giây)
     private boolean levelTransitionInProgress = false;  // Kiểm tra quá trình chuyển màn
+    private Clip levelMusic;
  
 
     public GamePanel() throws IOException {
@@ -94,11 +98,13 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
     // Phương thức bắt đầu game tại một màn chơi cụ thể
     public void startGameAtLevel(int level) {
-        if (levelManager.isLevelUnlocked(level-1)) {
+        if (levelManager.isLevelUnlocked(level - 1)) {
             levelManager.setCurrentLevel(level - 1); // Cập nhật level hiện tại (0-based index)
             levelManager.getCurrentLevel().resetScore();
             resetForNewLevel();
+            playMusicAtLevel(level);
             startGame(); // Khởi động game với level đã chọn
+            
         }
     }
     public boolean isLevelUnlocked(int level) {
@@ -136,6 +142,25 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         //     moveToNextLevel();
         // }
     }
+
+    private void playMusicAtLevel(int level){
+        try{
+            String musicFilePath = "data/BackgroundMusic" + level + ".wav";
+            File levelMusicFile = new File(musicFilePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(levelMusicFile);
+            levelMusic = AudioSystem.getClip();
+            levelMusic.open(audioStream);
+            levelMusic.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch(Exception e){
+
+        }
+    }
+
+    private void stopLevelMusic(){
+        if(levelMusic != null && levelMusic.isRunning()){
+            levelMusic.stop();
+        }
+    }
     
     private void moveToNextLevel() {
         this.removeAll(); // Xóa nút
@@ -160,6 +185,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     }
     
     public void stopGameLoop() {
+        stopLevelMusic();
         isRunning = false; // Ngừng game loop
         if (thread != null && thread.isAlive()) {
             try {
