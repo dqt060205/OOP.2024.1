@@ -57,7 +57,7 @@ public class GameItem extends Item {
             } 
         }
     }
-    public void updateSpeed(Dinosaur dino) {
+    public void updateSpeed(Dinosaur dino, int currentLevel) {
         double temp;
         if (this.getValue() >= 5 || this.getValue() == 0) {
             temp = 2.2;
@@ -65,20 +65,30 @@ public class GameItem extends Item {
         else {
             temp = ((double) this.getValue()) / 2 + 1;
         }
+        switch(currentLevel) {
+          case 1: temp += -0.025;
+          case 2: temp += 0.025;
+          case 3: temp += 0.05;
+          case 4: temp += 0.075;
+          case 5: temp += 0.08;
+          case 6: temp += 0.095;
+        }
         if (dino.isSlowedDown()) {
             this.setSpeed(temp*2/3);
         }
         else this.setSpeed(temp); // Tốc độ rơi tuỳ thuộc vào giá trị điểm 
     }
-    public void update (Dinosaur dinosaur) {
-        this.updateSpeed(dinosaur);
+    public void update (Dinosaur dinosaur, int currentLevel) {
+       this.updateSpeed(dinosaur, currentLevel);
+
         if(this.posY <= 800) {
         	this.falling(this.getSpeed());
         }
-        if (this.getPosY() > (640 - this.getHeight())) {
-            this.setActive(false); 
+        	
+        if(this.getPosY() > (640 - this.getHeight())) {
+        	this.setActive(false);
         }
-        
+       
     }
     public int collect() {
         if ((0 <= this.getValue()) && (this.getValue() <= 4)) return this.getValue();
