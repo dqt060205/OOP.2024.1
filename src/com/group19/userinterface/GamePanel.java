@@ -332,6 +332,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
 
     private void showGameOverMessage(Graphics g) {
+        levelManager.onLevelCompleted();
         Image gameOverImage = null;
         try {
             gameOverImage = ImageIO.read(new File("data/GameOver.png")); // Đường dẫn tới hình ảnh game over
