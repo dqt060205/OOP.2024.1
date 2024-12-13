@@ -20,7 +20,15 @@ public class LevelManager {
             currentLevelIndex = 0;    // Bắt đầu từ màn đầu tiên
             saveGame = new SaveGame(saveFilePath);
         }
-    
+        public void onLevelCompleted() {
+            if (getCurrentLevel().currentPopup != null) {
+                getCurrentLevel().currentPopup.dispose(); // Đóng popup hiện tại
+                getCurrentLevel().currentPopup = null; // Xóa tham chiếu popup
+            }
+        }
+        
+        
+        
         // Đọc dữ liệu từ file text
         private void loadLevelsFromFile(String filePath) throws IOException {
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {

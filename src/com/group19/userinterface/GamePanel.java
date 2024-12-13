@@ -50,6 +50,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
     public void showLevelCompletedMessage(Graphics g) {
         try {
+            levelManager.onLevelCompleted();
             // Vẽ hình nền cho màn hoàn thành level
             Image image = ImageIO.read(new File("data/LevelCompletedBackground.png"));
             int imageWidth = image.getWidth(null);

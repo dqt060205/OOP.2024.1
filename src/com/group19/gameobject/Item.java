@@ -70,20 +70,20 @@ public abstract class Item extends GameObject {
     };
     // @Override
     // abstract void draw();
-    public void checkCollisionWithDinosaur (Dinosaur dinosaur) {
+    /*public void checkCollisionWithDinosaur (Dinosaur dinosaur) {
         if (this.isColliding(dinosaur)) {
             this.isActive = false;
         }
-    }
+    }*/
     public boolean isActive() {
         return isActive;
     }
     public void setActive (boolean temp) {
         this.isActive = temp;
     }
-    public void update (Dinosaur dinosaur) {
+    /*public void update (Dinosaur dinosaur) {
         checkCollisionWithDinosaur(dinosaur);
         if (this.posY >= 640-this.height) this.setActive(false);
-    }
+    }*/
   
 }
