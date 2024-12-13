@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+
 public class GamePanel extends JPanel implements KeyListener, Runnable {
 	private boolean levelCompleted = false; //
 	private boolean isGameOver = false;
@@ -25,7 +26,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private final Dinosaur dino;
     private final LevelManager levelManager;
     private Image backgroundImage;
-
     
     //private long levelCompletedTime = 0;  // Thời gian hoàn thành level
     //private final long levelCompleteDelay = 4000;  // Thời gian chờ trước khi chuyển level (2 giây)
@@ -73,6 +73,16 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
 
     // Phương thức khởi động game
+    public void stopGame() {
+        isRunning = false; // Đặt cờ dừng vòng lặp
+        try {
+            if (thread != null) {
+                thread.join(); // Chờ luồng cũ kết thúc
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     
     public void startGame() {
         stopGameLoop(); // Dừng luồng cũ trước khi bắt đầu luồng mới
@@ -97,6 +107,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private void updateGame() {
     	if(isGameOver) {
     		levelManager.getCurrentLevel().resetScore();
+    		
     		return;
     	}
     	
@@ -106,6 +117,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         
         if(dino.getLives() <= 0 ||(levelManager.getCurrentLevel().isTheEndLevel() && levelManager.getCurrentLevel().getScore() < 250)) {
         	isGameOver = true;
+        	
         	//isRunning = false;
         	levelManager.getCurrentLevel().resetScore();
         	return;
@@ -193,6 +205,8 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             try {
                 if (sleepTime > 0) {
                     Thread.sleep(sleepTime / 1000000);
+                }else {
+                	Thread.sleep(3000);
                 }
             } catch (InterruptedException e) {
             }
@@ -257,30 +271,24 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     }
 
     public void resetGame() {
-        levelManager.setCurrentLevel(0); 
+        if (thread != null && thread.isAlive()) {
+            stopGameLoop();
+        }
+        levelManager.setCurrentLevel(0);
         levelManager.getCurrentLevel().resetScore();
-    
-        // Reset Dino
-        dino.reset(); 
-
+        dino.reset();
         levelCompleted = false;
         isGameOver = false;
         levelTransitionInProgress = false;
+        backgroundImage = new javax.swing.ImageIcon("data/BackgroundLevel1.png").getImage();
     
-        // Đặt lại background
-        backgroundImage = new javax.swing.ImageIcon("data/BackgroundLevel1.png").getImage(); // Background của màn đầu tiên
+        thread = new Thread(this);
+        isRunning = true;
+        thread.start();
     
-        // Khởi động lại Thread nếu nó đã dừng
-        if (thread != null && !isRunning) {
-            isRunning = true; // Bật lại trạng thái chạy
-            thread = new Thread(this); // Tạo mới thread
-            thread.start(); // Bắt đầu lại game
-        }
-    
-        // Cập nhật lại giao diện sau khi reset
         this.revalidate();
         this.repaint();
-    }
+    }    
     
 
     private void showGameOverMessage(Graphics g) {
