@@ -234,7 +234,11 @@ public class inforPage extends JFrame {
         JButton level6Button = createButton("data/Level6.png", false, 6, 863, 440);
 
         // Hành động cho các nút
-        returnButton.addActionListener(e -> cardLayout.show(mainPanel, "Menu"));
+        returnButton.addActionListener(e ->{
+            gamePanel.disableNextButton();
+            cardLayout.show(mainPanel, "Menu");
+            
+        });
 
         levelSelectionPanel.add(returnButton);
         levelSelectionPanel.add(level1Button);
@@ -350,6 +354,7 @@ public class inforPage extends JFrame {
         JButton returnButton = createButton("data/ReturnButton.png", 20, 20);
 
         returnButton.addActionListener(e -> {
+            gamePanel.disableNextButton();
             gamePanel.stopGameLoop();
             cardLayout.show(mainPanel, "LevelSelection");
             playBackgroundMusic();

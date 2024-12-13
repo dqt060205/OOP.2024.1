@@ -12,12 +12,12 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 
 
@@ -161,9 +161,19 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             levelMusic.stop();
         }
     }
-    
+    public void disableNextButton() {
+        for (java.awt.Component component : this.getComponents()) {
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                if ("nextButton".equals(button.getName())) { // So sánh theo thuộc tính tên
+                    button.setVisible(false); // Ẩn nút thay vì xóa
+                    button.setEnabled(false); // Vô hiệu hóa nút
+                }
+            }
+        }
+    }
     private void moveToNextLevel() {
-        this.removeAll(); // Xóa nút
+        this.disableNextButton();
         this.revalidate();   // Xác nhận lại giao diện
         this.repaint();      // Vẽ lại giao diện
 
@@ -178,7 +188,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             System.out.println("Bạn đã hoàn thành tất cả các màn!");
             isRunning = false; // Kết thúc game nếu không còn màn chơi nào nữa
         }
-    
         // Cập nhật lại giao diện sau khi chuyển level
         this.revalidate();
         this.repaint();
@@ -386,6 +395,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
                 button.setIcon(new ImageIcon(iconPath)); // Quay lại hình ảnh ban đầu
             }
         });*/
+        button.setName("nextButton");
         button.addActionListener(e -> {
             moveToNextLevel();   // Chuyển level
         });
