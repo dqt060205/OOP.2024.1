@@ -9,7 +9,7 @@ import java.util.List;
 public class LevelManager {
         private static List<Level> levels;       // Danh sách các màn chơi
         private boolean[] unlockedLevels; // Trạng thái mở khóa của từng màn chơi
-        private int currentLevelIndex;    // Chỉ số của màn chơi hiện tại
+        private static int currentLevelIndex;    // Chỉ số của màn chơi hiện tại
         private SaveGame saveGame;
     
         public LevelManager(String filePath, String saveFilePath) throws IOException {
@@ -74,7 +74,7 @@ public class LevelManager {
         }
     
         // Lấy chỉ số màn chơi hiện tại
-        public int getCurrentLevelIndex() {
+        public static int getCurrentLevelIndex() {
             return currentLevelIndex;
         }
     
