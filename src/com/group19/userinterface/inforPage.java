@@ -344,8 +344,9 @@ public class inforPage extends JFrame {
     }
     private void startGameAtLevel(int level) {
         cardLayout.show(mainPanel, "Game");
-        gamePanel.startGameAtLevel(level); 
+        gamePanel.startGameAtLevel(level);
         JButton returnButton = createButton("data/ReturnButton.png", 20, 20);
+
         returnButton.addActionListener(e -> {
             gamePanel.stopGameLoop();
             cardLayout.show(mainPanel, "LevelSelection");

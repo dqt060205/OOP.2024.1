@@ -12,8 +12,10 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
 
 
 public class GamePanel extends JPanel implements KeyListener, Runnable {
@@ -25,8 +27,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private final InputManager inputManager;
     private final Dinosaur dino;
     private final LevelManager levelManager;
-    private Image backgroundImage;
-    
+    private Image backgroundImage;    
     //private long levelCompletedTime = 0;  // Thời gian hoàn thành level
     //private final long levelCompleteDelay = 4000;  // Thời gian chờ trước khi chuyển level (2 giây)
     private boolean levelTransitionInProgress = false;  // Kiểm tra quá trình chuyển màn
@@ -58,8 +59,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
             // Tạo nút "Next"
             setLayout(null);
             JButton nextButton = createButton("data/NextLevelButton.png", 550, 500);
-            nextButton.addActionListener(e -> moveToNextLevel());  // Chuyển sang màn tiếp theo khi nhấn
-    
             // Thêm nút vào panel
             this.add(nextButton);
     
@@ -73,7 +72,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
 
     // Phương thức khởi động game
-    public void stopGame() {
+    /*public void stopGame() {
         isRunning = false; // Đặt cờ dừng vòng lặp
         try {
             if (thread != null) {
@@ -82,10 +81,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }*/
     
     public void startGame() {
-        stopGameLoop(); // Dừng luồng cũ trước khi bắt đầu luồng mới
+        if (thread != null && thread.isAlive()) {
+            stopGameLoop();
+        }
         isRunning = true;
         thread = new Thread(this);
         thread.start();
@@ -117,13 +118,12 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         
         if(dino.getLives() <= 0 ||(levelManager.getCurrentLevel().isTheEndLevel() && levelManager.getCurrentLevel().getScore() < 250)) {
         	isGameOver = true;
-        	
-        	//isRunning = false;
+            //isRunning = false;
         	levelManager.getCurrentLevel().resetScore();
         	return;
         }
-        
-        if (levelManager.getCurrentLevel().getScore() >= 125 && !levelCompleted && !levelTransitionInProgress) {
+        //125125
+        if (levelManager.getCurrentLevel().getScore() >= 5 && !levelCompleted && !levelTransitionInProgress) {
             levelCompleted = true;
             levelTransitionInProgress = true;
             levelManager.unlockNextLevel();
@@ -138,13 +138,17 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     }
     
     private void moveToNextLevel() {
-        stopGameLoop();
-        int nextLevelIndex = levelManager.getCurrentLevelIndex() + 1;
+        this.removeAll(); // Xóa nút
+        this.revalidate();   // Xác nhận lại giao diện
+        this.repaint();      // Vẽ lại giao diện
+
+        //stopGameLoop();
+        int nextLevelIndex = levelManager.getCurrentLevelIndex() + 2;
     
         // Nếu còn màn chơi tiếp theo, chuyển đến màn đó
-        if (nextLevelIndex < LevelManager.getTotalLevels()) {
-            levelManager.setCurrentLevel(nextLevelIndex);
-            resetForNewLevel();  // Reset trạng thái cho màn mới
+        if (nextLevelIndex <= LevelManager.getTotalLevels()) {
+            //resetForNewLevel();  // Reset trạng thái cho màn mới
+            startGameAtLevel(nextLevelIndex);
         } else {
             System.out.println("Bạn đã hoàn thành tất cả các màn!");
             isRunning = false; // Kết thúc game nếu không còn màn chơi nào nữa
@@ -336,7 +340,29 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
         
     }
 
-    private JButton createButton(String dataNextButtonpng, int i, int i0) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private JButton createButton(String iconPath, int x, int y) {
+        ImageIcon icon = new ImageIcon(iconPath);
+        JButton button = new JButton(icon);
+        button.setBounds(x, y, icon.getIconWidth(), icon.getIconHeight());
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setOpaque(false);
+        // Thêm hiệu ứng hover
+        /*button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setIcon(new ImageIcon(iconPath.replace(".png", "_hover.png"))); // Đổi hình ảnh khi hover
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setIcon(new ImageIcon(iconPath)); // Quay lại hình ảnh ban đầu
+            }
+        });*/
+        button.addActionListener(e -> {
+            moveToNextLevel();   // Chuyển level
+        });
+        return button;
     }
 }
