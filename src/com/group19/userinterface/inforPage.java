@@ -29,7 +29,7 @@ public class inforPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1400, 800);
         setLocationRelativeTo(null);
-        isMusicPlaying = false;
+        isMusicPlaying = true;
 
         try {
             gamePanel = new GamePanel();

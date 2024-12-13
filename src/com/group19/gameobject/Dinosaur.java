@@ -195,7 +195,7 @@ public class Dinosaur extends GameObject {
         }
         if (System.currentTimeMillis() < timerBarEndTime) {
             timerBarAnimation.update(System.nanoTime());
-            timerBarAnimation.draw(50, 130, g2);
+            timerBarAnimation.draw(47, 140, g2);
         }
         if (currentBuffImage != null) {
             g2.drawImage(currentBuffImage, 35, 570, 70, 70, null); // Vẽ ảnh buff bên cạnh timerbar
