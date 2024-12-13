@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-
 public class GamePanel extends JPanel implements KeyListener, Runnable {
 	private boolean levelCompleted = false; //
 	private boolean isGameOver = false;
@@ -26,6 +25,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     private final Dinosaur dino;
     private final LevelManager levelManager;
     private Image backgroundImage;
+
     
     //private long levelCompletedTime = 0;  // Thời gian hoàn thành level
     //private final long levelCompleteDelay = 4000;  // Thời gian chờ trước khi chuyển level (2 giây)
@@ -73,16 +73,6 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
 
     // Phương thức khởi động game
-    public void stopGame() {
-        isRunning = false; // Đặt cờ dừng vòng lặp
-        try {
-            if (thread != null) {
-                thread.join(); // Chờ luồng cũ kết thúc
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
     
     public void startGame() {
         stopGameLoop(); // Dừng luồng cũ trước khi bắt đầu luồng mới

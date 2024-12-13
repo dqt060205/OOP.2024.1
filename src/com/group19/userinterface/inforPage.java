@@ -149,30 +149,47 @@ public class inforPage extends JFrame {
 
         return menuPanel;
     }
-    public void showBlackEffect(Runnable onComplete) {
-        new Thread(() -> {
-            try {
-                // Hiệu ứng fade-in (tăng độ trong suốt)
-                for (int i = 0; i <= 240; i += 20) {
-                    blackOverlay.setBackground(new Color(0, 0, 0, i)); // Thay đổi alpha
+    /*public void showBlackEffect(Runnable onComplete) {
+        Timer fadeInTimer = new Timer(30, null); // Mỗi 30ms thực hiện 1 bước
+        Timer fadeOutTimer = new Timer(30, null);
+        
+        // Hiệu ứng fade-in
+        fadeInTimer.addActionListener(new ActionListener() {
+            int alpha = 0; // Độ trong suốt ban đầu
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (alpha <= 240) {
+                    blackOverlay.setBackground(new Color(0, 0, 0, alpha));
                     blackOverlay.setVisible(true);
-                    Thread.sleep(30); // Điều chỉnh tốc độ hiệu ứng
+                    alpha += 20;
+                } else {
+                    fadeInTimer.stop(); // Dừng fade-in
+                    fadeOutTimer.start(); // Bắt đầu fade-out
                 }
-    
-                //onComplete.run(); // Gọi callback khi fade-in hoàn tất
-    
-                // Hiệu ứng fade-out (giảm độ trong suốt)
-                for (int i = 240; i >= 0; i -= 20) {
-                    blackOverlay.setBackground(new Color(0, 0, 0, i));
-                    Thread.sleep(30);
-                }
-                onComplete.run(); // Gọi callback khi fade-in hoàn tất
-
-                blackOverlay.setVisible(false); // Ẩn lớp đen khi hiệu ứng kết thúc
-            } catch (InterruptedException e) {
             }
-        }).start();
-    }
+        });
+        
+        // Hiệu ứng fade-out
+        fadeOutTimer.addActionListener(new ActionListener() {
+            int alpha = 240; // Độ trong suốt ban đầu của fade-out
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (alpha >= 0) {
+                    blackOverlay.setBackground(new Color(0, 0, 0, alpha));
+                    alpha -= 20;
+                } else {
+                    fadeOutTimer.stop(); // Dừng fade-out
+                    blackOverlay.setVisible(false);
+                    if (onComplete != null) {
+                        onComplete.run(); // Thực hiện callback
+                    }
+                }
+            }
+        });
+        
+        fadeInTimer.start(); // Bắt đầu fade-in
+    }*/
+    
     private JPanel createInstructionPanel() {
         JPanel instructionPanel = new JPanel(null) {
             @Override
@@ -285,12 +302,7 @@ public class inforPage extends JFrame {
                     levelButton.setIcon(icon); // Quay lại hình ảnh ban đầu
                 }
                 });
-                levelButton.addActionListener(e -> {
-                showBlackEffect(() -> {
-                    // Logic chuyển sang game panel
-                    startGameAtLevel(levelIndex);
-                });
-                });
+                levelButton.addActionListener(e -> startGameAtLevel(levelIndex));
             }
         }
     
@@ -310,12 +322,12 @@ public class inforPage extends JFrame {
                     button.setIcon(icon); // Quay lại hình ảnh ban đầu
                 }
             });
-            button.addActionListener(e -> {
-                showBlackEffect(() -> {
+            button.addActionListener(e -> //{
+                //showBlackEffect(() -> {
                     // Logic chuyển sang game panel
-                    startGameAtLevel(levelIndex);
-                });
-            });
+                    startGameAtLevel(levelIndex)
+                //});
+            /* }*/);
         } else {
             button.setIcon(new ImageIcon(iconPath.replace(".png", "_lock.png"))); // Hình level bị khóa
             //button.setEnabled(false); // Vô hiệu hóa nút khi chưa mở khóa

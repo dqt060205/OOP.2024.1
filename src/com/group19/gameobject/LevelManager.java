@@ -50,13 +50,13 @@ public class LevelManager {
         }
     
         // Chuyển đến màn chơi mới
-        public boolean switchToLevel(int index) {
+        /*public boolean switchToLevel(int index) {
             if (isLevelUnlocked(index)) {
                 currentLevelIndex = index;
                 return true;
             }
             return false;
-        }
+        }*/
     
         // Mở khóa màn chơi tiếp theo (nếu có)
         public void unlockNextLevel() {
@@ -84,11 +84,11 @@ public class LevelManager {
         }
     }
 
-    public void saveGame() {
+    /*public void saveGame() {
         saveGame.saveCurrentGame(currentLevelIndex, unlockedLevels);
     }
 
     public void loadGame() {
         saveGame.loadGameState(new int[]{currentLevelIndex}, unlockedLevels);
-    }
+    }*/
 }
