@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable {
     
             // Tạo nút "Next"
             setLayout(null);
-            JButton nextButton = createButton("data/NextLevelButton.png", 550, 500);
+            JButton nextButton = createButton("data/NextLevelButton.png", 470, 550);
             // Thêm nút vào panel
             this.add(nextButton);
     
