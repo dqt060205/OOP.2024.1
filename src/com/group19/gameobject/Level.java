@@ -52,7 +52,7 @@ public class Level {
         int screenWidth = screenSize.width;
         int screenHeight = screenSize.height;
         int x = (screenWidth - imageWidth) / 2;
-        int y = (screenHeight - imageHeight) / 2;
+        int y = (screenHeight - imageHeight) / 2 - 100;
         currentPopup.setBounds(x, y, imageWidth, imageHeight);
         currentPopup.setAlwaysOnTop(true); // Luôn hiển thị trên cùng
         currentPopup.setVisible(true);
@@ -128,9 +128,9 @@ public class Level {
             }
         }
     }
-   /* public boolean isTheEndLevel() {
+    public boolean isTheEndLevel() {
         return loadedItems.isEmpty() && activeItems.isEmpty();
-    }*/
+    }
     public int getScore() {
         return this.totalScore;
     }
