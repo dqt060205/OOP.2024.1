@@ -12,7 +12,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 
-public class inforPage extends JFrame {
+public class InforPage extends JFrame {
     private final JPanel mainPanel; // Panel chính chứa CardLayout
     private final JPanel blackOverlay;
     private final CardLayout cardLayout; // CardLayout để chuyển đổi giữa các màn hình
@@ -24,7 +24,7 @@ public class inforPage extends JFrame {
 
 
 //note
-    public inforPage() {
+    public InforPage() {
         setTitle("Hust Adventure");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1400, 800);
@@ -403,6 +403,6 @@ public class inforPage extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(inforPage::new);
+        SwingUtilities.invokeLater(InforPage::new);
     }
 }
