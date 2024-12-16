@@ -66,12 +66,30 @@ public class GameItem extends Item {
             temp = ((double) this.getValue()) / 2 + 1;
         }
         switch(currentLevel) {
-          case 1: temp += -0.025;
-          case 2: temp += 0.025;
-          case 3: temp += 0.05;
-          case 4: temp += 0.075;
-          case 5: temp += 0.08;
-          case 6: temp += 0.095;
+          case 1: {
+            temp += -0.025;
+            break;
+        }
+          case 2: {
+            temp += 0.025;
+            break;
+        }
+          case 3: {
+            temp += 0.05;
+            break;
+        }
+          case 4: {
+            temp += 0.075;
+            break;
+        }
+          case 5: {
+            temp += 0.08;
+            break;
+        }
+          case 6: {
+            temp += 0.095;
+            break;
+          }
         }
         if (dino.isSlowedDown()) {
             this.setSpeed(temp*2/3);
